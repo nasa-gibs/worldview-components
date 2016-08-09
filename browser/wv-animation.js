@@ -24228,7 +24228,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * NASA Worldview
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This code was originally developed at NASA/Goddard Space Flight Center for
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Earth Science Data and Information System (ESDIS) project.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2013 - 2016 United States Government as represented by the
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Administrator of the National Aeronautics and Space Administration.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All Rights Reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Licensed under the NASA Open Source Agreement, Version 1.3
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * http://opensource.gsfc.nasa.gov/nosa.php
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 var TimelineDragger = function (_React$Component) {
   _inherits(TimelineDragger, _React$Component);
@@ -24236,27 +24248,37 @@ var TimelineDragger = function (_React$Component) {
   function TimelineDragger(props) {
     _classCallCheck(this, TimelineDragger);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TimelineDragger).call(this, props));
-
-    _this.state = {
-      position: _this.props.position
-    };
-    return _this;
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(TimelineDragger).call(this, props));
   }
 
   _createClass(TimelineDragger, [{
+    key: 'handleDrag',
+    value: function handleDrag(e, d) {
+      this.props.onDrag(d.deltaX, this.props.id);
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         _reactDraggable2.default,
         {
-          axis: 'x'
-        },
-        _react2.default.createElement('rect', {
-          x: this.state.position,
-          width: this.props.width,
-          height: this.props.height,
-          style: { fill: this.props.color } })
+          onDrag: this.handleDrag.bind(this),
+          position: { x: this.props.position, y: 0 },
+          axis: 'x' },
+        _react2.default.createElement(
+          'g',
+          null,
+          _react2.default.createElement('rect', {
+            width: this.props.width,
+            height: this.props.height,
+            style: { fill: this.props.color }
+          }),
+          _react2.default.createElement('polygon', {
+            points: '0,0,' + this.props.height / 2 + ',0 ' + this.props.height / 4 + ', ' + this.props.height / 2,
+            transform: 'translate(' + -(this.props.width * 1.75) + ', ' + -(this.props.height / 4) + ')',
+            fill: this.props.triangleColor
+          })
+        )
       );
     }
   }]);
@@ -24281,13 +24303,29 @@ var _react = (typeof window !== "undefined" ? window['React'] : typeof global !=
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDraggable = require('react-draggable');
+
+var _reactDraggable2 = _interopRequireDefault(_reactDraggable);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * NASA Worldview
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This code was originally developed at NASA/Goddard Space Flight Center for
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Earth Science Data and Information System (ESDIS) project.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2013 - 2016 United States Government as represented by the
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Administrator of the National Aeronautics and Space Administration.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All Rights Reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Licensed under the NASA Open Source Agreement, Version 1.3
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * http://opensource.gsfc.nasa.gov/nosa.php
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 var TimelineDraggerRange = function (_React$Component) {
   _inherits(TimelineDraggerRange, _React$Component);
@@ -24298,23 +24336,37 @@ var TimelineDraggerRange = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TimelineDraggerRange).call(this, props));
 
     _this.state = {
-      position: _this.props.position
+      visible: true,
+      width: _this.props.width,
+      id: 'range'
     };
     return _this;
   }
 
   _createClass(TimelineDraggerRange, [{
+    key: 'handleDrag',
+    value: function handleDrag(e, d) {
+      this.props.onDrag(d.deltaX, this.state.id);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var styles = {
         fillOpacity: this.props.opacity
       };
-      return _react2.default.createElement('rect', {
-        fill: this.props.color,
-        width: this.props.width,
-        x: this.props.position,
-        style: styles,
-        height: this.props.height });
+      return _react2.default.createElement(
+        _reactDraggable2.default,
+        {
+          onDrag: this.handleDrag.bind(this),
+          axis: 'x',
+          position: { x: this.props.position, y: 0 } },
+        _react2.default.createElement('rect', {
+          fill: this.props.color,
+          width: this.props.width,
+          style: styles,
+          height: this.props.height,
+          className: 'dragger-range' })
+      );
     }
   }]);
 
@@ -24324,7 +24376,7 @@ var TimelineDraggerRange = function (_React$Component) {
 exports.default = TimelineDraggerRange;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],187:[function(require,module,exports){
+},{"react-draggable":3}],187:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -24352,7 +24404,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * NASA Worldview
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This code was originally developed at NASA/Goddard Space Flight Center for
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Earth Science Data and Information System (ESDIS) project.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2013 - 2016 United States Government as represented by the
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Administrator of the National Aeronautics and Space Administration.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All Rights Reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Licensed under the NASA Open Source Agreement, Version 1.3
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * http://opensource.gsfc.nasa.gov/nosa.php
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
 var TimelineRangeSelector = function (_React$Component) {
   _inherits(TimelineRangeSelector, _React$Component);
@@ -24370,26 +24434,64 @@ var TimelineRangeSelector = function (_React$Component) {
   }
 
   _createClass(TimelineRangeSelector, [{
+    key: 'onItemDrag',
+    value: function onItemDrag(newStart, id) {
+      var startX;
+      var endX;
+      if (id === 'start') {
+        startX = newStart + this.state.startLocation;
+        endX = this.state.endLocation;
+        if (startX + 2 * this.props.pinWidth >= endX) {
+          endX = startX + this.props.pinWidth;
+        }
+      } else if (id === 'end') {
+        startX = this.state.startLocation;
+        endX = newStart + this.state.endLocation;
+        if (startX + 2 * this.props.pinWidth >= endX) {
+          startX = endX - this.props.pinWidth;
+        }
+      } else {
+        startX = newStart + this.state.startLocation;
+        endX = newStart + this.state.endLocation;
+      }
+
+      this.setState({
+        startLocation: startX,
+        endLocation: endX
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'g',
         { id: 'wv-timeline-range-selector', className: 'wv-timeline-range-selector' },
+        _react2.default.createElement(_wvTimelineDraggerrange2.default, {
+          width: this.state.endLocation - (this.state.startLocation + this.props.pinWidth),
+          opacity: this.props.rangeOpacity,
+          color: this.props.rangeColor,
+          height: this.props.height,
+          position: this.state.startLocation + this.props.pinWidth,
+          onDrag: this.onItemDrag.bind(this),
+          id: 'range' }),
         _react2.default.createElement(_wvTimelineDragger2.default, {
           position: this.state.startLocation,
           color: this.props.startColor,
           width: this.props.pinWidth,
-          height: this.props.height }),
-        _react2.default.createElement(_wvTimelineDraggerrange2.default, {
-          width: this.state.endLocation - .5 * this.props.pinWidth - (this.state.startLocation + .5 * this.props.pinWidth),
-          opacity: this.props.rangeOpacity,
-          color: this.props.rangeColor,
-          height: this.props.height }),
+          height: this.props.height,
+          onDrag: this.onItemDrag.bind(this),
+          triangleColor: '#cccccc',
+          first: true,
+          id: 'start' }),
         _react2.default.createElement(_wvTimelineDragger2.default, {
           position: this.state.endLocation,
           color: this.props.endColor,
           width: this.props.pinWidth,
-          height: this.props.height })
+          height: this.props.height,
+          first: false,
+          onDrag: this.onItemDrag.bind(this),
+          triangleColor: '#afaeae',
+          id: 'end' })
       );
     }
   }]);
