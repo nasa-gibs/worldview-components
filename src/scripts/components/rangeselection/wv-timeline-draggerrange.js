@@ -14,8 +14,17 @@
 
 import React from 'react';
 import Draggable from 'react-draggable';
-
+/*
+ * A react component, is a draggable svg
+ * rect element
+ *
+ * @class TimelineDraggerRange
+ */
 export default class TimelineDraggerRange extends React.Component {
+
+  /*
+   * @constructor
+   */
   constructor(props) {
     super(props);
     this.state =  {
@@ -24,9 +33,24 @@ export default class TimelineDraggerRange extends React.Component {
       id:'range',
     };
   }
+
+  /*
+   * When the component is dragged,
+   * this function passes the id
+   * and change in x of the drag
+   * to onDrag property
+   *
+   * @method handleDrag
+   *
+   * @return {void}
+   */
   handleDrag(e, d){
     this.props.onDrag(d.deltaX, this.state.id);
   }
+
+  /*
+   * @method render
+   */
   render() {
     var styles = {
       fillOpacity: this.props.opacity

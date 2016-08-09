@@ -24242,20 +24242,47 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * http://opensource.gsfc.nasa.gov/nosa.php
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
+/*
+ * A react component, is a draggable svg
+ * group
+ *
+ * @class TimelineDragger
+ * @extends React.Component
+ */
 var TimelineDragger = function (_React$Component) {
   _inherits(TimelineDragger, _React$Component);
 
+  /*
+   * @constructor
+   */
   function TimelineDragger(props) {
     _classCallCheck(this, TimelineDragger);
 
     return _possibleConstructorReturn(this, Object.getPrototypeOf(TimelineDragger).call(this, props));
   }
 
+  /*
+   * When the component is dragged,
+   * this function passes the id
+   * and change-in-x of the drag
+   * to onDrag callback
+   *
+   * @method handleDrag
+   *
+   * @return {void}
+   */
+
+
   _createClass(TimelineDragger, [{
     key: 'handleDrag',
     value: function handleDrag(e, d) {
       this.props.onDrag(d.deltaX, this.props.id);
     }
+
+    /*
+     * @method render
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -24327,9 +24354,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * http://opensource.gsfc.nasa.gov/nosa.php
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
+/*
+ * A react component, is a draggable svg
+ * rect element
+ *
+ * @class TimelineDraggerRange
+ */
 var TimelineDraggerRange = function (_React$Component) {
   _inherits(TimelineDraggerRange, _React$Component);
 
+  /*
+   * @constructor
+   */
   function TimelineDraggerRange(props) {
     _classCallCheck(this, TimelineDraggerRange);
 
@@ -24343,11 +24379,28 @@ var TimelineDraggerRange = function (_React$Component) {
     return _this;
   }
 
+  /*
+   * When the component is dragged,
+   * this function passes the id
+   * and change in x of the drag
+   * to onDrag property
+   *
+   * @method handleDrag
+   *
+   * @return {void}
+   */
+
+
   _createClass(TimelineDraggerRange, [{
     key: 'handleDrag',
     value: function handleDrag(e, d) {
       this.props.onDrag(d.deltaX, this.state.id);
     }
+
+    /*
+     * @method render
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -24418,9 +24471,19 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * http://opensource.gsfc.nasa.gov/nosa.php
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
+/*
+ * A react component, is a draggable svg
+ * group. It is a parent component that
+ * rerenders when child elements are dragged
+ *
+ * @class TimelineRangeSelector
+ */
 var TimelineRangeSelector = function (_React$Component) {
   _inherits(TimelineRangeSelector, _React$Component);
 
+  /*
+   * @constructor
+   */
   function TimelineRangeSelector(props) {
     _classCallCheck(this, TimelineRangeSelector);
 
@@ -24433,26 +24496,42 @@ var TimelineRangeSelector = function (_React$Component) {
     return _this;
   }
 
+  /*
+   * When a child component is dragged,
+   * this function is called to determine
+   * the correct location for each of the
+   * child elements after the drag
+   *
+   * @method handleDrag
+   *
+   * @param {number} deltaX - change in x
+   * @param {string} id - Identifier used to
+   *  distinguish between the child elements
+   *
+   * @return {void}
+   */
+
+
   _createClass(TimelineRangeSelector, [{
     key: 'onItemDrag',
-    value: function onItemDrag(newStart, id) {
+    value: function onItemDrag(deltaX, id) {
       var startX;
       var endX;
       if (id === 'start') {
-        startX = newStart + this.state.startLocation;
+        startX = deltaX + this.state.startLocation;
         endX = this.state.endLocation;
         if (startX + 2 * this.props.pinWidth >= endX) {
           endX = startX + this.props.pinWidth;
         }
       } else if (id === 'end') {
         startX = this.state.startLocation;
-        endX = newStart + this.state.endLocation;
+        endX = deltaX + this.state.endLocation;
         if (startX + 2 * this.props.pinWidth >= endX) {
           startX = endX - this.props.pinWidth;
         }
       } else {
-        startX = newStart + this.state.startLocation;
-        endX = newStart + this.state.endLocation;
+        startX = deltaX + this.state.startLocation;
+        endX = deltaX + this.state.endLocation;
       }
 
       this.setState({
@@ -24460,6 +24539,11 @@ var TimelineRangeSelector = function (_React$Component) {
         endLocation: endX
       });
     }
+
+    /*
+     * @method render
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -24526,8 +24610,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * NASA Worldview
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This code was originally developed at NASA/Goddard Space Flight Center for
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Earth Science Data and Information System (ESDIS) project.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2013 - 2016 United States Government as represented by the
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Administrator of the National Aeronautics and Space Administration.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All Rights Reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Licensed under the NASA Open Source Agreement, Version 1.3
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * http://opensource.gsfc.nasa.gov/nosa.php
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
 
+/*
+ * A react component, Builds a rather specific
+ * interactive widget
+ *
+ * @class AnimationWidget
+ * @extends React.Component
+ */
 var AnimationWidget = function (_React$Component) {
   _inherits(AnimationWidget, _React$Component);
 
@@ -24543,6 +24646,21 @@ var AnimationWidget = function (_React$Component) {
     return _this;
   }
 
+  /*
+   * Sets a new state value when a
+   * when the slider is adjusted
+   *
+   * @method onSlide
+   *
+   * @param {Object} component - slider react
+   *  component
+   * @param {number} value - Value of the slider
+   *  selection
+   *
+   * @return {void}
+   */
+
+
   _createClass(AnimationWidget, [{
     key: 'onSlide',
     value: function onSlide(component, value) {
@@ -24550,6 +24668,20 @@ var AnimationWidget = function (_React$Component) {
         value: value
       });
     }
+    /*
+     * Sets a new state to say whether or not
+     * the animation should loop
+     *
+     * @method onLoop
+     *
+     * @param {Object} component - slider react
+     *  component
+     * @param {number} value - Value of the slider
+     *  selection
+     *
+     * @return {void}
+     */
+
   }, {
     key: 'onLoop',
     value: function onLoop() {
@@ -24564,13 +24696,21 @@ var AnimationWidget = function (_React$Component) {
         });
       }
     }
+
+    /*
+     * calls the callback with the 
+     *
+     * @method play
+     *
+     * @return {void}
+     */
+
   }, {
     key: 'play',
     value: function play() {
       this.props.callback({
         framerate: this.state.value,
-        loop: this.state.loop,
-        share: this.props.share
+        loop: this.state.loop
       });
     }
   }, {

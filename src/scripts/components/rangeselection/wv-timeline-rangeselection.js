@@ -11,13 +11,23 @@
  * Licensed under the NASA Open Source Agreement, Version 1.3
  * http://opensource.gsfc.nasa.gov/nosa.php
  */
- 
+
 import React from 'react';
 import Dragger from './wv-timeline-dragger.js';
 import DraggerRange from './wv-timeline-draggerrange.js';
 
-
+/*
+ * A react component, is a draggable svg
+ * group. It is a parent component that
+ * rerenders when child elements are dragged
+ *
+ * @class TimelineRangeSelector
+ */
 export default class TimelineRangeSelector extends React.Component {
+
+  /*
+   * @constructor
+   */
   constructor(props) {
     super(props);
     this.state =  {
@@ -25,24 +35,39 @@ export default class TimelineRangeSelector extends React.Component {
       endLocation: props.endLocation
     };
   }
-  onItemDrag(newStart, id) {
+
+  /*
+   * When a child component is dragged,
+   * this function is called to determine
+   * the correct location for each of the
+   * child elements after the drag
+   *
+   * @method handleDrag
+   *
+   * @param {number} deltaX - change in x
+   * @param {string} id - Identifier used to
+   *  distinguish between the child elements
+   *
+   * @return {void}
+   */
+  onItemDrag(deltaX, id) {
     var startX;
     var endX;
     if(id === 'start') {
-      startX = newStart + this.state.startLocation;
+      startX = deltaX + this.state.startLocation;
       endX = this.state.endLocation;
       if(startX + (2 * this.props.pinWidth) >= endX) {
         endX = startX + this.props.pinWidth;
       }
     } else if(id === 'end') {
       startX = this.state.startLocation;
-      endX = newStart + this.state.endLocation;
+      endX = deltaX + this.state.endLocation;
       if(startX + (2 * this.props.pinWidth) >= endX) {
         startX = endX - this.props.pinWidth;
       }
     } else {
-      startX = newStart + this.state.startLocation ;
-      endX = newStart + this.state.endLocation;
+      startX = deltaX + this.state.startLocation ;
+      endX = deltaX + this.state.endLocation;
     }
 
     this.setState({
@@ -51,6 +76,10 @@ export default class TimelineRangeSelector extends React.Component {
     });
 
   }
+
+  /*
+   * @method render
+   */
   render() {
     return(
       <g id="wv-timeline-range-selector" className="wv-timeline-range-selector">
