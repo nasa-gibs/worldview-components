@@ -31,6 +31,18 @@ export default class TimelineDragger extends React.Component {
     super(props);
   }
 
+  checkVisibility(){
+    var visibility = 'visible';
+
+    if(this.props.position < 0 || this.props.position >= this.props.max) {
+      visibility = 'hidden';
+    }
+    this.state = {
+      visibility: visibility
+    };
+
+  }
+
   /*
    * When the component is dragged,
    * this function passes the id
@@ -42,6 +54,7 @@ export default class TimelineDragger extends React.Component {
    * @return {void}
    */
   handleDrag(e, d) {
+    e.stopPropagation();
     this.props.onDrag(d.deltaX, this.props.id);
   }
 
@@ -49,16 +62,21 @@ export default class TimelineDragger extends React.Component {
    * @method render
    */
   render() {
+    this.checkVisibility();
     return(
       <Draggable
         onDrag={this.handleDrag.bind(this)}
         position={{x:this.props.position, y:0}}
+        onStop={this.props.onStop}
         axis="x">
         <g>
           <rect
             width={this.props.width}
             height={this.props.height}
-            style={{fill:this.props.color}}
+            style={{
+              fill:this.props.color,
+              visibility: this.state.visibility
+            }}
           />
           {
            /*
@@ -70,11 +88,16 @@ export default class TimelineDragger extends React.Component {
           <polygon
             points={'0,0,' + this.props.height / 2 + ',0 ' + this.props.height / 4 + ', ' +this.props.height / 2 }
             transform={'translate(' + (-(this.props.width * 1.75)) + ', ' + (-(this.props.height / 4)) +')'}
-            fill={this.props.triangleColor}
+            style={{
+              fill: this.props.triangleColor,
+              visibility: this.state.visibility
+            }}
           />
         </g>
       </Draggable>
     );
   }
-
 }
+TimelineDragger.defaultProps = {
+  visible: true
+};

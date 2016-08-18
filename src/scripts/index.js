@@ -9,5 +9,5 @@
  * All Rights Reserved.
  */
 
-export {default as AnimationWidget} from './components/wv-animation.widget.js';
+export {default as AnimationWidget} from './components/animationwidget/wv-animation-widget.js';
 export {default as RangeSelector} from './components/rangeselection/wv-timeline-rangeselection.js';

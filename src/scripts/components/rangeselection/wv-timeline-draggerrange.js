@@ -27,10 +27,13 @@ export default class TimelineDraggerRange extends React.Component {
    */
   constructor(props) {
     super(props);
+    this.opacity = {
+      fillOpacity: this.props.opacity
+    };
     this.state =  {
-      visible: true,
-      width: this.props.width,
-      id:'range',
+      startLocation: this.props.startLocation + (this.props.width / 2),
+      endLocation: this.props.endLocation - (this.props.width / 2),
+      width: this.props.endLocation - this.props.startLocation
     };
   }
 
@@ -45,27 +48,44 @@ export default class TimelineDraggerRange extends React.Component {
    * @return {void}
    */
   handleDrag(e, d){
-    this.props.onDrag(d.deltaX, this.state.id);
+    e.stopPropagation();
+    this.props.onDrag(d.deltaX);
   }
 
   /*
    * @method render
    */
   render() {
-    var styles = {
-      fillOpacity: this.props.opacity
-    };
+    var start = this.props.startLocation;
+    var end = this.props.endLocation;
+    var max = this.props.max;
+    var width;
+    if(start < 0){
+      start = 0;
+    }
+    if(this.state.endLocation > max){
+      end = max;
+      if(end < start) {
+
+      }
+    }
+    width = end - start;
+    if(width < 0 ) {
+      width = 0;
+    }
+    
     return (
       <Draggable
+        onStop={this.props.onStop}
         onDrag={this.handleDrag.bind(this)}
         axis="x"
-        position={{x:this.props.position, y:0}}>
-        <rect
-          fill={this.props.color}
-          width={this.props.width}
-          style={styles}
-          height={this.props.height}
-          className='dragger-range' />
+        position={{x:start, y:0}}>
+          <rect
+            fill={this.props.color}
+            width={width}
+            style={this.opacity}
+            height={this.props.height}
+            className='dragger-range' />
       </Draggable>
     );
   }

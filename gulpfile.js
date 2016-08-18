@@ -20,7 +20,7 @@ gulp.task('js', function() {
               "react",
               "es2015"
             ],
-            "sourceMaps": false
+            "sourceMaps": true
           }
         ]
       ],

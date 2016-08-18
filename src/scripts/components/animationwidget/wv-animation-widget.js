@@ -14,6 +14,7 @@
 
 import React from 'react';
 import InputRange from 'react-input-range';
+import TimeSelector from '../dateselector/wv.dateselector';
 
 /*
  * A react component, Builds a rather specific
@@ -92,7 +93,6 @@ export default class AnimationWidget extends React.Component {
   }
   render() {
     return(
-
       <div id="wv-animation-widget" className="wv-animation-widget">
         <a href="javascript:void(null)" title="Share Animation GIF" className="wv-icon-case">
           <i className="fa fa-file-video-o wv-animation-widget-icon"/>
@@ -107,7 +107,9 @@ export default class AnimationWidget extends React.Component {
         <a href="javascript:void(null)" title="Play video" className='wv-anim-play-case wv-icon-case' onClick={this.play.bind(this)}>
           <i className='fa fa-play wv-animation-widget-icon' />
         </a>
+        <TimeSelector width="25" height="8" date={new Date(2012)} />
       </div>
+
     );
   }
 
