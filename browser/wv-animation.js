@@ -24263,7 +24263,9 @@ var AnimationWidget = function (_React$Component) {
 
     _this.state = {
       value: 10,
-      loop: false
+      loop: false,
+      startDate: _this.props.startDate,
+      endDate: _this.props.endDate
     };
     return _this;
   }
@@ -24331,11 +24333,30 @@ var AnimationWidget = function (_React$Component) {
   }, {
     key: 'play',
     value: function play() {
-      this.props.callback({
+      this.props.onPushPlay({
         framerate: this.state.value,
-        loop: this.state.loop
+        loop: this.state.loop,
+        startDate: this.state.startDate,
+        endDate: this.state.endDate
       });
     }
+  }, {
+    key: 'onDateChange',
+    value: function onDateChange(type, date) {
+      if (type === 'start') {
+        this.setState({
+          startDate: date
+        });
+      } else {
+        this.setState({
+          endDate: date
+        });
+      }
+      this.props.onDateChange(this.state.startDate, this.state.endDate);
+    }
+  }, {
+    key: 'returnDate',
+    value: function returnDate() {}
   }, {
     key: 'render',
     value: function render() {
@@ -24367,7 +24388,8 @@ var AnimationWidget = function (_React$Component) {
           { href: 'javascript:void(null)', title: 'Play video', className: 'wv-anim-play-case wv-icon-case', onClick: this.play.bind(this) },
           _react2.default.createElement('i', { className: 'fa fa-play wv-animation-widget-icon' })
         ),
-        _react2.default.createElement(_wv2.default, { width: '25', height: '8', date: new Date(2012) })
+        _react2.default.createElement(_wv2.default, { width: '25', height: '8', date: this.state.startDate, name: 'start', onDateChange: this.onDateChange.bind(this) }),
+        _react2.default.createElement(_wv2.default, { width: '25', height: '8', date: this.state.endDate, name: 'end', onDateChange: this.onDateChange.bind(this) })
       );
     }
   }]);
@@ -24717,6 +24739,7 @@ var dateSelector = function (_React$Component) {
       this.setState({
         date: date
       });
+      this.props.onDateChange(this.props.name, date);
     }
   }, {
     key: 'render',

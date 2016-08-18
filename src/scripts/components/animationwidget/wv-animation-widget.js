@@ -28,7 +28,9 @@ export default class AnimationWidget extends React.Component {
     super(props);
     this.state =  {
       value:10,
-      loop: false
+      loop: false,
+      startDate: this.props.startDate,
+      endDate: this.props.endDate
     };
   }
 
@@ -85,10 +87,29 @@ export default class AnimationWidget extends React.Component {
    * @return {void}
    */
   play() {
-    this.props.callback({
+    this.props.onPushPlay({
       framerate: this.state.value,
-      loop: this.state.loop
+      loop: this.state.loop,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate
     });
+  }
+  onDateChange(type, date) {
+    if(type === 'start') {
+      this.setState({
+        startDate: date
+      });
+    } else {
+      this.setState({
+        endDate: date
+      });
+    }
+    this.props.onDateChange(
+      this.state.startDate,
+      this.state.endDate
+    );
+  }
+  returnDate() {
 
   }
   render() {
@@ -107,7 +128,8 @@ export default class AnimationWidget extends React.Component {
         <a href="javascript:void(null)" title="Play video" className='wv-anim-play-case wv-icon-case' onClick={this.play.bind(this)}>
           <i className='fa fa-play wv-animation-widget-icon' />
         </a>
-        <TimeSelector width="25" height="8" date={new Date(2012)} />
+        <TimeSelector width="25" height="8" date={this.state.startDate} name='start' onDateChange={this.onDateChange.bind(this)}/>
+        <TimeSelector width="25" height="8" date={this.state.endDate} name='end' onDateChange={this.onDateChange.bind(this)}/>
       </div>
 
     );

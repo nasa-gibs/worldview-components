@@ -52,6 +52,7 @@ export default class dateSelector extends React.Component {
     this.setState({
       date: date
     });
+    this.props.onDateChange(this.props.name, date);
   }
   render() {
     return (
