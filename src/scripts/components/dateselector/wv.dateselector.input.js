@@ -137,8 +137,13 @@ export default class DateInputColumn extends React.Component {
       }
     }
   }
-  nextDate() {
+  nextDate(e) {
 
+  }
+  onChange(e) {
+    this.setState({
+      value: e.target.value
+    });
   }
   nextTab() {
     this.props.nextTab(this.props.tabIndex);
@@ -167,11 +172,12 @@ export default class DateInputColumn extends React.Component {
           maxLength={this.size}
           className="button-input-group"
           id={this.props.type + '-input-group'}
-          defaultValue={this.state.value}
+          value={this.state.value}
           tabIndex={this.props.tabIndex}
           onKeyUp={this.onKeyUp.bind(this)}
           onKeyDown={this.onKeyPress.bind(this)}
-          onChange={this.onKeyUp.bind(this)}
+          onChange={this.onChange.bind(this)}
+          style={{fontSize: ((this.props.height / 2) + 'px')}}
         />
         <div className="date-arrows date-arrow-down" data-interval={this.props.type} data-value="-1">
           <svg width="25" height="8" onClick={this.nextDate.bind(this)}>

@@ -15,6 +15,9 @@
 import React from 'react';
 import InputRange from 'react-input-range';
 import TimeSelector from '../dateselector/wv.dateselector';
+import LoopButton from './wv.loopbutton';
+import PlayButton from './wv.playbutton';
+
 
 /*
  * A react component, Builds a rather specific
@@ -28,7 +31,7 @@ export default class AnimationWidget extends React.Component {
     super(props);
     this.state =  {
       value:10,
-      loop: false,
+      looping: this.props.looping,
       startDate: this.props.startDate,
       endDate: this.props.endDate
     };
@@ -87,12 +90,26 @@ export default class AnimationWidget extends React.Component {
    * @return {void}
    */
   play() {
-    this.props.onPushPlay({
-      framerate: this.state.value,
-      loop: this.state.loop,
-      startDate: this.state.startDate,
-      endDate: this.state.endDate
+    this.props.onPushPlay();
+    this.setState({
+      playing: true
     });
+  }
+  pause() {
+    this.props.onPushPause();
+    this.setState({
+      playing: false
+    });
+  }
+  onLoop() {
+    var loop = true;
+    if(this.state.looping) {
+      loop = false;
+    }
+    this.setState({
+      looping: loop
+    });
+    this.props.onPushLoop(loop);
   }
   onDateChange(type, date) {
     if(type === 'start') {
@@ -120,16 +137,15 @@ export default class AnimationWidget extends React.Component {
         </a>
         <div className="wv-slider-case">
           <InputRange maxValue={60} minValue={0} value={this.state.value} onChange={this.onSlide.bind(this)} />
-          <span className="wv-slider-label">{this.props.label}</span>
+          <span className="wv-slider-label">{this.props.sliderLabel}</span>
         </div>
-        <a href="javascript:void(null)" title="click if you would like to loop the video" className={this.state.loop ? ' wv-icon-case wv-loop-icon-case wv-loop-active' : 'wv-loop-icon-case wv-icon-case' } >
-          <i className="fa fa-refresh wv-animation-widget-icon" onClick={this.onLoop.bind(this)} />
-        </a>
-        <a href="javascript:void(null)" title="Play video" className='wv-anim-play-case wv-icon-case' onClick={this.play.bind(this)}>
-          <i className='fa fa-play wv-animation-widget-icon' />
-        </a>
-        <TimeSelector width="25" height="8" date={this.state.startDate} name='start' onDateChange={this.onDateChange.bind(this)}/>
-        <TimeSelector width="25" height="8" date={this.state.endDate} name='end' onDateChange={this.onDateChange.bind(this)}/>
+        <LoopButton looping={this.state.looping} onLoop={this.onLoop.bind(this)}/>
+        <PlayButton playing={this.state.playing} play={this.play.bind(this)} pause={this.pause.bind(this)} />
+        <div>
+          <TimeSelector width="120" height="30" date={this.state.startDate} name='start' onDateChange={this.onDateChange.bind(this)}/>
+          <div className='thruLabel'>To</div>
+          <TimeSelector width="120" height="30" date={this.state.endDate} name='end' onDateChange={this.onDateChange.bind(this)}/>
+        </div>
       </div>
 
     );
