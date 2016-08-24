@@ -70,10 +70,10 @@ export default class TimelineDraggerRange extends React.Component {
       }
     }
     width = end - start;
-    if(width < 0 ) {
+    if(width < 0) {
       width = 0;
     }
-    
+
     return (
       <Draggable
         onStop={this.props.onStop}

@@ -33,7 +33,8 @@ export default class AnimationWidget extends React.Component {
       value:10,
       looping: this.props.looping,
       startDate: this.props.startDate,
-      endDate: this.props.endDate
+      endDate: this.props.endDate,
+      header: this.props.header
     };
   }
 
@@ -51,6 +52,7 @@ export default class AnimationWidget extends React.Component {
    * @return {void}
    */
   onSlide(component, value) {
+    this.props.onSlide(value);
     this.setState({
       value: value
     });
@@ -132,6 +134,7 @@ export default class AnimationWidget extends React.Component {
   render() {
     return(
       <div id="wv-animation-widget" className="wv-animation-widget">
+        <div className='wv-animation-widget-header'> {this.state.header}</div>
         <a href="javascript:void(null)" title="Share Animation GIF" className="wv-icon-case">
           <i className="fa fa-file-video-o wv-animation-widget-icon"/>
         </a>

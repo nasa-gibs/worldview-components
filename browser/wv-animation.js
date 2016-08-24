@@ -24273,7 +24273,8 @@ var AnimationWidget = function (_React$Component) {
       value: 10,
       looping: _this.props.looping,
       startDate: _this.props.startDate,
-      endDate: _this.props.endDate
+      endDate: _this.props.endDate,
+      header: _this.props.header
     };
     return _this;
   }
@@ -24296,6 +24297,7 @@ var AnimationWidget = function (_React$Component) {
   _createClass(AnimationWidget, [{
     key: 'onSlide',
     value: function onSlide(component, value) {
+      this.props.onSlide(value);
       this.setState({
         value: value
       });
@@ -24389,6 +24391,12 @@ var AnimationWidget = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { id: 'wv-animation-widget', className: 'wv-animation-widget' },
+        _react2.default.createElement(
+          'div',
+          { className: 'wv-animation-widget-header' },
+          ' ',
+          this.state.header
+        ),
         _react2.default.createElement(
           'a',
           { href: 'javascript:void(null)', title: 'Share Animation GIF', className: 'wv-icon-case' },
@@ -25087,8 +25095,8 @@ var TimelineDragger = function (_React$Component) {
             }
           }),
           _react2.default.createElement('polygon', {
-            points: '0,0,' + this.props.height / 2 + ',0 ' + this.props.height / 4 + ', ' + this.props.height / 2,
-            transform: 'translate(' + -(this.props.width * 1.75) + ', ' + -(this.props.height / 4) + ')',
+            points: '0,0,' + this.props.height / 1.5 + ',0 ' + this.props.height / 3 + ', ' + this.props.height / 1.5,
+            transform: 'translate(' + -(this.props.width * 2.45) + ', ' + -(this.props.height / 2) + ')',
             style: {
               fill: this.props.triangleColor,
               visibility: this.state.visibility
