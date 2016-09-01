@@ -24270,7 +24270,7 @@ var AnimationWidget = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AnimationWidget).call(this, props));
 
     _this.state = {
-      value: 10,
+      value: _this.props.sliderSpeed,
       looping: _this.props.looping,
       startDate: _this.props.startDate,
       endDate: _this.props.endDate,
@@ -24279,22 +24279,32 @@ var AnimationWidget = function (_React$Component) {
     return _this;
   }
 
-  /*
-   * Sets a new state value when a
-   * when the slider is adjusted
-   *
-   * @method onSlide
-   *
-   * @param {Object} component - slider react
-   *  component
-   * @param {number} value - Value of the slider
-   *  selection
-   *
-   * @return {void}
-   */
-
-
   _createClass(AnimationWidget, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(props) {
+      this.setState({
+        startDate: props.startDate,
+        endDate: props.endDate,
+        playing: props.playing,
+        header: props.header
+      });
+    }
+
+    /*
+     * Sets a new state value when a
+     * when the slider is adjusted
+     *
+     * @method onSlide
+     *
+     * @param {Object} component - slider react
+     *  component
+     * @param {number} value - Value of the slider
+     *  selection
+     *
+     * @return {void}
+     */
+
+  }, {
     key: 'onSlide',
     value: function onSlide(component, value) {
       this.props.onSlide(value);
@@ -24370,21 +24380,19 @@ var AnimationWidget = function (_React$Component) {
     }
   }, {
     key: 'onDateChange',
-    value: function onDateChange(type, date) {
-      if (type === 'start') {
+    value: function onDateChange(id, date) {
+      if (id === 'start') {
         this.setState({
           startDate: date
         });
+        this.props.onDateChange(date, this.state.endDate);
       } else {
         this.setState({
           endDate: date
         });
+        this.props.onDateChange(this.state.startDate, date);
       }
-      this.props.onDateChange(this.state.startDate, this.state.endDate);
     }
-  }, {
-    key: 'returnDate',
-    value: function returnDate() {}
   }, {
     key: 'render',
     value: function render() {
@@ -24417,13 +24425,29 @@ var AnimationWidget = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(_wv2.default, { width: '120', height: '30', date: this.state.startDate, name: 'start', onDateChange: this.onDateChange.bind(this) }),
+          _react2.default.createElement(_wv2.default, {
+            width: '120',
+            height: '30',
+            date: this.state.startDate,
+            id: 'start',
+            onDateChange: this.onDateChange.bind(this),
+            maxDate: this.state.endDate,
+            minDate: this.props.minDate
+          }),
           _react2.default.createElement(
             'div',
             { className: 'thruLabel' },
             'To'
           ),
-          _react2.default.createElement(_wv2.default, { width: '120', height: '30', date: this.state.endDate, name: 'end', onDateChange: this.onDateChange.bind(this) })
+          _react2.default.createElement(_wv2.default, {
+            width: '120',
+            height: '30',
+            date: this.state.endDate,
+            id: 'end',
+            onDateChange: this.onDateChange.bind(this),
+            maxDate: this.props.maxDate,
+            minDate: this.state.startDate
+          })
         )
       );
     }
@@ -24672,6 +24696,11 @@ var DateInputColumn = function (_React$Component) {
       this.size = size;
     }
   }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(props) {
+      this.setState({ value: props.value });
+    }
+  }, {
     key: 'onKeyPress',
     value: function onKeyPress(e) {
       if (e.keyCode === 9) {
@@ -24716,6 +24745,16 @@ var DateInputColumn = function (_React$Component) {
       }
     }
   }, {
+    key: 'onClickUp',
+    value: function onClickUp() {
+      this.rollDate(1);
+    }
+  }, {
+    key: 'onClickDown',
+    value: function onClickDown() {
+      this.rollDate(-1);
+    }
+  }, {
     key: 'yearValidation',
     value: function yearValidation(input) {
       var newDate;
@@ -24737,6 +24776,12 @@ var DateInputColumn = function (_React$Component) {
         newDate = new Date(new Date(currentDate).setUTCDate(input));
         return this.validateDate(newDate);
       }
+    }
+  }, {
+    key: 'rollDate',
+    value: function rollDate(amt) {
+      var newDate = util.rollDate(this.props.date, this.props.type, amt, this.props.minDate, this.props.maxDate);
+      this.props.updateDate(newDate);
     }
   }, {
     key: 'monthValidation',
@@ -24762,13 +24807,10 @@ var DateInputColumn = function (_React$Component) {
       }
     }
   }, {
-    key: 'nextDate',
-    value: function nextDate(e) {}
-  }, {
     key: 'onChange',
     value: function onChange(e) {
       this.setState({
-        value: e.target.value
+        value: e.target.value.toUpperCase()
       });
     }
   }, {
@@ -24795,7 +24837,7 @@ var DateInputColumn = function (_React$Component) {
         { className: 'input-wrapper', style: this.state.valid ? {} : { borderColor: '#ff0000' } },
         _react2.default.createElement(
           'div',
-          { className: 'date-arrows date-arrow-up', 'data-interval': this.props.type, 'data-value': '1' },
+          { onClick: this.onClickUp.bind(this), className: 'date-arrows date-arrow-up', 'data-interval': this.props.type },
           _react2.default.createElement(
             'svg',
             { width: '25', height: '8' },
@@ -24818,10 +24860,10 @@ var DateInputColumn = function (_React$Component) {
         }),
         _react2.default.createElement(
           'div',
-          { className: 'date-arrows date-arrow-down', 'data-interval': this.props.type, 'data-value': '-1' },
+          { onClick: this.onClickDown.bind(this), className: 'date-arrows date-arrow-down', 'data-interval': this.props.type },
           _react2.default.createElement(
             'svg',
-            { width: '25', height: '8', onClick: this.nextDate.bind(this) },
+            { width: '25', height: '8' },
             _react2.default.createElement('path', { d: 'M 12.5,0 25,8 0,8 z', className: 'downarrow' })
           )
         )
@@ -24900,13 +24942,24 @@ var dateSelector = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(dateSelector).call(this, props));
 
     _this.state = {
-      date: _this.props.date,
+      date: props.date,
+      maxDate: props.maxDate,
+      minDate: props.minDate,
       tab: null
     };
     return _this;
   }
 
   _createClass(dateSelector, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(props) {
+      this.setState({
+        date: props.date,
+        maxDate: props.maxDate,
+        minDate: props.minDate
+      });
+    }
+  }, {
     key: 'nextTab',
     value: function nextTab(index) {
       var nextTab;
@@ -24925,7 +24978,7 @@ var dateSelector = function (_React$Component) {
       this.setState({
         date: date
       });
-      this.props.onDateChange(this.props.name, date);
+      this.props.onDateChange(this.props.id, date);
     }
   }, {
     key: 'render',
@@ -24943,7 +24996,9 @@ var dateSelector = function (_React$Component) {
           updateDate: this.updateDate.bind(this),
           tabIndex: 1,
           focused: this.state.tab == 1,
-          nextTab: this.nextTab.bind(this)
+          nextTab: this.nextTab.bind(this),
+          maxDate: this.props.maxDate,
+          minDate: this.props.minDate
         }),
         _react2.default.createElement(_wvDateselector2.default, {
           startDate: new Date(2000),
@@ -24954,7 +25009,9 @@ var dateSelector = function (_React$Component) {
           value: util.monthStringArray[this.state.date.getUTCMonth()],
           tabIndex: 2,
           focused: this.state.tab == 2,
-          nextTab: this.nextTab.bind(this)
+          nextTab: this.nextTab.bind(this),
+          maxDate: this.props.maxDate,
+          minDate: this.props.minDate
         }),
         _react2.default.createElement(_wvDateselector2.default, {
           startDate: new Date(2000),
@@ -24967,7 +25024,9 @@ var dateSelector = function (_React$Component) {
           value: util.pad(this.state.date.getUTCDate(), 2, '0'),
           tabIndex: 3,
           focused: this.state.tab == 3,
-          nextTab: this.nextTab.bind(this)
+          nextTab: this.nextTab.bind(this),
+          maxDate: this.props.maxDate,
+          minDate: this.props.minDate
         })
       );
     }
@@ -25317,23 +25376,32 @@ var TimelineRangeSelector = function (_React$Component) {
     };
     return _this;
   }
-  /*
-   * When a child component is dragged,
-   * this function is called to determine
-   * the correct location for each of the
-   * child elements after the drag
-   *
-   * @method handleDrag
-   *
-   * @param {number} deltaX - change in x
-   * @param {string} id - Identifier used to
-   *  distinguish between the child elements
-   *
-   * @return {void}
-   */
-
 
   _createClass(TimelineRangeSelector, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(props) {
+      this.setState({
+        startLocation: props.startLocation,
+        endLocation: props.endLocation,
+        max: props.max
+      });
+    }
+    /*
+     * When a child component is dragged,
+     * this function is called to determine
+     * the correct location for each of the
+     * child elements after the drag
+     *
+     * @method handleDrag
+     *
+     * @param {number} deltaX - change in x
+     * @param {string} id - Identifier used to
+     *  distinguish between the child elements
+     *
+     * @return {void}
+     */
+
+  }, {
     key: 'onItemDrag',
     value: function onItemDrag(deltaX, id) {
       var startX;
@@ -25516,6 +25584,32 @@ var Utils = function () {
       date.setUTCMilliseconds(0);
       return date;
     }
+  }, {
+    key: "clamp",
+    value: function clamp(val, min, max) {
+      if (val < min) {
+        return min;
+      }
+      if (val > max) {
+        return max;
+      }
+      return val;
+    }
+  }, {
+    key: "daysInMonth",
+    value: function daysInMonth(d) {
+      var y;
+      var m;
+      if (d.getUTCFullYear) {
+        y = d.getUTCFullYear();
+        m = d.getUTCMonth();
+      } else {
+        y = d.year;
+        m = d.month;
+      }
+      var lastDay = new Date(Date.UTC(y, m + 1, 0));
+      return lastDay.getUTCDate();
+    }
     /**
      * Gets the current time. Use this instead of the Date methods to allow
      * debugging alternate "now" times.
@@ -25539,6 +25633,16 @@ var Utils = function () {
         }
       }
       return false;
+    }
+  }, {
+    key: "minDate",
+    value: function minDate() {
+      return new Date(Date.UTC(1000, 0, 1));
+    }
+  }, {
+    key: "maxDate",
+    value: function maxDate() {
+      return new Date(Date.UTC(3000, 11, 31));
     }
     /**
      * Parses a UTC ISO 8601 date.
@@ -25589,6 +25693,77 @@ var Utils = function () {
         result += value;
       }
       return result;
+    }
+  }, {
+    key: "roll",
+    value: function roll(val, min, max) {
+      if (val < min) {
+        return max - (min - val) + 1;
+      }
+      if (val > max) {
+        return min + (val - max) - 1;
+      }
+      return val;
+    }
+  }, {
+    key: "rollRange",
+    value: function rollRange(date, interval, minDate, maxDate) {
+      var y = date.getUTCFullYear();
+      var m = date.getUTCMonth();
+      var first, last;
+      switch (interval) {
+        case "day":
+          var firstDay = new Date(Date.UTC(y, m, 1));
+          var lastDay = new Date(Date.UTC(y, m, this.daysInMonth(date)));
+          first = new Date(Math.max(firstDay, minDate)).getUTCDate();
+          last = new Date(Math.min(lastDay, maxDate)).getUTCDate();
+          break;
+        case "month":
+          var firstMonth = new Date(Date.UTC(y, 0, 1));
+          var lastMonth = new Date(Date.UTC(y, 11, 31));
+          first = new Date(Math.max(firstMonth, minDate)).getUTCMonth();
+          last = new Date(Math.min(lastMonth, maxDate)).getUTCMonth();
+          break;
+        case "year":
+          var firstYear = this.minDate();
+          var lastYear = this.maxDate();
+          first = new Date(Math.max(firstYear, minDate)).getUTCFullYear();
+          last = new Date(Math.min(lastYear, maxDate)).getUTCFullYear();
+          break;
+      }
+      return { first: first, last: last };
+    }
+  }, {
+    key: "rollDate",
+    value: function rollDate(date, interval, amount, minDate, maxDate) {
+      minDate = minDate || this.minDate();
+      maxDate = maxDate || this.maxDate();
+      var range = this.rollRange(date, interval, minDate, maxDate);
+      var min = range.first;
+      var max = range.last;
+      var day = date.getUTCDate();
+      var month = date.getUTCMonth();
+      var year = date.getUTCFullYear();
+      switch (interval) {
+        case "day":
+          day = this.roll(day + amount, min, max);
+          break;
+        case "month":
+          month = this.roll(month + amount, min, max);
+          break;
+        case "year":
+          year = this.roll(year + amount, min, max);
+          break;
+        default:
+          throw new Error("[rollDate] Invalid interval: " + interval);
+      }
+      var daysInMonth = this.daysInMonth({ year: year, month: month });
+      if (day > daysInMonth) {
+        day = daysInMonth;
+      }
+      var newDate = new Date(Date.UTC(year, month, day));
+      newDate = new Date(this.clamp(newDate, minDate, maxDate));
+      return newDate;
     }
   }, {
     key: "pad",

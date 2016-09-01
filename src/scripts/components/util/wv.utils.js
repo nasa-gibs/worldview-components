@@ -49,6 +49,24 @@ export default class Utils {
     date.setUTCMilliseconds(0);
     return date;
   }
+  clamp(val, min, max) {
+    if (val < min) { return min; }
+    if (val > max) { return max; }
+    return val;
+  }
+  daysInMonth(d) {
+    var y;
+    var m;
+    if(d.getUTCFullYear) {
+      y = d.getUTCFullYear();
+      m = d.getUTCMonth();
+    } else {
+      y = d.year;
+      m = d.month;
+    }
+    var lastDay = new Date(Date.UTC(y, m + 1, 0));
+    return lastDay.getUTCDate();
+  }
   /**
    * Gets the current time. Use this instead of the Date methods to allow
    * debugging alternate "now" times.
@@ -67,6 +85,13 @@ export default class Utils {
       }
     }
     return false;
+  }
+  minDate() {
+    return new Date(Date.UTC(1000, 0, 1));
+  }
+
+  maxDate() {
+    return new Date(Date.UTC(3000, 11, 31));
   }
   /**
    * Parses a UTC ISO 8601 date.
@@ -100,8 +125,7 @@ export default class Utils {
       second = hhmmss[2] || 0;
       millisecond = hhmmss[3] || 0;
     }
-    var date = new Date(Date.UTC(year, month, day, hour, minute, second,
-            millisecond));
+    var date = new Date(Date.UTC(year, month, day, hour, minute, second, millisecond));
     if (isNaN(date.getTime())) {
       throw new Error('Invalid date: ' + dateAsString);
     }
@@ -113,6 +137,67 @@ export default class Utils {
       result += value;
     }
     return result;
+  }
+  roll(val, min, max) {
+    if(val < min) {return max - (min - val) + 1;}
+    if(val > max) {return min + (val - max) - 1;}
+    return val;
+  }
+  rollRange(date, interval, minDate, maxDate) {
+    var y = date.getUTCFullYear();
+    var m = date.getUTCMonth();
+    var first, last;
+    switch (interval) {
+      case "day":
+        var firstDay = new Date(Date.UTC(y, m, 1));
+        var lastDay = new Date(Date.UTC(y, m, this.daysInMonth(date)));
+        first = new Date(Math.max(firstDay, minDate)).getUTCDate();
+        last = new Date(Math.min(lastDay, maxDate)).getUTCDate();
+        break;
+      case "month":
+        var firstMonth = new Date(Date.UTC(y, 0, 1));
+        var lastMonth = new Date(Date.UTC(y, 11, 31));
+        first = new Date(Math.max(firstMonth, minDate)).getUTCMonth();
+        last = new Date(Math.min(lastMonth, maxDate)).getUTCMonth();
+        break;
+      case "year":
+        var firstYear = this.minDate();
+        var lastYear = this.maxDate();
+        first = new Date(Math.max(firstYear, minDate)).getUTCFullYear();
+        last = new Date(Math.min(lastYear, maxDate)).getUTCFullYear();
+        break;
+    }
+    return { first: first, last: last };
+  }
+  rollDate(date, interval, amount, minDate, maxDate) {
+    minDate = minDate || this.minDate();
+    maxDate = maxDate || this.maxDate();
+    var range = this.rollRange(date, interval, minDate, maxDate);
+    var min = range.first;
+    var max = range.last;
+    var day = date.getUTCDate();
+    var month = date.getUTCMonth();
+    var year = date.getUTCFullYear();
+    switch (interval) {
+      case "day":
+        day = this.roll(day + amount, min, max);
+        break;
+      case "month":
+        month = this.roll(month + amount, min, max);
+        break;
+      case "year":
+        year = this.roll(year + amount, min, max);
+        break;
+      default:
+        throw new Error("[rollDate] Invalid interval: " + interval);
+    }
+    var daysInMonth = this.daysInMonth({year: year, month: month});
+    if(day > daysInMonth) {
+      day = daysInMonth;
+    }
+    var newDate = new Date(Date.UTC(year, month, day));
+    newDate = new Date(this.clamp(newDate, minDate, maxDate));
+    return newDate;
   }
   pad(value, width, padding) {
     value = "" + value;

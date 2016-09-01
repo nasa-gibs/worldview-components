@@ -36,6 +36,13 @@ export default class TimelineRangeSelector extends React.Component {
       max: props.max,
     };
   }
+  componentWillReceiveProps(props) {
+    this.setState({
+      startLocation: props.startLocation,
+      endLocation: props.endLocation,
+      max: props.max
+    });
+  }
   /*
    * When a child component is dragged,
    * this function is called to determine

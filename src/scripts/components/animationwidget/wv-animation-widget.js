@@ -30,12 +30,20 @@ export default class AnimationWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state =  {
-      value:10,
+      value: this.props.sliderSpeed,
       looping: this.props.looping,
       startDate: this.props.startDate,
       endDate: this.props.endDate,
       header: this.props.header
     };
+  }
+  componentWillReceiveProps(props) {
+    this.setState({
+      startDate: props.startDate,
+      endDate: props.endDate,
+      playing: props.playing,
+      header: props.header
+    });
   }
 
   /*
@@ -113,23 +121,24 @@ export default class AnimationWidget extends React.Component {
     });
     this.props.onPushLoop(loop);
   }
-  onDateChange(type, date) {
-    if(type === 'start') {
+  onDateChange(id, date) {
+    if(id === 'start') {
       this.setState({
         startDate: date
       });
+      this.props.onDateChange(
+        date,
+        this.state.endDate
+      );
     } else {
       this.setState({
         endDate: date
       });
+      this.props.onDateChange(
+        this.state.startDate,
+        date
+      );
     }
-    this.props.onDateChange(
-      this.state.startDate,
-      this.state.endDate
-    );
-  }
-  returnDate() {
-
   }
   render() {
     return(
@@ -145,9 +154,25 @@ export default class AnimationWidget extends React.Component {
         <LoopButton looping={this.state.looping} onLoop={this.onLoop.bind(this)}/>
         <PlayButton playing={this.state.playing} play={this.play.bind(this)} pause={this.pause.bind(this)} />
         <div>
-          <TimeSelector width="120" height="30" date={this.state.startDate} name='start' onDateChange={this.onDateChange.bind(this)}/>
+          <TimeSelector
+            width="120"
+            height="30"
+            date={this.state.startDate}
+            id='start'
+            onDateChange={this.onDateChange.bind(this)}
+            maxDate={this.state.endDate}
+            minDate={this.props.minDate}
+          />
           <div className='thruLabel'>To</div>
-          <TimeSelector width="120" height="30" date={this.state.endDate} name='end' onDateChange={this.onDateChange.bind(this)}/>
+          <TimeSelector
+            width="120"
+            height="30"
+            date={this.state.endDate}
+            id='end'
+            onDateChange={this.onDateChange.bind(this)}
+            maxDate={this.props.maxDate}
+            minDate={this.state.startDate}
+            />
         </div>
       </div>
 
