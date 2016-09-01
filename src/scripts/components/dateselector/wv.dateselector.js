@@ -33,9 +33,18 @@ export default class dateSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: this.props.date,
+      date: props.date,
+      maxDate: props.maxDate,
+      minDate: props.minDate,
       tab: null
     };
+  }
+  componentWillReceiveProps(props) {
+    this.setState({
+      date: props.date,
+      maxDate: props.maxDate,
+      minDate: props.minDate,
+    });
   }
   nextTab(index) {
     var nextTab;
@@ -52,7 +61,7 @@ export default class dateSelector extends React.Component {
     this.setState({
       date: date
     });
-    this.props.onDateChange(this.props.name, date);
+    this.props.onDateChange(this.props.id, date);
   }
   render() {
     return (
@@ -68,6 +77,8 @@ export default class dateSelector extends React.Component {
           tabIndex={1}
           focused={(this.state.tab == 1)}
           nextTab={this.nextTab.bind(this)}
+          maxDate={this.props.maxDate}
+          minDate={this.props.minDate}
         />
         <DateInputColumn
           startDate={new Date(2000)}
@@ -79,6 +90,8 @@ export default class dateSelector extends React.Component {
           tabIndex={2}
           focused={(this.state.tab == 2)}
           nextTab={this.nextTab.bind(this)}
+          maxDate={this.props.maxDate}
+          minDate={this.props.minDate}
         />
         <DateInputColumn
           startDate={new Date(2000)}
@@ -92,6 +105,8 @@ export default class dateSelector extends React.Component {
           tabIndex={3}
           focused={(this.state.tab == 3)}
           nextTab={this.nextTab.bind(this)}
+          maxDate={this.props.maxDate}
+          minDate={this.props.minDate}
         />
       </div>
     );

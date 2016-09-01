@@ -55,6 +55,9 @@ export default class DateInputColumn extends React.Component {
     }
     this.size = size;
   }
+  componentWillReceiveProps(props) {
+    this.setState({value: props.value});
+  }
   onKeyPress(e) {
     if(e.keyCode === 9) {
       e.preventDefault();
@@ -96,6 +99,13 @@ export default class DateInputColumn extends React.Component {
       }
     }
   }
+  onClickUp() {
+    this.rollDate(1);
+
+  }
+  onClickDown() {
+    this.rollDate(-1);
+  }
   yearValidation(input) {
     var newDate;
     if((input > 1000) && (input < 9999)) {
@@ -116,6 +126,17 @@ export default class DateInputColumn extends React.Component {
     }
 
   }
+  rollDate(amt) {
+    var newDate = util.rollDate(
+      this.props.date,
+      this.props.type,
+      amt,
+      this.props.minDate,
+      this.props.maxDate
+    );
+    this.props.updateDate(newDate);
+  }
+
   monthValidation(input) {
     var newDate;
     if ((!isNaN(input)) && input < 13 && input > 0) {
@@ -137,12 +158,9 @@ export default class DateInputColumn extends React.Component {
       }
     }
   }
-  nextDate(e) {
-
-  }
   onChange(e) {
     this.setState({
-      value: e.target.value
+      value: e.target.value.toUpperCase()
     });
   }
   nextTab() {
@@ -159,8 +177,8 @@ export default class DateInputColumn extends React.Component {
   }
   render() {
     return (
-      <div className="input-wrapper" style={ (this.state.valid)? {} : {borderColor: '#ff0000'}} >
-        <div className="date-arrows date-arrow-up" data-interval={this.props.type} data-value="1">
+      <div className="input-wrapper" style={(this.state.valid) ? {} : {borderColor: '#ff0000'}} >
+        <div onClick={this.onClickUp.bind(this)} className="date-arrows date-arrow-up" data-interval={this.props.type}>
             <svg width="25" height="8">
               <path d="M 12.5,0 25,8 0,8 z" className="uparrow"></path>
             </svg>
@@ -179,8 +197,8 @@ export default class DateInputColumn extends React.Component {
           onChange={this.onChange.bind(this)}
           style={{fontSize: ((this.props.height / 2) + 'px')}}
         />
-        <div className="date-arrows date-arrow-down" data-interval={this.props.type} data-value="-1">
-          <svg width="25" height="8" onClick={this.nextDate.bind(this)}>
+        <div onClick={this.onClickDown.bind(this)} className="date-arrows date-arrow-down" data-interval={this.props.type}>
+          <svg width="25" height="8">
             <path d="M 12.5,0 25,8 0,8 z" className="downarrow"></path>
           </svg>
         </div>
