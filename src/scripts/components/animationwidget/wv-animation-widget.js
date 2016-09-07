@@ -144,7 +144,11 @@ export default class AnimationWidget extends React.Component {
     return(
       <div id="wv-animation-widget" className="wv-animation-widget">
         <div className='wv-animation-widget-header'> {this.state.header}</div>
-        <a href="javascript:void(null)" title="Share Animation GIF" className="wv-icon-case">
+        <a href="javascript:void(null)"
+          title="Share Animation GIF"
+          className="wv-icon-case"
+          onClick={this.props.onPushGIF}
+        >
           <i className="fa fa-file-video-o wv-animation-widget-icon"/>
         </a>
         <div className="wv-slider-case">

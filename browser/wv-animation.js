@@ -24407,7 +24407,11 @@ var AnimationWidget = function (_React$Component) {
         ),
         _react2.default.createElement(
           'a',
-          { href: 'javascript:void(null)', title: 'Share Animation GIF', className: 'wv-icon-case' },
+          { href: 'javascript:void(null)',
+            title: 'Share Animation GIF',
+            className: 'wv-icon-case',
+            onClick: this.props.onPushGIF
+          },
           _react2.default.createElement('i', { className: 'fa fa-file-video-o wv-animation-widget-icon' })
         ),
         _react2.default.createElement(
