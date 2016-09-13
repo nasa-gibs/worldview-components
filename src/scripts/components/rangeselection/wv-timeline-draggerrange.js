@@ -30,13 +30,28 @@ export default class TimelineDraggerRange extends React.Component {
     this.opacity = {
       fillOpacity: this.props.opacity
     };
-    this.state =  {
-      startLocation: this.props.startLocation + (this.props.width / 2),
-      endLocation: this.props.endLocation - (this.props.width / 2),
-      width: this.props.endLocation - this.props.startLocation
+  }
+  checkWidth() {
+    var start = this.props.startLocation;
+    var end = this.props.endLocation;
+    var max = this.props.max;
+    var width;
+
+    if(start < 0){
+      start = 0;
+    }
+    if(end > max){
+      end = max;
+    }
+    width = end - start;
+    if(width < 0) {
+      width = 0;
+    }
+    this.state = {
+      width: width,
+      startLocation: start
     };
   }
-
   /*
    * When the component is dragged,
    * this function passes the id
@@ -56,33 +71,16 @@ export default class TimelineDraggerRange extends React.Component {
    * @method render
    */
   render() {
-    var start = this.props.startLocation;
-    var end = this.props.endLocation;
-    var max = this.props.max;
-    var width;
-    if(start < 0){
-      start = 0;
-    }
-    if(this.state.endLocation > max){
-      end = max;
-      if(end < start) {
-
-      }
-    }
-    width = end - start;
-    if(width < 0) {
-      width = 0;
-    }
-
+    this.checkWidth();
     return (
       <Draggable
         onStop={this.props.onStop}
         onDrag={this.handleDrag.bind(this)}
         axis="x"
-        position={{x:start, y:0}}>
+        position={{x:this.state.startLocation, y:0}}>
           <rect
             fill={this.props.color}
-            width={width}
+            width={this.state.width}
             style={this.opacity}
             height={this.props.height}
             className='dragger-range' />

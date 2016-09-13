@@ -85,7 +85,6 @@ export default class TimelineRangeSelector extends React.Component {
       startX = deltaX + this.state.startLocation ;
       endX = deltaX + this.state.endLocation;
       if(endX >= this.props.max || startX < 0) {
-        this.forceUpdate();
         return;
       }
       this.props.onDrag(startX, endX);
@@ -123,8 +122,7 @@ export default class TimelineRangeSelector extends React.Component {
           startLocation={this.state.startLocation + this.props.pinWidth}
           onDrag={this.onItemDrag.bind(this)}
           onStop={this.onDragStop.bind(this)}
-          max={this.props.max}
-          range={this.props.range}
+          max={this.state.max}
           id='range'/>
         <Dragger
           position={this.state.startLocation}
@@ -133,16 +131,14 @@ export default class TimelineRangeSelector extends React.Component {
           height={this.props.height}
           onDrag={this.onItemDrag.bind(this)}
           onStop={this.onDragStop.bind(this)}
-          max={this.props.max}
-          range={this.props.range}
+          max={this.state.max}
           triangleColor='#cccccc'
           first={true}
           id='start' />
         <Dragger
-          max={this.props.max}
+          max={this.state.max}
           position={this.state.endLocation}
           color={this.props.endColor}
-          range={this.props.range}
           width={this.props.pinWidth}
           height={this.props.height}
           first={false}

@@ -30,19 +30,15 @@ export default class TimelineDragger extends React.Component {
   constructor(props) {
     super(props);
   }
-
-  checkVisibility(){
+  checkVisibility() {
     var visibility = 'visible';
-
     if(this.props.position < 0 || this.props.position >= this.props.max) {
       visibility = 'hidden';
     }
     this.state = {
       visibility: visibility
     };
-
   }
-
   /*
    * When the component is dragged,
    * this function passes the id
@@ -68,7 +64,8 @@ export default class TimelineDragger extends React.Component {
         onDrag={this.handleDrag.bind(this)}
         position={{x:this.props.position, y:0}}
         onStop={this.props.onStop}
-        axis="x">
+        axis="x"
+      >
         <g>
           <rect
             width={this.props.width}
