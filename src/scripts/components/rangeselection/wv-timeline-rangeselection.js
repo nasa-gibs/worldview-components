@@ -70,25 +70,23 @@ export default class TimelineRangeSelector extends React.Component {
       if(startX + (2 * this.props.pinWidth) >= endX) {
         endX = startX + this.props.pinWidth;
       }
-      this.props.onDrag(startX);
     } else if(id === 'end') {
       startX = this.state.startLocation;
       endX = deltaX + this.state.endLocation;
-      if(endX > this.props.max || startX > endX) {
+      if(endX > this.state.max || startX > endX) {
         return;
       }
       if(startX + (2 * this.props.pinWidth) >= endX) {
         startX = endX - this.props.pinWidth;
       }
-      this.props.onDrag(endX);
     } else {
       startX = deltaX + this.state.startLocation ;
       endX = deltaX + this.state.endLocation;
-      if(endX >= this.props.max || startX < 0) {
+      if(endX >= this.state.max || startX < 0) {
         return;
       }
-      this.props.onDrag(startX, endX);
     }
+    this.props.onDrag(startX, endX);
 
     this.setState({
       startLocation: startX,
@@ -105,7 +103,7 @@ export default class TimelineRangeSelector extends React.Component {
    * @return {void}
    */
   onDragStop() {
-    this.props.onDragStop(this.state.startLocation, this.state.endLocation);
+    this.props.onDrag(this.state.startLocation, this.state.endLocation);
   }
   /*
    * @method render

@@ -24418,7 +24418,7 @@ var AnimationWidget = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'wv-slider-case' },
-          _react2.default.createElement(_reactInputRange2.default, { maxValue: 60, minValue: 0, value: this.state.value, onChange: this.onSlide.bind(this) }),
+          _react2.default.createElement(_reactInputRange2.default, { maxValue: 10, minValue: 1, value: this.state.value, onChange: this.onSlide.bind(this) }),
           _react2.default.createElement(
             'span',
             { className: 'wv-slider-label' },
@@ -24441,7 +24441,7 @@ var AnimationWidget = function (_React$Component) {
           }),
           _react2.default.createElement(
             'div',
-            { className: 'thruLabel' },
+            { className: 'thru-label' },
             'To'
           ),
           _react2.default.createElement(_wv2.default, {
@@ -25422,25 +25422,23 @@ var TimelineRangeSelector = function (_React$Component) {
         if (startX + 2 * this.props.pinWidth >= endX) {
           endX = startX + this.props.pinWidth;
         }
-        this.props.onDrag(startX);
       } else if (id === 'end') {
         startX = this.state.startLocation;
         endX = deltaX + this.state.endLocation;
-        if (endX > this.props.max || startX > endX) {
+        if (endX > this.state.max || startX > endX) {
           return;
         }
         if (startX + 2 * this.props.pinWidth >= endX) {
           startX = endX - this.props.pinWidth;
         }
-        this.props.onDrag(endX);
       } else {
         startX = deltaX + this.state.startLocation;
         endX = deltaX + this.state.endLocation;
-        if (endX >= this.props.max || startX < 0) {
+        if (endX >= this.state.max || startX < 0) {
           return;
         }
-        this.props.onDrag(startX, endX);
       }
+      this.props.onDrag(startX, endX);
 
       this.setState({
         startLocation: startX,
@@ -25460,7 +25458,7 @@ var TimelineRangeSelector = function (_React$Component) {
   }, {
     key: 'onDragStop',
     value: function onDragStop() {
-      this.props.onDragStop(this.state.startLocation, this.state.endLocation);
+      this.props.onDrag(this.state.startLocation, this.state.endLocation);
     }
     /*
      * @method render
