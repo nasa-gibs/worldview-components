@@ -152,7 +152,7 @@ export default class AnimationWidget extends React.Component {
           <i className="fa fa-file-video-o wv-animation-widget-icon"/>
         </a>
         <div className="wv-slider-case">
-          <InputRange maxValue={60} minValue={0} value={this.state.value} onChange={this.onSlide.bind(this)} />
+          <InputRange maxValue={10} minValue={1} value={this.state.value} onChange={this.onSlide.bind(this)} />
           <span className="wv-slider-label">{this.props.sliderLabel}</span>
         </div>
         <LoopButton looping={this.state.looping} onLoop={this.onLoop.bind(this)}/>
@@ -167,7 +167,7 @@ export default class AnimationWidget extends React.Component {
             maxDate={this.state.endDate}
             minDate={this.props.minDate}
           />
-          <div className='thruLabel'>To</div>
+          <div className='thru-label'>To</div>
           <TimeSelector
             width="120"
             height="30"
