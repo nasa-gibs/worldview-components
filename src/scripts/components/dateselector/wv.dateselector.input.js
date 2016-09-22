@@ -59,8 +59,11 @@ export default class DateInputColumn extends React.Component {
     this.setState({value: props.value});
   }
   onKeyPress(e) {
-    if(e.keyCode === 9) {
+    var kc = e.keyCode;
+    if(kc === 9 || // tab
+      kc === 13) { //enter
       e.preventDefault();
+      e.stopPropagation();
     }
   }
   onKeyUp(e) {
@@ -68,6 +71,16 @@ export default class DateInputColumn extends React.Component {
     var value = e.target.value;
     var newDate;
     var entered = (keyCode == 13 || keyCode == 9);
+    if(keyCode === 38) { //up
+      e.preventDefault();
+      this.onClickUp();
+      return;
+    }
+    if(keyCode === 40) {// down
+      e.preventDefault();
+      this.onClickDown();
+      return;
+    }
     if (e.type == 'focusout' || entered) {
       if(this.props.type == 'year' || this.props.type == 'day') {
         if(!((keyCode >= 48 && keyCode <= 57)
@@ -101,10 +114,16 @@ export default class DateInputColumn extends React.Component {
   }
   onClickUp() {
     this.rollDate(1);
+    this.setState({
+      valid: true
+    });
 
   }
   onClickDown() {
     this.rollDate(-1);
+    this.setState({
+      valid: true
+    });
   }
   yearValidation(input) {
     var newDate;
@@ -145,12 +164,12 @@ export default class DateInputColumn extends React.Component {
         this.setState({
           value: util.monthStringArray[input-1]
         });
+        return this.validateDate(newDate);
       }
-      return this.validateDate(newDate);
     } else {
       let realMonth;
-      realMonth = util.stringInArray(util.monthStringArray, input.toUpperCase());
-      if(realMonth) {
+      realMonth = util.stringInArray(util.monthStringArray, input);
+      if(realMonth !== false) {
         newDate = new Date((new Date(this.props.date)).setUTCMonth(realMonth));
         return this.validateDate(newDate);
       } else {
@@ -167,7 +186,7 @@ export default class DateInputColumn extends React.Component {
     this.props.nextTab(this.props.tabIndex);
   }
   validateDate(date) {
-    if(date > this.props.startDate && date <= this.props.today) {
+    if(date > this.props.minDate && date <= this.props.maxDate) {
       this.setState({
         valid: true
       });
@@ -180,7 +199,8 @@ export default class DateInputColumn extends React.Component {
       <div className="input-wrapper" style={(this.state.valid) ? {} : {borderColor: '#ff0000'}} >
         <div onClick={this.onClickUp.bind(this)} className="date-arrows date-arrow-up" data-interval={this.props.type}>
             <svg width="25" height="8">
-              <path d="M 12.5,0 25,8 0,8 z" className="uparrow"></path>
+              <path d="M 12.5,0 25,8 0,8 z" className="uparrow">
+              </path>
             </svg>
         </div>
         <input
@@ -206,4 +226,3 @@ export default class DateInputColumn extends React.Component {
     );
   }
 }
-
