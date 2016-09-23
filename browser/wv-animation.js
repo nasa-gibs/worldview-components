@@ -24453,7 +24453,8 @@ var AnimationWidget = function (_React$Component) {
             maxDate: this.props.maxDate,
             minDate: this.state.startDate
           })
-        )
+        ),
+        _react2.default.createElement('i', { className: 'fa fa-close wv-close' })
       );
     }
   }]);
@@ -24708,8 +24709,12 @@ var DateInputColumn = function (_React$Component) {
   }, {
     key: 'onKeyPress',
     value: function onKeyPress(e) {
-      if (e.keyCode === 9) {
+      var kc = e.keyCode;
+      if (kc === 9 || // tab
+      kc === 13) {
+        //enter
         e.preventDefault();
+        e.stopPropagation();
       }
     }
   }, {
@@ -24719,6 +24724,18 @@ var DateInputColumn = function (_React$Component) {
       var value = e.target.value;
       var newDate;
       var entered = keyCode == 13 || keyCode == 9;
+      if (keyCode === 38) {
+        //up
+        e.preventDefault();
+        this.onClickUp();
+        return;
+      }
+      if (keyCode === 40) {
+        // down
+        e.preventDefault();
+        this.onClickDown();
+        return;
+      }
       if (e.type == 'focusout' || entered) {
         if (this.props.type == 'year' || this.props.type == 'day') {
           if (!(keyCode >= 48 && keyCode <= 57 || entered || keyCode == 8)) {
@@ -24753,11 +24770,17 @@ var DateInputColumn = function (_React$Component) {
     key: 'onClickUp',
     value: function onClickUp() {
       this.rollDate(1);
+      this.setState({
+        valid: true
+      });
     }
   }, {
     key: 'onClickDown',
     value: function onClickDown() {
       this.rollDate(-1);
+      this.setState({
+        valid: true
+      });
     }
   }, {
     key: 'yearValidation',
@@ -24798,12 +24821,12 @@ var DateInputColumn = function (_React$Component) {
           this.setState({
             value: util.monthStringArray[input - 1]
           });
+          return this.validateDate(newDate);
         }
-        return this.validateDate(newDate);
       } else {
         var realMonth = void 0;
-        realMonth = util.stringInArray(util.monthStringArray, input.toUpperCase());
-        if (realMonth) {
+        realMonth = util.stringInArray(util.monthStringArray, input);
+        if (realMonth !== false) {
           newDate = new Date(new Date(this.props.date).setUTCMonth(realMonth));
           return this.validateDate(newDate);
         } else {
@@ -24826,7 +24849,7 @@ var DateInputColumn = function (_React$Component) {
   }, {
     key: 'validateDate',
     value: function validateDate(date) {
-      if (date > this.props.startDate && date <= this.props.today) {
+      if (date > this.props.minDate && date <= this.props.maxDate) {
         this.setState({
           valid: true
         });
@@ -25291,20 +25314,15 @@ var TimelineDraggerRange = function (_React$Component) {
     key: 'render',
     value: function render() {
       this.checkWidth();
-      return _react2.default.createElement(
-        _reactDraggable2.default,
-        {
-          onStop: this.props.onStop,
-          onDrag: this.handleDrag.bind(this),
-          axis: 'x',
-          position: { x: this.state.startLocation, y: 0 } },
-        _react2.default.createElement('rect', {
-          fill: this.props.color,
-          width: this.state.width,
-          style: this.opacity,
-          height: this.props.height,
-          className: 'dragger-range' })
-      );
+      return _react2.default.createElement('rect', {
+        x: this.state.startLocation,
+        fill: this.props.color,
+        width: this.state.width,
+        style: this.opacity,
+        height: this.props.height,
+        className: 'dragger-range',
+        onClick: this.props.onClick
+      });
     }
   }]);
 
@@ -25460,6 +25478,11 @@ var TimelineRangeSelector = function (_React$Component) {
     value: function onDragStop() {
       this.props.onDrag(this.state.startLocation, this.state.endLocation);
     }
+  }, {
+    key: 'onRangeClick',
+    value: function onRangeClick(d) {
+      this.props.onRangeClick(d.nativeEvent.offsetX);
+    }
     /*
      * @method render
      */
@@ -25477,8 +25500,7 @@ var TimelineRangeSelector = function (_React$Component) {
           color: this.props.rangeColor,
           height: this.props.height,
           startLocation: this.state.startLocation + this.props.pinWidth,
-          onDrag: this.onItemDrag.bind(this),
-          onStop: this.onDragStop.bind(this),
+          onClick: this.onRangeClick.bind(this),
           max: this.state.max,
           id: 'range' }),
         _react2.default.createElement(_wvTimelineDragger2.default, {
