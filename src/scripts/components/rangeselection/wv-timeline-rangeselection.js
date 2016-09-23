@@ -105,6 +105,9 @@ export default class TimelineRangeSelector extends React.Component {
   onDragStop() {
     this.props.onDrag(this.state.startLocation, this.state.endLocation);
   }
+  onRangeClick(d) {
+    this.props.onRangeClick(d.nativeEvent.offsetX);
+  }
   /*
    * @method render
    */
@@ -118,8 +121,7 @@ export default class TimelineRangeSelector extends React.Component {
           color={this.props.rangeColor}
           height={this.props.height}
           startLocation={this.state.startLocation + this.props.pinWidth}
-          onDrag={this.onItemDrag.bind(this)}
-          onStop={this.onDragStop.bind(this)}
+          onClick={this.onRangeClick.bind(this)}
           max={this.state.max}
           id='range'/>
         <Dragger

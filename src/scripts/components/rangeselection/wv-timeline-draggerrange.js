@@ -73,18 +73,15 @@ export default class TimelineDraggerRange extends React.Component {
   render() {
     this.checkWidth();
     return (
-      <Draggable
-        onStop={this.props.onStop}
-        onDrag={this.handleDrag.bind(this)}
-        axis="x"
-        position={{x:this.state.startLocation, y:0}}>
-          <rect
-            fill={this.props.color}
-            width={this.state.width}
-            style={this.opacity}
-            height={this.props.height}
-            className='dragger-range' />
-      </Draggable>
+      <rect
+        x={this.state.startLocation}
+        fill={this.props.color}
+        width={this.state.width}
+        style={this.opacity}
+        height={this.props.height}
+        className='dragger-range'
+        onClick={this.props.onClick}
+      />
     );
   }
 
