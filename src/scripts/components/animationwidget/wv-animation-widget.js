@@ -178,7 +178,10 @@ export default class AnimationWidget extends React.Component {
             minDate={this.state.startDate}
             />
         </div>
-        <i className="fa fa-close wv-close"/>
+        <i 
+          className="fa fa-close wv-close"
+          onClick={this.props.onClose}
+        />
       </div>
 
     );
