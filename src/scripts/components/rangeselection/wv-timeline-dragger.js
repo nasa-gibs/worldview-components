@@ -87,7 +87,8 @@ export default class TimelineDragger extends React.Component {
             transform={'translate(' + (-(this.props.width * 2.45)) + ', ' + (-(this.props.height / 2)) +')'}
             style={{
               fill: this.props.triangleColor,
-              visibility: this.state.visibility
+              visibility: this.state.visibility,
+              stroke: '#000'
             }}
           />
         </g>
