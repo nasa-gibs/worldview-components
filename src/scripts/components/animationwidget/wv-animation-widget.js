@@ -17,6 +17,8 @@ import InputRange from 'react-input-range';
 import TimeSelector from '../dateselector/wv.dateselector';
 import LoopButton from './wv.loopbutton';
 import PlayButton from './wv.playbutton';
+import AnimWidgetHeader from './wv.animation.widget.header';
+
 
 
 /*
@@ -65,31 +67,6 @@ export default class AnimationWidget extends React.Component {
       value: value
     });
   }
-  /*
-   * Sets a new state to say whether or not
-   * the animation should loop
-   *
-   * @method onLoop
-   *
-   * @param {Object} component - slider react
-   *  component
-   * @param {number} value - Value of the slider
-   *  selection
-   *
-   * @return {void}
-   */
-  onLoop() {
-    var loop = this.state.loop;
-    if(loop) {
-      this.setState({
-        loop: false
-      });
-    } else {
-      this.setState({
-        loop: true
-      });
-    }
-  }
 
   /*
    * calls the callback, passing the
@@ -111,6 +88,19 @@ export default class AnimationWidget extends React.Component {
       playing: false
     });
   }
+  /*
+   * Sets a new state to say whether or not
+   * the animation should loop
+   *
+   * @method onLoop
+   *
+   * @param {Object} component - slider react
+   *  component
+   * @param {number} value - Value of the slider
+   *  selection
+   *
+   * @return {void}
+   */
   onLoop() {
     var loop = true;
     if(this.state.looping) {
@@ -143,7 +133,7 @@ export default class AnimationWidget extends React.Component {
   render() {
     return(
       <div id="wv-animation-widget" className="wv-animation-widget">
-        <div className='wv-animation-widget-header'> {this.state.header}</div>
+        <AnimWidgetHeader text={this.props.increment} toolTipTextArray={this.props.incrementArray}/>
         <a href="javascript:void(null)"
           title="Share Animation GIF"
           className="wv-icon-case"
@@ -155,8 +145,8 @@ export default class AnimationWidget extends React.Component {
           <InputRange maxValue={10} minValue={1} value={this.state.value} onChange={this.onSlide.bind(this)} />
           <span className="wv-slider-label">{this.props.sliderLabel}</span>
         </div>
-        <LoopButton looping={this.state.looping} onLoop={this.onLoop.bind(this)}/>
         <PlayButton playing={this.state.playing} play={this.play.bind(this)} pause={this.pause.bind(this)} />
+        <LoopButton looping={this.state.looping} onLoop={this.onLoop.bind(this)}/>
         <div>
           <TimeSelector
             width="120"
@@ -178,7 +168,7 @@ export default class AnimationWidget extends React.Component {
             minDate={this.state.startDate}
             />
         </div>
-        <i 
+        <i
           className="fa fa-close wv-close"
           onClick={this.props.onClose}
         />
