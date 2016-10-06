@@ -24390,7 +24390,10 @@ var AnimationWidget = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { id: 'wv-animation-widget', className: 'wv-animation-widget' },
-        _react2.default.createElement(_wvAnimationWidget2.default, { text: this.props.increment, toolTipTextArray: this.props.incrementArray }),
+        _react2.default.createElement(_wvAnimationWidget2.default, {
+          text: this.props.increment,
+          toolTipTextArray: this.props.incrementArray,
+          onClick: this.props.onZoomSelect }),
         _react2.default.createElement(
           'a',
           { href: 'javascript:void(null)',
@@ -24515,7 +24518,7 @@ var animWidgetHeader = function (_React$Component) {
         'div',
         { className: 'wv-animation-widget-header' },
         'Animate Map in ',
-        _react2.default.createElement(_tooltip2.default, { text: this.props.text, dataArray: this.props.toolTipTextArray }),
+        _react2.default.createElement(_tooltip2.default, { text: this.props.text, onClick: this.props.onClick, dataArray: this.props.toolTipTextArray }),
         ' Increments'
       );
     }
@@ -25669,6 +25672,11 @@ var Tooltip = function (_React$Component) {
       });
     }
   }, {
+    key: "onClick",
+    value: function onClick(str) {
+      this.props.onClick(str);
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -25693,7 +25701,7 @@ var Tooltip = function (_React$Component) {
             this.props.dataArray.map(function (dataEl, i) {
               return _react2.default.createElement(
                 "li",
-                { key: 'tooltip-' + dataEl + '-' + i, id: dataEl, onClick: _this2.props.onClick },
+                { onClickkey: 'tooltip-' + dataEl + '-' + i, id: dataEl, onClick: _this2.onClick.bind(_this2, dataEl) },
                 dataEl
               );
             })

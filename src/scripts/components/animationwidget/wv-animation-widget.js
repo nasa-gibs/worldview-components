@@ -133,7 +133,10 @@ export default class AnimationWidget extends React.Component {
   render() {
     return(
       <div id="wv-animation-widget" className="wv-animation-widget">
-        <AnimWidgetHeader text={this.props.increment} toolTipTextArray={this.props.incrementArray}/>
+        <AnimWidgetHeader
+          text={this.props.increment}
+          toolTipTextArray={this.props.incrementArray}
+          onClick={this.props.onZoomSelect}/>
         <a href="javascript:void(null)"
           title="Share Animation GIF"
           className="wv-icon-case"

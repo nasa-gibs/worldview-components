@@ -38,6 +38,9 @@ export default class Tooltip extends React.Component {
       hovered: false
     });
   }
+  onClick(str) {
+    this.props.onClick(str);
+  }
   render() {
     return(
       <div
@@ -48,7 +51,7 @@ export default class Tooltip extends React.Component {
         <div className="wv-tooltip" style={(this.state.hovered) ? {visibility: 'visible'} : {}} >
           <ul>
             {this.props.dataArray.map((dataEl, i) => {
-              return <li key={'tooltip-'+dataEl + '-' + i} id={dataEl} onClick={this.props.onClick}>{dataEl}</li>;
+              return <li onClickkey={'tooltip-'+dataEl + '-' + i} id={dataEl} onClick={this.onClick.bind(this, dataEl)}>{dataEl}</li>;
             })}
           </ul>
         </div>

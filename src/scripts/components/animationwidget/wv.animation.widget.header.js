@@ -30,7 +30,7 @@ export default class animWidgetHeader extends React.Component {
     return(
       <div className='wv-animation-widget-header'>
         {'Animate Map in '}
-        <Tooltip text={this.props.text} dataArray={this.props.toolTipTextArray}/>
+        <Tooltip text={this.props.text} onClick={this.props.onClick} dataArray={this.props.toolTipTextArray}/>
         {' Increments'}
       </div>
     );
