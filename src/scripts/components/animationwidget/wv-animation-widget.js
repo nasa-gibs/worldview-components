@@ -32,20 +32,15 @@ export default class AnimationWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state =  {
-      value: this.props.sliderSpeed,
-      looping: this.props.looping,
-      startDate: this.props.startDate,
-      endDate: this.props.endDate,
-      header: this.props.header
-    };
-  }
-  componentWillReceiveProps(props) {
-    this.setState({
+      value: props.sliderSpeed,
+      looping: props.looping,
       startDate: props.startDate,
       endDate: props.endDate,
-      playing: props.playing,
-      header: props.header
-    });
+      header: props.header,
+      incrementArray: props.incrementArray,
+      increment: props.increment
+
+    };
   }
 
   /*
@@ -134,8 +129,8 @@ export default class AnimationWidget extends React.Component {
     return(
       <div id="wv-animation-widget" className="wv-animation-widget">
         <AnimWidgetHeader
-          text={this.props.increment}
-          toolTipTextArray={this.props.incrementArray}
+          text={this.state.increment}
+          toolTipTextArray={this.state.incrementArray}
           onClick={this.props.onZoomSelect}/>
         <a href="javascript:void(null)"
           title="Share Animation GIF"

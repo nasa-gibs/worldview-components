@@ -24275,41 +24275,34 @@ var AnimationWidget = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (AnimationWidget.__proto__ || Object.getPrototypeOf(AnimationWidget)).call(this, props));
 
     _this.state = {
-      value: _this.props.sliderSpeed,
-      looping: _this.props.looping,
-      startDate: _this.props.startDate,
-      endDate: _this.props.endDate,
-      header: _this.props.header
+      value: props.sliderSpeed,
+      looping: props.looping,
+      startDate: props.startDate,
+      endDate: props.endDate,
+      header: props.header,
+      incrementArray: props.incrementArray,
+      increment: props.increment
+
     };
     return _this;
   }
 
+  /*
+   * Sets a new state value when a
+   * when the slider is adjusted
+   *
+   * @method onSlide
+   *
+   * @param {Object} component - slider react
+   *  component
+   * @param {number} value - Value of the slider
+   *  selection
+   *
+   * @return {void}
+   */
+
+
   _createClass(AnimationWidget, [{
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(props) {
-      this.setState({
-        startDate: props.startDate,
-        endDate: props.endDate,
-        playing: props.playing,
-        header: props.header
-      });
-    }
-
-    /*
-     * Sets a new state value when a
-     * when the slider is adjusted
-     *
-     * @method onSlide
-     *
-     * @param {Object} component - slider react
-     *  component
-     * @param {number} value - Value of the slider
-     *  selection
-     *
-     * @return {void}
-     */
-
-  }, {
     key: 'onSlide',
     value: function onSlide(component, value) {
       this.props.onSlide(value);
@@ -24391,8 +24384,8 @@ var AnimationWidget = function (_React$Component) {
         'div',
         { id: 'wv-animation-widget', className: 'wv-animation-widget' },
         _react2.default.createElement(_wvAnimationWidget2.default, {
-          text: this.props.increment,
-          toolTipTextArray: this.props.incrementArray,
+          text: this.state.increment,
+          toolTipTextArray: this.state.incrementArray,
           onClick: this.props.onZoomSelect }),
         _react2.default.createElement(
           'a',
@@ -25701,7 +25694,7 @@ var Tooltip = function (_React$Component) {
             this.props.dataArray.map(function (dataEl, i) {
               return _react2.default.createElement(
                 "li",
-                { onClickkey: 'tooltip-' + dataEl + '-' + i, id: dataEl, onClick: _this2.onClick.bind(_this2, dataEl) },
+                { key: 'tooltip-' + dataEl + '-' + i, id: dataEl, onClick: _this2.onClick.bind(_this2, dataEl) },
                 dataEl
               );
             })
