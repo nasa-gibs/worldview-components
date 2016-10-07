@@ -47,8 +47,8 @@ A Date selection widget that handles validations. Recommended CSS can be found [
 	date={someJSDateYouWantToDisplay}
 	id='someId'
 	onDateChange={this.someOnChangeHandler}
-	maxDate={this.props.maxDate} // Latest possible date
-	minDate={this.props.startDate} // earliest possible date
+	maxDate={this.props.maxDate}
+	minDate={this.props.startDate}
 />`
 
 #### ToolTip
