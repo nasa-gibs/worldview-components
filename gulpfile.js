@@ -35,7 +35,7 @@ gulp.task('browser', function() {
           }
         ]
       ],
-      standalone: 'Animate',
+      standalone: 'WVTC',
       debug: true
     })
     .transform('browserify-shim')
@@ -44,14 +44,14 @@ gulp.task('browser', function() {
   };
 
   browserifyBundle() // Unminified.
-    .pipe(source('wv-animation.js'))
+    .pipe(source('wvtc.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('browser'));
 
   browserifyBundle() // Minified.
-    .pipe(source('wv-animation.min.js'))
+    .pipe(source('wvtc.min.js'))
     .pipe(buffer())
     .pipe(uglify().on('error', function(e){
             console.log(e);
@@ -65,7 +65,7 @@ gulp.task('clean-browser', function(cb) {
 
 
 gulp.task('watch', function() {
-  gulp.watch('src/scripts/**/**/*.js', ['js']);
+  gulp.watch('src/scripts/**/**/*.js', ['browser']);
 });
 gulp.task('default', ['clean-browser', 'browser', 'lib']);
 
