@@ -9,5 +9,8 @@
  * All Rights Reserved.
  */
 
-export {default as AnimationWidget} from './components/animationwidget/wv-animation-widget.js';
-export {default as RangeSelector} from './components/rangeselection/wv-timeline-rangeselection.js';
+export {default as AnimationWidget} from './components/animationwidget/wv.animation.widget.js';
+export {default as RangeSelector} from './components/rangeselection/wv.timeline.rangeselection.js';
+export {default as DateSelector} from './components/dateSelector/wv.dateSelector.js';
+export {default as ToolTip} from './components/tooltip/wv.tooltip.js';
+export {default as Utils} from './components/util/wv.utils.js';

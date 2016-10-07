@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "worldview component that allows the timeline to play over a period of time",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "gulp"
   },
   "main": "./browser/wv-animation.js",
   "author": "Benjamin King <benjamin.a.king@nasa.gov>",
@@ -19,8 +20,8 @@
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-eslint": "^6.1.2",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "*",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
     "browserify-shim": "^3.8.12",

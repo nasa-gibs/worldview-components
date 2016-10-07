@@ -24215,6 +24215,80 @@ var _react = (typeof window !== "undefined" ? window['React'] : typeof global !=
 
 var _react2 = _interopRequireDefault(_react);
 
+var _wv = require('../tooltip/wv.tooltip');
+
+var _wv2 = _interopRequireDefault(_wv);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * NASA Worldview
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This code was originally developed at NASA/Goddard Space Flight Center for
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Earth Science Data and Information System (ESDIS) project.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2013 - 2016 United States Government as represented by the
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Administrator of the National Aeronautics and Space Administration.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All Rights Reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Licensed under the NASA Open Source Agreement, Version 1.3
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * http://opensource.gsfc.nasa.gov/nosa.php
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+/*
+ * A react component, Builds a rather specific
+ * interactive widget
+ *
+ * @class AnimationWidget
+ * @extends React.Component
+ */
+var animWidgetHeader = function (_React$Component) {
+  _inherits(animWidgetHeader, _React$Component);
+
+  function animWidgetHeader(props) {
+    _classCallCheck(this, animWidgetHeader);
+
+    return _possibleConstructorReturn(this, (animWidgetHeader.__proto__ || Object.getPrototypeOf(animWidgetHeader)).call(this, props));
+  }
+
+  _createClass(animWidgetHeader, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'wv-animation-widget-header' },
+        'Animate Map in ',
+        _react2.default.createElement(_wv2.default, { text: this.props.text, onClick: this.props.onClick, dataArray: this.props.toolTipTextArray }),
+        ' Increments'
+      );
+    }
+  }]);
+
+  return animWidgetHeader;
+}(_react2.default.Component);
+
+exports.default = animWidgetHeader;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+
+},{"../tooltip/wv.tooltip":193}],183:[function(require,module,exports){
+(function (global){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
+
+var _react2 = _interopRequireDefault(_react);
+
 var _reactInputRange = require('react-input-range');
 
 var _reactInputRange2 = _interopRequireDefault(_reactInputRange);
@@ -24448,81 +24522,7 @@ exports.default = AnimationWidget;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"../dateselector/wv.dateselector":187,"./wv.animation.widget.header":183,"./wv.loopbutton":184,"./wv.playbutton":185,"react-input-range":9}],183:[function(require,module,exports){
-(function (global){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _tooltip = require('../tooltip/tooltip');
-
-var _tooltip2 = _interopRequireDefault(_tooltip);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * NASA Worldview
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This code was originally developed at NASA/Goddard Space Flight Center for
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Earth Science Data and Information System (ESDIS) project.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2013 - 2016 United States Government as represented by the
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Administrator of the National Aeronautics and Space Administration.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All Rights Reserved.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Licensed under the NASA Open Source Agreement, Version 1.3
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * http://opensource.gsfc.nasa.gov/nosa.php
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-/*
- * A react component, Builds a rather specific
- * interactive widget
- *
- * @class AnimationWidget
- * @extends React.Component
- */
-var animWidgetHeader = function (_React$Component) {
-  _inherits(animWidgetHeader, _React$Component);
-
-  function animWidgetHeader(props) {
-    _classCallCheck(this, animWidgetHeader);
-
-    return _possibleConstructorReturn(this, (animWidgetHeader.__proto__ || Object.getPrototypeOf(animWidgetHeader)).call(this, props));
-  }
-
-  _createClass(animWidgetHeader, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'wv-animation-widget-header' },
-        'Animate Map in ',
-        _react2.default.createElement(_tooltip2.default, { text: this.props.text, onClick: this.props.onClick, dataArray: this.props.toolTipTextArray }),
-        ' Increments'
-      );
-    }
-  }]);
-
-  return animWidgetHeader;
-}(_react2.default.Component);
-
-exports.default = animWidgetHeader;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-
-},{"../tooltip/tooltip":191}],184:[function(require,module,exports){
+},{"../dateselector/wv.dateselector":189,"./wv.animation.widget.header":182,"./wv.loopbutton":184,"./wv.playbutton":185,"react-input-range":9}],184:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -24666,6 +24666,175 @@ exports.default = PlayButton;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
 },{}],186:[function(require,module,exports){
+(function (global){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _wvDateselector = require('./wv.dateselector.input');
+
+var _wvDateselector2 = _interopRequireDefault(_wvDateselector);
+
+var _wv = require('../util/wv.utils');
+
+var _wv2 = _interopRequireDefault(_wv);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * NASA Worldview
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This code was originally developed at NASA/Goddard Space Flight Center for
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Earth Science Data and Information System (ESDIS) project.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2013 - 2016 United States Government as represented by the
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Administrator of the National Aeronautics and Space Administration.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All Rights Reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Licensed under the NASA Open Source Agreement, Version 1.3
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * http://opensource.gsfc.nasa.gov/nosa.php
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+var util = new _wv2.default();
+
+/*
+ * A react component, is a draggable svg
+ * group. It is a parent component that
+ * rerenders when child elements are dragged
+ *
+ * @class TimelineRangeSelector
+ */
+
+var dateSelector = function (_React$Component) {
+  _inherits(dateSelector, _React$Component);
+
+  /*
+   * @constructor
+   */
+  function dateSelector(props) {
+    _classCallCheck(this, dateSelector);
+
+    var _this = _possibleConstructorReturn(this, (dateSelector.__proto__ || Object.getPrototypeOf(dateSelector)).call(this, props));
+
+    _this.state = {
+      date: props.date,
+      maxDate: props.maxDate,
+      minDate: props.minDate,
+      tab: null
+    };
+    return _this;
+  }
+
+  _createClass(dateSelector, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(props) {
+      this.setState({
+        date: props.date,
+        maxDate: props.maxDate,
+        minDate: props.minDate
+      });
+    }
+  }, {
+    key: 'blur',
+    value: function blur() {
+      this.setState({ tab: null });
+    }
+  }, {
+    key: 'nextTab',
+    value: function nextTab(index) {
+      var nextTab;
+      if (index < 3) {
+        nextTab = index + 1;
+      } else {
+        nextTab = 1;
+      }
+      this.setState({
+        tab: nextTab
+      });
+    }
+  }, {
+    key: 'updateDate',
+    value: function updateDate(date) {
+      this.setState({
+        date: date
+      });
+      this.props.onDateChange(this.props.id, date);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'wv-date-selector-widget' },
+        _react2.default.createElement(_wvDateselector2.default, { startDate: new Date(2000),
+          today: new Date(),
+          date: this.state.date,
+          value: this.state.date.getUTCFullYear(),
+          type: 'year',
+          height: this.props.height,
+          width: this.props.width,
+          updateDate: this.updateDate.bind(this),
+          tabIndex: 1,
+          focused: this.state.tab == 1,
+          nextTab: this.nextTab.bind(this),
+          maxDate: this.props.maxDate,
+          minDate: this.props.minDate,
+          blur: this.blur.bind(this)
+        }),
+        _react2.default.createElement(_wvDateselector2.default, {
+          startDate: new Date(2000),
+          today: new Date(), date: this.state.date,
+          type: 'month', height: this.props.height,
+          width: this.props.width,
+          updateDate: this.updateDate.bind(this),
+          value: util.monthStringArray[this.state.date.getUTCMonth()],
+          tabIndex: 2,
+          focused: this.state.tab == 2,
+          nextTab: this.nextTab.bind(this),
+          maxDate: this.props.maxDate,
+          minDate: this.props.minDate,
+          blur: this.blur.bind(this)
+        }),
+        _react2.default.createElement(_wvDateselector2.default, {
+          startDate: new Date(2000),
+          today: new Date(),
+          date: this.state.date,
+          type: 'day',
+          height: this.props.height,
+          width: this.props.width,
+          updateDate: this.updateDate.bind(this),
+          value: util.pad(this.state.date.getUTCDate(), 2, '0'),
+          tabIndex: 3,
+          focused: this.state.tab == 3,
+          nextTab: this.nextTab.bind(this),
+          maxDate: this.props.maxDate,
+          minDate: this.props.minDate,
+          blur: this.blur.bind(this)
+        })
+      );
+    }
+  }]);
+
+  return dateSelector;
+}(_react2.default.Component);
+
+exports.default = dateSelector;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+
+},{"../util/wv.utils":194,"./wv.dateselector.input":187}],187:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -24973,7 +25142,315 @@ exports.default = DateInputColumn;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"../util/wv.utils":192}],187:[function(require,module,exports){
+},{"../util/wv.utils":194}],188:[function(require,module,exports){
+(function (global){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = (typeof window !== "undefined" ? window['ReactDOM'] : typeof global !== "undefined" ? global['ReactDOM'] : null);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _wv = require('../util/wv.utils');
+
+var _wv2 = _interopRequireDefault(_wv);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * NASA Worldview
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * This code was originally developed at NASA/Goddard Space Flight Center for
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * the Earth Science Data and Information System (ESDIS) project.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Copyright (C) 2013 - 2016 United States Government as represented by the
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Administrator of the National Aeronautics and Space Administration.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * All Rights Reserved.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Licensed under the NASA Open Source Agreement, Version 1.3
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * http://opensource.gsfc.nasa.gov/nosa.php
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+var util = new _wv2.default();
+
+/*
+ * A react component, is a draggable svg
+ * group. It is a parent component that
+ * rerenders when child elements are dragged
+ *
+ * @class TimelineRangeSelector
+ */
+
+var DateInputColumn = function (_React$Component) {
+  _inherits(DateInputColumn, _React$Component);
+
+  /*
+   * @constructor
+   */
+  function DateInputColumn(props) {
+    _classCallCheck(this, DateInputColumn);
+
+    var _this = _possibleConstructorReturn(this, (DateInputColumn.__proto__ || Object.getPrototypeOf(DateInputColumn)).call(this, props));
+
+    _this.state = {
+      value: _this.props.value,
+      valid: true
+    };
+    return _this;
+  }
+
+  _createClass(DateInputColumn, [{
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      if (this.props.focused) {
+        _reactDom2.default.findDOMNode(this.refs['input-' + this.props.tabIndex]).focus();
+      }
+    }
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var size;
+      var type;
+      type = this.props.type;
+      if (type === 'year') {
+        size = '4';
+      } else if (type === 'day') {
+        size = 2;
+      } else {
+        size = 3;
+      }
+      this.size = size;
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(props) {
+      this.setState({ value: props.value });
+    }
+  }, {
+    key: 'onKeyPress',
+    value: function onKeyPress(e) {
+      var kc = e.keyCode;
+      if (kc === 9 || // tab
+      kc === 13) {
+        //enter
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }
+  }, {
+    key: 'onKeyUp',
+    value: function onKeyUp(e) {
+      var keyCode = e.keyCode;
+      var value = e.target.value;
+      var newDate;
+      var entered = keyCode == 13 || keyCode == 9;
+      if (keyCode === 38) {
+        //up
+        e.preventDefault();
+        this.onClickUp();
+        return;
+      }
+      if (keyCode === 40) {
+        // down
+        e.preventDefault();
+        this.onClickDown();
+        return;
+      }
+      if (e.type == 'focusout' || entered) {
+        if (this.props.type == 'year' || this.props.type == 'day') {
+          if (!(keyCode >= 48 && keyCode <= 57 || entered || keyCode == 8)) {
+            return;
+          }
+        }
+        switch (this.props.type) {
+          case 'year':
+            newDate = this.yearValidation(value);
+            break;
+          case 'day':
+            newDate = this.dayValidation(value);
+            break;
+          case 'month':
+            newDate = this.monthValidation(value);
+            break;
+        }
+        if (newDate) {
+          this.props.updateDate(newDate);
+          if (entered) {
+            //if enetered or tabbed
+            this.nextTab();
+          }
+        } else if (entered) {
+          this.setState({
+            valid: false
+          });
+        }
+      }
+    }
+  }, {
+    key: 'onClickUp',
+    value: function onClickUp() {
+      this.rollDate(1);
+      this.setState({
+        valid: true
+      });
+    }
+  }, {
+    key: 'onClickDown',
+    value: function onClickDown() {
+      this.rollDate(-1);
+      this.setState({
+        valid: true
+      });
+    }
+  }, {
+    key: 'yearValidation',
+    value: function yearValidation(input) {
+      var newDate;
+      if (input > 1000 && input < 9999) {
+        newDate = new Date(new Date(this.props.date).setUTCFullYear(input));
+        return this.validateDate(newDate);
+      }
+    }
+  }, {
+    key: 'dayValidation',
+    value: function dayValidation(input) {
+      var newDate;
+      var maxDate;
+      var currentDate = this.props.date;
+
+      maxDate = new Date(currentDate.getYear(), currentDate.getMonth() + 1, 0).getDate();
+
+      if (input > 0 && input <= maxDate) {
+        newDate = new Date(new Date(currentDate).setUTCDate(input));
+        return this.validateDate(newDate);
+      }
+    }
+  }, {
+    key: 'rollDate',
+    value: function rollDate(amt) {
+      var newDate = util.rollDate(this.props.date, this.props.type, amt, this.props.minDate, this.props.maxDate);
+      this.props.updateDate(newDate);
+    }
+  }, {
+    key: 'monthValidation',
+    value: function monthValidation(input) {
+      var newDate;
+      if (!isNaN(input) && input < 13 && input > 0) {
+        newDate = new Date(new Date(this.props.date).setUTCMonth(input - 1));
+        if (newDate) {
+          this.setState({
+            value: util.monthStringArray[input - 1]
+          });
+          return this.validateDate(newDate);
+        }
+      } else {
+        var realMonth = void 0;
+        realMonth = util.stringInArray(util.monthStringArray, input);
+        if (realMonth !== false) {
+          newDate = new Date(new Date(this.props.date).setUTCMonth(realMonth));
+          return this.validateDate(newDate);
+        } else {
+          return false;
+        }
+      }
+    }
+  }, {
+    key: 'blur',
+    value: function blur() {
+      this.setState({
+        value: this.props.value,
+        valid: true
+      });
+
+      this.props.blur();
+    }
+  }, {
+    key: 'onChange',
+    value: function onChange(e) {
+      this.setState({
+        value: e.target.value.toUpperCase()
+      });
+    }
+  }, {
+    key: 'nextTab',
+    value: function nextTab() {
+      this.props.nextTab(this.props.tabIndex);
+    }
+  }, {
+    key: 'validateDate',
+    value: function validateDate(date) {
+      if (date > this.props.minDate && date <= this.props.maxDate) {
+        this.setState({
+          valid: true
+        });
+        return date;
+      }
+      return false;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'input-wrapper', style: this.state.valid ? {} : { borderColor: '#ff0000' } },
+        _react2.default.createElement(
+          'div',
+          { onClick: this.onClickUp.bind(this), className: 'date-arrows date-arrow-up', 'data-interval': this.props.type },
+          _react2.default.createElement(
+            'svg',
+            { width: '25', height: '8' },
+            _react2.default.createElement('path', { d: 'M 12.5,0 25,8 0,8 z', className: 'uparrow' })
+          )
+        ),
+        _react2.default.createElement('input', {
+          type: 'text',
+          ref: 'input-' + this.props.tabIndex,
+          size: this.size,
+          maxLength: this.size,
+          className: 'button-input-group',
+          id: this.props.type + '-input-group',
+          value: this.state.value,
+          tabIndex: this.props.tabIndex,
+          onKeyUp: this.onKeyUp.bind(this),
+          onKeyDown: this.onKeyPress.bind(this) //currently not working
+          , onChange: this.onChange.bind(this),
+          style: { fontSize: this.props.height / 2 + 'px' },
+          onBlur: this.blur.bind(this)
+        }),
+        _react2.default.createElement(
+          'div',
+          { onClick: this.onClickDown.bind(this), className: 'date-arrows date-arrow-down', 'data-interval': this.props.type },
+          _react2.default.createElement(
+            'svg',
+            { width: '25', height: '8' },
+            _react2.default.createElement('path', { d: 'M 12.5,0 25,8 0,8 z', className: 'downarrow' })
+          )
+        )
+      );
+    }
+  }]);
+
+  return DateInputColumn;
+}(_react2.default.Component);
+
+exports.default = DateInputColumn;
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+
+},{"../util/wv.utils":194}],189:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -25142,7 +25619,7 @@ exports.default = dateSelector;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"../util/wv.utils":192,"./wv.dateselector.input":186}],188:[function(require,module,exports){
+},{"../util/wv.utils":194,"./wv.dateselector.input":188}],190:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -25280,7 +25757,7 @@ TimelineDragger.defaultProps = {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"react-draggable":3}],189:[function(require,module,exports){
+},{"react-draggable":3}],191:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -25293,10 +25770,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDraggable = require('react-draggable');
-
-var _reactDraggable2 = _interopRequireDefault(_reactDraggable);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25409,7 +25882,7 @@ exports.default = TimelineDraggerRange;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"react-draggable":3}],190:[function(require,module,exports){
+},{}],192:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -25423,11 +25896,11 @@ var _react = (typeof window !== "undefined" ? window['React'] : typeof global !=
 
 var _react2 = _interopRequireDefault(_react);
 
-var _wvTimelineDragger = require('./wv-timeline-dragger.js');
+var _wvTimelineDragger = require('./wv.timeline.dragger.js');
 
 var _wvTimelineDragger2 = _interopRequireDefault(_wvTimelineDragger);
 
-var _wvTimelineDraggerrange = require('./wv-timeline-draggerrange.js');
+var _wvTimelineDraggerrange = require('./wv.timeline.draggerrange.js');
 
 var _wvTimelineDraggerrange2 = _interopRequireDefault(_wvTimelineDraggerrange);
 
@@ -25612,7 +26085,7 @@ exports.default = TimelineRangeSelector;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"./wv-timeline-dragger.js":188,"./wv-timeline-draggerrange.js":189}],191:[function(require,module,exports){
+},{"./wv.timeline.dragger.js":190,"./wv.timeline.draggerrange.js":191}],193:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -25728,7 +26201,7 @@ exports.default = Tooltip;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],192:[function(require,module,exports){
+},{}],194:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25996,14 +26469,14 @@ var Utils = function () {
 
 exports.default = Utils;
 
-},{}],193:[function(require,module,exports){
+},{}],195:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _wvAnimationWidget = require('./components/animationwidget/wv-animation-widget.js');
+var _wvAnimationWidget = require('./components/animationwidget/wv.animation.widget.js');
 
 Object.defineProperty(exports, 'AnimationWidget', {
   enumerable: true,
@@ -26012,7 +26485,7 @@ Object.defineProperty(exports, 'AnimationWidget', {
   }
 });
 
-var _wvTimelineRangeselection = require('./components/rangeselection/wv-timeline-rangeselection.js');
+var _wvTimelineRangeselection = require('./components/rangeselection/wv.timeline.rangeselection.js');
 
 Object.defineProperty(exports, 'RangeSelector', {
   enumerable: true,
@@ -26021,9 +26494,36 @@ Object.defineProperty(exports, 'RangeSelector', {
   }
 });
 
+var _wvDateSelector = require('./components/dateSelector/wv.dateSelector.js');
+
+Object.defineProperty(exports, 'DateSelector', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_wvDateSelector).default;
+  }
+});
+
+var _wvTooltip = require('./components/tooltip/wv.tooltip.js');
+
+Object.defineProperty(exports, 'ToolTip', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_wvTooltip).default;
+  }
+});
+
+var _wvUtils = require('./components/util/wv.utils.js');
+
+Object.defineProperty(exports, 'Utils', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_wvUtils).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-},{"./components/animationwidget/wv-animation-widget.js":182,"./components/rangeselection/wv-timeline-rangeselection.js":190}]},{},[193])(193)
+},{"./components/animationwidget/wv.animation.widget.js":183,"./components/dateSelector/wv.dateSelector.js":186,"./components/rangeselection/wv.timeline.rangeselection.js":192,"./components/tooltip/wv.tooltip.js":193,"./components/util/wv.utils.js":194}]},{},[195])(195)
 });
 
 

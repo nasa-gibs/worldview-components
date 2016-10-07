@@ -13,7 +13,7 @@
  */
 
 import React from 'react';
-import Tooltip from '../tooltip/tooltip';
+import Tooltip from '../tooltip/wv.tooltip';
 
 /*
  * A react component, Builds a rather specific

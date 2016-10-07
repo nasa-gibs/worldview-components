@@ -13,7 +13,6 @@
  */
 
 import React from 'react';
-import Draggable from 'react-draggable';
 /*
  * A react component, is a draggable svg
  * rect element

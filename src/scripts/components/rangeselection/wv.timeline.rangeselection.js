@@ -13,8 +13,8 @@
  */
 
 import React from 'react';
-import Dragger from './wv-timeline-dragger.js';
-import DraggerRange from './wv-timeline-draggerrange.js';
+import Dragger from './wv.timeline.dragger.js';
+import DraggerRange from './wv.timeline.draggerrange.js';
 
 /*
  * A react component, is a draggable svg
