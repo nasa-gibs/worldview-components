@@ -2,7 +2,7 @@
 
 ## About
 
-External components built to use on the [NASA Worldview](worldview.earthdata.nasa.gov) data visualization Application. Worldview Timeline Components is built with ES6 and facebook's [react](https://github.com/facebook/react/) JS library. This repository is the start of a larger project to make Worldview code more scalable and readable.
+External components built to use on the [NASA Worldview](worldview.earthdata.nasa.gov) satellite imagery visualization application. Worldview Timeline Components is built using ES6 and facebook's [react](https://github.com/facebook/react/) JS library. This repository is the start of a larger project to make our code more scalable and readable.
 
 ## Getting Started
 
