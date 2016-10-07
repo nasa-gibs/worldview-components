@@ -46,6 +46,9 @@ export default class dateSelector extends React.Component {
       minDate: props.minDate,
     });
   }
+  blur() {
+    this.setState({tab: null});
+  }
   nextTab(index) {
     var nextTab;
     if(index < 3) {
@@ -79,7 +82,8 @@ export default class dateSelector extends React.Component {
           nextTab={this.nextTab.bind(this)}
           maxDate={this.props.maxDate}
           minDate={this.props.minDate}
-        />
+          blur={this.blur.bind(this)}
+          />
         <DateInputColumn
           startDate={new Date(2000)}
           today={new Date()} date={this.state.date}
@@ -92,6 +96,7 @@ export default class dateSelector extends React.Component {
           nextTab={this.nextTab.bind(this)}
           maxDate={this.props.maxDate}
           minDate={this.props.minDate}
+          blur={this.blur.bind(this)}
         />
         <DateInputColumn
           startDate={new Date(2000)}
@@ -107,6 +112,7 @@ export default class dateSelector extends React.Component {
           nextTab={this.nextTab.bind(this)}
           maxDate={this.props.maxDate}
           minDate={this.props.minDate}
+          blur={this.blur.bind(this)}
         />
       </div>
     );

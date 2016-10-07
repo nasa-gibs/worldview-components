@@ -177,6 +177,14 @@ export default class DateInputColumn extends React.Component {
       }
     }
   }
+  blur() {
+    this.setState({
+      value: this.props.value,
+      valid: true
+    });
+
+    this.props.blur();
+  }
   onChange(e) {
     this.setState({
       value: e.target.value.toUpperCase()
@@ -213,9 +221,10 @@ export default class DateInputColumn extends React.Component {
           value={this.state.value}
           tabIndex={this.props.tabIndex}
           onKeyUp={this.onKeyUp.bind(this)}
-          onKeyDown={this.onKeyPress.bind(this)}
+          onKeyDown={this.onKeyPress.bind(this)} //currently not working
           onChange={this.onChange.bind(this)}
           style={{fontSize: ((this.props.height / 2) + 'px')}}
+          onBlur={this.blur.bind(this)}
         />
         <div onClick={this.onClickDown.bind(this)} className="date-arrows date-arrow-down" data-interval={this.props.type}>
           <svg width="25" height="8">

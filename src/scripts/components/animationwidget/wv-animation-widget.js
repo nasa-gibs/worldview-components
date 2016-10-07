@@ -154,6 +154,7 @@ export default class AnimationWidget extends React.Component {
             onDateChange={this.onDateChange.bind(this)}
             maxDate={this.state.endDate}
             minDate={this.props.minDate}
+            key="timeselector-1"
           />
           <div className='thru-label'>To</div>
           <TimeSelector
@@ -164,6 +165,7 @@ export default class AnimationWidget extends React.Component {
             onDateChange={this.onDateChange.bind(this)}
             maxDate={this.props.maxDate}
             minDate={this.state.startDate}
+            key="timeselector-2"
             />
         </div>
         <i
