@@ -132,6 +132,14 @@ export default class AnimationWidget extends React.Component {
           text={this.state.increment}
           toolTipTextArray={this.state.incrementArray}
           onClick={this.props.onZoomSelect}/>
+
+        <PlayButton playing={this.state.playing} play={this.play.bind(this)} pause={this.pause.bind(this)} />
+        <LoopButton looping={this.state.looping} onLoop={this.onLoop.bind(this)}/>
+        <div className="wv-slider-case">
+          <InputRange maxValue={10} minValue={1} value={this.state.value} onChange={this.onSlide.bind(this)} />
+          <span className="wv-slider-label">{this.props.sliderLabel}</span>
+        </div>
+
         <a href="javascript:void(null)"
           title="Share Animation GIF"
           className="wv-icon-case"
@@ -139,12 +147,6 @@ export default class AnimationWidget extends React.Component {
         >
           <i className="fa fa-file-video-o wv-animation-widget-icon"/>
         </a>
-        <div className="wv-slider-case">
-          <InputRange maxValue={10} minValue={1} value={this.state.value} onChange={this.onSlide.bind(this)} />
-          <span className="wv-slider-label">{this.props.sliderLabel}</span>
-        </div>
-        <PlayButton playing={this.state.playing} play={this.play.bind(this)} pause={this.pause.bind(this)} />
-        <LoopButton looping={this.state.looping} onLoop={this.onLoop.bind(this)}/>
         <div>
           <TimeSelector
             width="120"

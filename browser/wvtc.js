@@ -24457,15 +24457,8 @@ var AnimationWidget = function (_React$Component) {
           text: this.state.increment,
           toolTipTextArray: this.state.incrementArray,
           onClick: this.props.onZoomSelect }),
-        _react2.default.createElement(
-          'a',
-          { href: 'javascript:void(null)',
-            title: 'Share Animation GIF',
-            className: 'wv-icon-case',
-            onClick: this.props.onPushGIF
-          },
-          _react2.default.createElement('i', { className: 'fa fa-file-video-o wv-animation-widget-icon' })
-        ),
+        _react2.default.createElement(_wv6.default, { playing: this.state.playing, play: this.play.bind(this), pause: this.pause.bind(this) }),
+        _react2.default.createElement(_wv4.default, { looping: this.state.looping, onLoop: this.onLoop.bind(this) }),
         _react2.default.createElement(
           'div',
           { className: 'wv-slider-case' },
@@ -24476,8 +24469,15 @@ var AnimationWidget = function (_React$Component) {
             this.props.sliderLabel
           )
         ),
-        _react2.default.createElement(_wv6.default, { playing: this.state.playing, play: this.play.bind(this), pause: this.pause.bind(this) }),
-        _react2.default.createElement(_wv4.default, { looping: this.state.looping, onLoop: this.onLoop.bind(this) }),
+        _react2.default.createElement(
+          'a',
+          { href: 'javascript:void(null)',
+            title: 'Share Animation GIF',
+            className: 'wv-icon-case',
+            onClick: this.props.onPushGIF
+          },
+          _react2.default.createElement('i', { className: 'fa fa-file-video-o wv-animation-widget-icon' })
+        ),
         _react2.default.createElement(
           'div',
           null,
