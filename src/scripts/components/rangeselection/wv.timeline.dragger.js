@@ -88,7 +88,8 @@ export default class TimelineDragger extends React.Component {
             style={{
               fill: this.props.triangleColor,
               visibility: this.state.visibility,
-              stroke: '#000'
+              stroke: '#000',
+              cursor: 'pointer'
             }}
           />
         </g>

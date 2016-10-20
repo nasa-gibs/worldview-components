@@ -25736,7 +25736,8 @@ var TimelineDragger = function (_React$Component) {
             style: {
               fill: this.props.triangleColor,
               visibility: this.state.visibility,
-              stroke: '#000'
+              stroke: '#000',
+              cursor: 'pointer'
             }
           })
         )
@@ -26058,7 +26059,7 @@ var TimelineRangeSelector = function (_React$Component) {
           onDrag: this.onItemDrag.bind(this),
           onStop: this.onDragStop.bind(this),
           max: this.state.max,
-          triangleColor: '#cccccc',
+          triangleColor: this.props.startTriangleColor,
           first: true,
           id: 'start' }),
         _react2.default.createElement(_wvTimelineDragger2.default, {
@@ -26070,7 +26071,7 @@ var TimelineRangeSelector = function (_React$Component) {
           first: false,
           onDrag: this.onItemDrag.bind(this),
           onStop: this.onDragStop.bind(this),
-          triangleColor: '#afaeae',
+          triangleColor: this.props.endTriangleColor,
           id: 'end' })
       );
     }

@@ -132,7 +132,7 @@ export default class TimelineRangeSelector extends React.Component {
           onDrag={this.onItemDrag.bind(this)}
           onStop={this.onDragStop.bind(this)}
           max={this.state.max}
-          triangleColor='#cccccc'
+          triangleColor={this.props.startTriangleColor}
           first={true}
           id='start' />
         <Dragger
@@ -144,7 +144,7 @@ export default class TimelineRangeSelector extends React.Component {
           first={false}
           onDrag={this.onItemDrag.bind(this)}
           onStop={this.onDragStop.bind(this)}
-          triangleColor='#afaeae'
+          triangleColor={this.props.endTriangleColor}
           id='end'/>
       </svg>
     );

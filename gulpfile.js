@@ -9,6 +9,7 @@ var babelify = require('babelify');
 var plumber = require('gulp-plumber');
 var babel = require('gulp-babel');
 var del = require('del');
+var browserifyshim = require('browserify-shim');
 
 gulp.task('lib', function() {
   del(['./lib/**/*']);
@@ -38,7 +39,7 @@ gulp.task('browser', function() {
       standalone: 'WVTC',
       debug: true
     })
-    .transform('browserify-shim')
+    .transform(browserifyshim)
     .bundle()
     .on('error', function(err) { console.error(err); this.emit('end'); });
   };
