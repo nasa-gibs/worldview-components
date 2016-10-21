@@ -147,7 +147,7 @@ export default class AnimationWidget extends React.Component {
         >
           <i className="fa fa-file-video-o wv-animation-widget-icon"/>
         </a>
-        <div>
+        <div className='wv-anim-dates-case'>
           <TimeSelector
             width="120"
             height="30"

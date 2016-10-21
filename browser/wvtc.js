@@ -24480,7 +24480,7 @@ var AnimationWidget = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          null,
+          { className: 'wv-anim-dates-case' },
           _react2.default.createElement(_wv2.default, {
             width: '120',
             height: '30',
