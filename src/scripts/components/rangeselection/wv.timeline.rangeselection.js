@@ -106,7 +106,7 @@ export default class TimelineRangeSelector extends React.Component {
     this.props.onDrag(this.state.startLocation, this.state.endLocation);
   }
   onRangeClick(d) {
-    this.props.onRangeClick(d.nativeEvent.offsetX);
+    this.props.onRangeClick(d.nativeEvent);
   }
   /*
    * @method render

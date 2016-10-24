@@ -26029,7 +26029,7 @@ var TimelineRangeSelector = function (_React$Component) {
   }, {
     key: 'onRangeClick',
     value: function onRangeClick(d) {
-      this.props.onRangeClick(d.nativeEvent.offsetX);
+      this.props.onRangeClick(d.nativeEvent);
     }
     /*
      * @method render
