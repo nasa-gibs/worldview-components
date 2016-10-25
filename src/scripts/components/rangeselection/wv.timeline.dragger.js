@@ -32,7 +32,7 @@ export default class TimelineDragger extends React.Component {
   }
   checkVisibility() {
     var visibility = 'visible';
-    if(this.props.position < 0 || this.props.position >= this.props.max) {
+    if(this.props.position < 0 || this.props.position > this.props.max) {
       visibility = 'hidden';
     }
     this.state = {
