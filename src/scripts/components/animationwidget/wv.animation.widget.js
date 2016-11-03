@@ -141,7 +141,7 @@ export default class AnimationWidget extends React.Component {
         </div>
 
         <a href="javascript:void(null)"
-          title="Create Animation GIF"
+          title="Create Animated GIF"
           className="wv-icon-case"
           onClick={this.props.onPushGIF}
         >
