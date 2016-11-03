@@ -24576,7 +24576,7 @@ var LoopButton = function (_React$Component) {
       return _react2.default.createElement(
         "a",
         { href: "javascript:void(null)",
-          title: "Loop video",
+          title: this.props.looping ? "Stop Loop" : "Loop video",
           className: this.props.looping ? 'wv-loop-icon-case wv-icon-case active' : 'wv-loop-icon-case wv-icon-case',
           onClick: this.props.onLoop
         },
@@ -24594,7 +24594,7 @@ exports.default = LoopButton;
 
 },{}],185:[function(require,module,exports){
 (function (global){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -24643,15 +24643,15 @@ var PlayButton = function (_React$Component) {
   }
 
   _createClass(PlayButton, [{
-    key: "render",
+    key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        "a",
-        { href: "javascript:void(null)", title: "Play video",
-          className: "wv-anim-play-case wv-icon-case",
+        'a',
+        { href: 'javascript:void(null)', title: this.props.playing ? 'Pause video' : 'Play video',
+          className: 'wv-anim-play-case wv-icon-case',
           onClick: this.props.playing ? this.props.pause : this.props.play
         },
-        _react2.default.createElement("i", { className: this.props.playing ? 'fa fa-pause wv-animation-widget-icon' : 'fa fa-play wv-animation-widget-icon' })
+        _react2.default.createElement('i', { className: this.props.playing ? 'fa fa-pause wv-animation-widget-icon' : 'fa fa-play wv-animation-widget-icon' })
       );
     }
   }]);
