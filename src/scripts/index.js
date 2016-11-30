@@ -14,3 +14,4 @@ export {default as RangeSelector} from './components/rangeselection/wv.timeline.
 export {default as DateSelector} from './components/dateSelector/wv.dateSelector.js';
 export {default as ToolTip} from './components/tooltip/wv.tooltip.js';
 export {default as Utils} from './components/util/wv.utils.js';
+export {default as GA} from './components/util/wv.googleAnalytics.js';
