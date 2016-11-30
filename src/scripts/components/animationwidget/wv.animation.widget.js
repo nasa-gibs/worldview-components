@@ -18,6 +18,7 @@ import TimeSelector from '../dateselector/wv.dateselector';
 import LoopButton from './wv.loopbutton';
 import PlayButton from './wv.playbutton';
 import AnimWidgetHeader from './wv.animation.widget.header';
+import GA from '../util/wv.googleAnalytics';
 
 
 
@@ -73,12 +74,14 @@ export default class AnimationWidget extends React.Component {
    */
   play() {
     this.props.onPushPlay();
+    GA.event('Animation', 'Click', 'Play');
     this.setState({
       playing: true
     });
   }
   pause() {
     this.props.onPushPause();
+    GA.event('Animation', 'Click', 'Pause');
     this.setState({
       playing: false
     });
@@ -98,6 +101,7 @@ export default class AnimationWidget extends React.Component {
    */
   onLoop() {
     var loop = true;
+    GA.event('Animation', 'Click', 'Loop');
     if(this.state.looping) {
       loop = false;
     }
