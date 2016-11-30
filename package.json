@@ -8,7 +8,6 @@
   },
   "main": "./browser/wv-animation.js",
   "author": "Benjamin King <benjamin.a.king@nasa.gov>",
-  "license": "ISC",
   "peerDependencies": {
     "react": "*",
     "react-dom": "*"
