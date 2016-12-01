@@ -36,7 +36,7 @@ gulp.task('browser', function() {
           }
         ]
       ],
-      standalone: 'WVTC',
+      standalone: 'WVC',
       debug: true
     })
     .transform(browserifyshim)
@@ -45,14 +45,14 @@ gulp.task('browser', function() {
   };
 
   browserifyBundle() // Unminified.
-    .pipe(source('wvtc.js'))
+    .pipe(source('wvc.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('browser'));
 
   browserifyBundle() // Minified.
-    .pipe(source('wvtc.min.js'))
+    .pipe(source('wvc.min.js'))
     .pipe(buffer())
     .pipe(uglify().on('error', function(e){
             console.log(e);

@@ -1,4 +1,4 @@
-# Worldview Timeline Components
+# Worldview Components
 
 ## About
 
@@ -8,32 +8,32 @@ External components built to use on the [NASA Worldview](worldview.earthdata.nas
 
 ### Installation
 
-`npm install worldview-timeline-components`
+`npm install worldview-components`
 
 ### CommonJS
 
 #### Get Entire Package
-`var TimelineComponents = require('worldview-timeline-components');`
+`var TimelineComponents = require('worldview-components');`
 #### Use Single Module
-`var DateSelector = require('worldview-timeline-components').DateSelector;`
+`var DateSelector = require('worldview-components').DateSelector;`
 
 ### ES6
 
 #### Get Entire Package
-`import TimelineComponents from 'worldview-timeline-components';`
+`import TimelineComponents from 'worldview-components';`
 
 #### Grab what you need
-`import {DateSelector, Tooltip} from 'worldview-timeline-components';`
+`import {DateSelector, Tooltip} from 'worldview-components';`
 
 ### Legacy Approach
 
-Include wvtc.js in you index.html file
-`<script type="text/javascript" src="../node_modules/worldview-timeline-components/browser/wvtc.js"></script>`
+Include wvc.js in you index.html file
+`<script type="text/javascript" src="../node_modules/worldview-components/browser/wvc.js"></script>`
 
 #### How to use it
 
-WVTC is exposed as a global variable in wvtc.js
-`var wv-utils = WVTC.utils;`
+WVC is exposed as a global variable in wvc.js
+`var wv-utils = WVC.utils;`
 
 ### Reusable components
 #### Date Selector
@@ -67,7 +67,7 @@ Recommended CSS can be found [here](https://github.com/nasa-gibs/worldview/blob/
 ## Development
 
 * clone this repository
-* use [npm link](https://docs.npmjs.com/cli/link) to link your local version of WVTC.
+* use [npm link](https://docs.npmjs.com/cli/link) to link your local version of WVC.
 * run `gulp` to babelify and browserify your code
 * run `gulp watch` to compile your code on save.
 
