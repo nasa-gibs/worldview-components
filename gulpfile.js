@@ -39,7 +39,7 @@ gulp.task('browser', function() {
       standalone: 'WVC',
       debug: true
     })
-    .transform(browserifyshim)
+    .transform('browserify-shim', {global: true})
     .bundle()
     .on('error', function(err) { console.error(err); this.emit('end'); });
   };
