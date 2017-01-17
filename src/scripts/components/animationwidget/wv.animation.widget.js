@@ -137,7 +137,7 @@ export default class AnimationWidget extends React.Component {
         <PlayButton playing={this.state.playing} play={this.play.bind(this)} pause={this.pause.bind(this)} />
         <LoopButton looping={this.state.looping} onLoop={this.onLoop.bind(this)}/>
         <div className="wv-slider-case">
-          <InputRange maxValue={10} minValue={1} value={this.state.value} onChange={this.onSlide.bind(this)} />
+          <InputRange step={0.5} maxValue={10} minValue={0.5} value={this.state.value} onChange={this.onSlide.bind(this)} />
           <span className="wv-slider-label">{this.props.sliderLabel}</span>
         </div>
 
