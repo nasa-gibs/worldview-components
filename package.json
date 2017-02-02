@@ -1,6 +1,6 @@
 {
   "name": "worldview-components",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "worldview component that allows the timeline to play over a period of time",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
