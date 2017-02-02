@@ -50,14 +50,12 @@ export default class AnimationWidget extends React.Component {
    *
    * @method onSlide
    *
-   * @param {Object} component - slider react
-   *  component
    * @param {number} value - Value of the slider
    *  selection
    *
    * @return {void}
    */
-  onSlide(component, value) {
+  onSlide(value) {
     this.props.onSlide(value);
     this.setState({
       value: value
