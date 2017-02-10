@@ -15,3 +15,5 @@ export {default as DateSelector} from './components/dateSelector/wv.dateSelector
 export {default as ToolTip} from './components/tooltip/wv.tooltip.js';
 export {default as Utils} from './components/util/wv.utils.js';
 export {default as GA} from './components/util/wv.googleAnalytics.js';
+export {default as DateLine} from './components/dateline/wv.line.js';
+export {default as LineText} from './components/dateline/wv.linetext.js';
