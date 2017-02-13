@@ -26,7 +26,8 @@ export default class Line extends React.Component {
     super(props);
     this.state = {
       hovered: false,
-      height: props.height
+      height: props.height,
+      active: true
     };
   }
   mouseOver() {
@@ -60,7 +61,7 @@ export default class Line extends React.Component {
         <line
           strokeWidth={this.props.strokeWidth}
           stroke={this.props.color}
-          opacity={this.state.hovered ? this.props.opacity : '0'}
+          opacity={this.state.hovered && this.state.active ? this.props.opacity : '0'}
           x1={this.props.strokeWidth / 2}
           x2={this.props.strokeWidth / 2}
           strokeDasharray={this.props.dashArray}

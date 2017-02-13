@@ -25,7 +25,9 @@ export default class LineText extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: false
+      active: false,
+      dateRight: props.dateRight,
+      dateLeft: props.dateLeft
     };
   }
 
@@ -48,7 +50,7 @@ export default class LineText extends React.Component {
           width={this.props.width}
           opacity={this.state.active ? this.props.textOpacity : '0'}
         >
-          {this.props.dateLeft}
+          {this.state.dateLeft}
         </text>
         <rect
           fill={this.props.fill}
@@ -64,7 +66,7 @@ export default class LineText extends React.Component {
           fill={this.props.color}
           opacity={this.state.active ? this.props.textOpacity : '0'}
         >
-          {this.props.dateRight}
+          {this.state.dateRight}
         </text>
       </svg>
     );
