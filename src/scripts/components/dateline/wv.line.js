@@ -15,13 +15,17 @@
 import React from 'react';
 
 /*
- * A react component, Builds a rather specific
- * interactive widget
+ * A react component, Builds a SVG line who's dimensions and styles
+ * are customizable
  *
- * @class AnimationWidget
+ * @class Line
  * @extends React.Component
  */
 export default class Line extends React.Component {
+
+ /*
+  * Sets state and extents props
+  */
   constructor(props) {
     super(props);
     this.state = {
@@ -30,23 +34,52 @@ export default class Line extends React.Component {
       active: true
     };
   }
+
+ /*
+  * Updates state on svg hover
+  *
+  * return {Void}
+  */
   mouseOver() {
     this.setState({
       hovered: true
     });
   }
+
+ /*
+  * Updates state on svg mouseout
+  *
+  * return {Void}
+  */
   mouseOut() {
     this.setState({
       hovered: false
     });
   }
+
+ /*
+  * Runs lineOver props method when
+  * the invisible line is hovered, passing
+  * event properties
+  *
+  * @param {Object} e - React event object
+  * return {Void}
+  */
   mouseOverHidden(e) {
     this.props.lineOver([e.clientX, e.clientY], this.props.overlay, this.props.lineX, this.props.tooltip);
   }
 
+ /*
+  * Runs lineOut props method when
+  * the invisible line is not longer hovered, passing
+  * the react component to deactivate
+  *
+  * return {Void}
+  */
   mouseOutHidden() {
     this.props.lineOut(this.props.tooltip);
   }
+
   render() {
     return(
       <svg

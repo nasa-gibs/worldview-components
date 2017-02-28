@@ -15,13 +15,15 @@
 import React from 'react';
 
 /*
- * A react component, Builds a rather specific
- * interactive widget
+ * Builds an SVG text box
  *
- * @class AnimationWidget
+ * @class LineText
  * @extends React.Component
  */
 export default class LineText extends React.Component {
+ /*
+  * Sets state and extents props
+  */
   constructor(props) {
     super(props);
     this.state = {
