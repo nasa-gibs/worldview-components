@@ -60,17 +60,4 @@ export default class Share extends React.Component {
         </div>
       )
     }
-
-  // render() {
-  //   return(
-  //     <div className="wv-share-modal">
-  //       <label for="wv-link-button-check" title="Share this map" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button">
-  //         <span class="ui-button-text">
-  //             <i class="fa fa-share-square-o fa-2x"></i>
-  //         </span>
-  //       </label>
-  //       <input type="checkbox" id="wv-link-button-check" class="ui-helper-hidden-accessible" />
-  //     </div>
-  //   );
-  // }
 }

@@ -13,8 +13,29 @@
  */
 
 import React from 'react';
+import Dialog from '../modal/wv.dialog';
 
 export default class DialogContent extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = { isModalOpen: false }
+    }
+
+    openModal() {
+      this.setState({ isModalOpen: true })
+    }
+
+    closeModal() {
+      this.setState({ isModalOpen: false })
+    }
+
+    toggleModal() {
+        if(this.state.isModalOpen) {
+            this.closeModal()
+        } else {
+            this.openModal()
+        }
+    }
 
     render(){
       return(
