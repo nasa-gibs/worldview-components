@@ -25,16 +25,16 @@ export default class Dialog extends React.Component {
       getModelsLink: props.getModelsLink,
       shortenModelsLink: props.shortenModelsLink
     };
-    this.updates = this.updates.bind(this);
+    // this.updates = this.updates.bind(this);
     this.openDialog = this.openDialog.bind(this);
   }
 
-  updates() {
-    // TODO: find and update your item, you can do it since you have an 'id'
-    this.setState({
-      getModelsLink: props.getModelsLink
-    });
-  }
+  // updates() {
+  //   // TODO: find and update your item, you can do it since you have an 'id'
+  //   this.setState({
+  //     getModelsLink: props.getModelsLink
+  //   });
+  // }
 
   // showButton() {
   //   $button = $("<input></input>")
@@ -262,11 +262,7 @@ export default class Dialog extends React.Component {
 
     return(
       <div>
-        <button onClick={this.openDialog}>
-          <span className="ui-button-text">
-            <i className="fa fa-share-square-o fa-2x"></i>
-          </span>
-        </button>
+        {this.openDialog()}
       </div>
     )
   }
