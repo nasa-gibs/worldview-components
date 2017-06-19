@@ -36,35 +36,6 @@ export default class Dialog extends React.Component {
   //   });
   // }
 
-  // showButton() {
-  //   $button = $("<input></input>")
-  //       .attr("type", "checkbox")
-  //       .attr("id", "wv-link-button-check");
-  //   $label = $("<label></label>")
-  //       .attr("for", "wv-link-button-check")
-  //       .attr("title", "Share this map");
-  //   var $icon = $("<i></i>")
-  //       .addClass("fa")
-  //       .addClass("fa-share-square-o")
-  //       .addClass("fa-2x");
-  //   $label.append($icon);
-  //   $(selector).append($label);
-  //   $(selector).append($button);
-  //   $button.button({
-  //       text: false
-  //   }).click(function() {
-  //       var checked = $("#wv-link-button-check").prop("checked");
-  //       WVC.GA.event('Link', 'Click', 'Share link Button');
-  //       if ( checked ) {
-  //           openDialog();
-  //       } else {
-  //           wv.ui.closeDialog();
-  //       }
-  //   });
-  //
-  //   models.link.events.on("update", replaceHistoryState);
-  // }
-
   openDialog() {
 
       var $dialog = wv.ui.getDialog();
@@ -123,7 +94,6 @@ export default class Dialog extends React.Component {
 
       // If selected during the animation, the cursor will go to the
       // end of the input box
-      console.log(this.state.models);
       var updateLink  = function() {
         // this.props.updates(this.state.models.link.get());
           $('#permalink_content').val(this.state.models.link.get());
@@ -162,7 +132,6 @@ export default class Dialog extends React.Component {
       // When an icon-link is clicked, replace the URL with current encoded link.
       $(".icon-link").on("click", function() {
           var fullEncodedLink = encodeURIComponent(this.state.models.link.get());
-          console.log(fullEncodedLink);
           var promise = this.state.models.link.shorten();
 
           // Set Facebook
@@ -253,26 +222,11 @@ export default class Dialog extends React.Component {
   };
 
   render(){
-    //   return (
-    //       <DialogContent closeDialog={closeDialog} />, $dialog[0]
-    //   )
-    if (this.props.isOpen === false) {
-      return null
-    }
-
     return(
       <div>
         {this.openDialog()}
       </div>
     )
-  }
-
-  close(e) {
-    e.preventDefault()
-
-    if (this.props.onClose) {
-      this.props.onClose()
-    }
   }
 
 }
