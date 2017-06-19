@@ -19,18 +19,14 @@ export default class Dialog extends React.Component {
   constructor(props) {
     super(props);
     this.state =  {
-      urlShortening: props.urlShortening,
-      config: props.config,
+      configs: props.configs,
       models: props.models,
-      getModelsLink: props.getModelsLink,
-      shortenModelsLink: props.shortenModelsLink
     };
     // this.updates = this.updates.bind(this);
     this.openDialog = this.openDialog.bind(this);
   }
 
   // updates() {
-  //   // TODO: find and update your item, you can do it since you have an 'id'
   //   this.setState({
   //     getModelsLink: props.getModelsLink
   //   });
@@ -39,9 +35,13 @@ export default class Dialog extends React.Component {
   openDialog() {
 
       var $dialog = wv.ui.getDialog();
+      var config = this.props.configs;
+      var model = this.props.models;
+      var urlShortening = config.features.urlShortening;
+
       var item =  "<div id='wv-link' >" +
           "<input type='text' value='' name='permalink_content' id='permalink_content' readonly/>";
-      if ( this.state.urlShortening ) {
+      if ( urlShortening ) {
           item += "<span autofocus></span><div id='wv-link-shorten'>" +
               "<input type='checkbox' value='' id='wv-link-shorten-check' />" +
               "<label id='wv-link-shorten-label' for='wv-link-shorten-check'>Shorten this link</label>" +
@@ -94,15 +94,15 @@ export default class Dialog extends React.Component {
 
       // If selected during the animation, the cursor will go to the
       // end of the input box
+
       var updateLink  = function() {
-        // this.props.updates(this.state.models.link.get());
-          $('#permalink_content').val(this.state.models.link.get());
+          $('#permalink_content').val(model.link.get());
           $("#wv-link-shorten-check").iCheck("uncheck");
           $('#permalink_content').focus();
           $('#permalink_content').select();
       };
 
-      this.state.models.link.events.on("update", updateLink);
+      model.link.events.on("update", updateLink);
 
       $dialog.dialog({
           dialogClass: "wv-panel wv-link-panel",
@@ -117,7 +117,7 @@ export default class Dialog extends React.Component {
       }).on("dialogclose", function() {
           $("#wv-link-button-check").prop("checked", false);
           $button.button("refresh");
-          this.state.models.link.events.off("update", updateLink);
+          model.link.events.off("update", updateLink);
       });
       wv.ui.positionDialog($dialog, {
           my: "left top",
@@ -126,13 +126,13 @@ export default class Dialog extends React.Component {
       });
       $(".ui-dialog").zIndex(600);
 
-      $('#permalink_content').val(this.state.models.link.get());
+      $('#permalink_content').val(model.link.get());
       $dialog.dialog("open");
       setTimeout(updateLink, 500);
       // When an icon-link is clicked, replace the URL with current encoded link.
       $(".icon-link").on("click", function() {
-          var fullEncodedLink = encodeURIComponent(this.state.models.link.get());
-          var promise = this.state.models.link.shorten();
+          var fullEncodedLink = encodeURIComponent(model.link.get());
+          var promise = model.link.shorten();
 
           // Set Facebook
           var fbLink = document.getElementById("fb-share");
@@ -190,7 +190,7 @@ export default class Dialog extends React.Component {
       $("#wv-link-shorten-check").on("ifChanged", function() {
           var checked = $("#wv-link-shorten-check").prop("checked");
           if ( checked ) {
-              var promise = this.state.models.link.shorten();
+              var promise = model.link.shorten();
               WVC.GA.event('Link', 'Check', 'Shorten');
               $("#permalink_content").val("Please wait...");
               promise.done(function(result) {
@@ -203,7 +203,7 @@ export default class Dialog extends React.Component {
                   error(textStatus, errorThrown);
               });
           } else {
-              $('#permalink_content').val(this.state.models.link.get());
+              $('#permalink_content').val(model.link.get());
               WVC.GA.event('Link', 'Check', 'Lengthen');
           }
           $('#permalink_content').focus();
