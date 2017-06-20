@@ -15,17 +15,20 @@
 import Util from '../util/wv.utils';
 const util = new Util();
 
-export default class Utils {
-  facebook(subject, body) {
-    return 'mailto:' + util.objectToGetParams({ subject, body });
+export default class ShareLinks {
+  facebook(app_id, href, redirect_uri, display) {
+    return 'https://www.facebook.com/dialog/share?' + util.objectToGetParams({ app_id, href, redirect_uri, display });
   }
 
-  twitter(subject, body) {
-    return 'mailto:' + util.objectToGetParams({ subject, body });
+  twitter(url, text) {
+    return 'https://twitter.com/intent/tweet?' + util.objectToGetParams({ url, text });
   }
 
+  reddit(url, title) {
+    return 'https://www.reddit.com/r/nasa/submit?' + util.objectToGetParams({ url, title });
+  }
 
   email(subject, body) {
     return 'mailto:' + util.objectToGetParams({ subject, body });
-  }
+  } 
 }
