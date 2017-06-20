@@ -39,7 +39,13 @@ export default class Dialog extends React.Component {
     var fbAppId = '121285908450463';
     var shareMessage = encodeURIComponent('Check out what I found in NASA\'s Worldview!').replace(/'/g, '%27');
     var twMessage = encodeURIComponent('Check out what I found in #NASAWorldview');
+    var emailBody = shareMessage + "%20-%20" + defaultLink;
     var display = 'popup';
+
+    var fbUrl = link.facebookUrlParams(fbAppId, defaultLink, defaultLink, display);
+    var twUrl = link.twitterUrlParams(defaultLink, twMessage);
+    var rdUrl = link.redditUrlParams(defaultLink, twMessage);
+    var emailUrl = link.emailUrlParams(shareMessage, emailBody);
 
     // URL Shortening
     item = "<div id='wv-link' >" +
@@ -51,25 +57,10 @@ export default class Dialog extends React.Component {
 
     // Social Sharing
     item += "<div id='social-share'>";
-
-    // Facebook: https://developers.facebook.com/docs/sharing/reference/share-dialog#redirect
-    // link.facebook(app_id, href, redirect_uri, display);
-
-    item += "<a id='fb-share' class='icon-link fa fa-facebook fa-2x' href='" + link.facebook(fbAppId, defaultLink, defaultLink, display) + " " + "target='_blank' " + "title='Share via Facebook!'></a>";
-
-    // Twitter: https://dev.twitter.com/web/tweet-button/parameters#web-intent-example
-    // link.twitter(url, text);
-    item += "<a id='tw-share' class='icon-link fa fa-twitter fa-2x' href='https://twitter.com/intent/tweet?" + "url=" + defaultLink + "&text=" + twMessage + "%20-' " + "target='_blank' " + "title='Share via Twitter!'></a>";
-
-    // Reddit
-    // https://www.reddit.com/r/nasa/submit?url=[URL]&title=[TITLE]
-    // link.reddit(url, title);
-    item += "<a id='rd-share' class='icon-link fa fa-reddit fa-2x' href='https://www.reddit.com/r/nasa/submit?" + "url=" + defaultLink + "&title=" + shareMessage + "' " + "target='_blank' " + "title='Share via Reddit!'></a>";
-
-    // Email
-    // link.email(subject, body);
-    item += "<a id='email-share' class='icon-link fa fa-envelope fa-2x' href='mailto:?" + "subject=" + shareMessage + "&body=" + shareMessage + "%20-%20" + defaultLink + "' " + "target='_self' " + "title='Share via Email!'></a>";
-
+    item += socialButton('fb-share', 'icon-link fa fa-facebook fa-2x', fbUrl, '_blank', 'Share via Facebook!');
+    item += socialButton('tw-share', 'icon-link fa fa-twitter fa-2x', twUrl, '_blank', 'Share via Twitter!');
+    item += socialButton('rd-share', 'icon-link fa fa-reddit fa-2x', rdUrl, '_blank', 'Share via Reddit!');
+    item += socialButton('email-share', 'icon-link fa fa-envelope fa-2x', rdUrl, '_blank', 'Share via Email!');
     item += "</div>";
 
     $dialog.html(item).iCheck({checkboxClass: 'icheckbox_square-grey'});

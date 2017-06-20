@@ -16,19 +16,34 @@ import Util from '../util/wv.utils';
 const util = new Util();
 
 export default class ShareLinks {
-  facebook(app_id, href, redirect_uri, display) {
+  // Facebook: https://developers.facebook.com/docs/sharing/reference/share-dialog#redirect
+  facebookUrlParams(app_id, href, redirect_uri, display) {
     return 'https://www.facebook.com/dialog/share?' + util.objectToGetParams({ app_id, href, redirect_uri, display });
   }
 
-  twitter(url, text) {
+  // Twitter: https://dev.twitter.com/web/tweet-button/parameters#web-intent-example
+  twitterUrlParams(url, text) {
     return 'https://twitter.com/intent/tweet?' + util.objectToGetParams({ url, text });
   }
 
-  reddit(url, title) {
+  // Reddit: https://www.reddit.com/r/nasa/submit?url=[URL]&title=[TITLE]
+  redditUrlParams(url, title) {
     return 'https://www.reddit.com/r/nasa/submit?' + util.objectToGetParams({ url, title });
   }
 
-  email(subject, body) {
+  // Email
+  emailUrlParams(subject, body) {
     return 'mailto:' + util.objectToGetParams({ subject, body });
-  } 
+  }
+
+  socialButton(id, className, href, target, title) {
+    item += "<a ";
+    item += "id='" + id;
+    item += "' class='" + className;
+    item += "' href='" + href;
+    item += "' target='" + target;
+    item += "' title='" + title;
+    item += "'></a>";
+  }
+
 }
