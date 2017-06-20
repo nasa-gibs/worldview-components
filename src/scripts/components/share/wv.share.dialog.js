@@ -32,24 +32,20 @@ export default class Dialog extends React.Component {
     var $dialog = wv.ui.getDialog();
     var config = this.props.configs;
     var model = this.props.models;
-    var urlShortening = config.features.urlShortening;
-
-    var defaultLink = encodeURIComponent('http://worldview.earthdata.nasa.gov');
-    var fbAppId = '121285908450463';
-    var shareMessage = encodeURIComponent('Check out what I found in NASA\'s Worldview!').replace(/'/g, '%27');
-    var twMessage = encodeURIComponent('Check out what I found in #NASAWorldview');
+    var defaultLink = 'http://worldview.earthdata.nasa.gov';
+    var shareMessage = 'Check out what I found in NASA\'s Worldview!';
+    var twMessage = 'Check out what I found in #NASAWorldview';
     var emailBody = shareMessage + "%20-%20" + defaultLink;
-    var display = 'popup';
-    var item;
-    var fbUrl = link.facebookUrlParams(fbAppId, defaultLink, defaultLink, display);
+    var fbUrl = link.facebookUrlParams('121285908450463', defaultLink, defaultLink, 'popup');
     var twUrl = link.twitterUrlParams(defaultLink, twMessage);
-    var rdUrl = link.redditUrlParams(defaultLink, twMessage);
+    var rdUrl = link.redditUrlParams(defaultLink, shareMessage);
     var emailUrl = link.emailUrlParams(shareMessage, emailBody);
+    var item;
 
     // URL Shortening
     item = "<div id='wv-link' >" +
       "<input type='text' value='' name='permalink_content' id='permalink_content' readonly/>";
-    if (urlShortening) {
+    if (config.features.urlShortening) {
       item += "<span autofocus></span><div id='wv-link-shorten'>" + "<input type='checkbox' value='' id='wv-link-shorten-check' />" + "<label id='wv-link-shorten-label' for='wv-link-shorten-check'>Shorten this link</label>" + "</div>";
     }
     item += "</div>";
@@ -59,9 +55,10 @@ export default class Dialog extends React.Component {
     item += link.socialButton('fb-share', 'icon-link fa fa-facebook fa-2x', fbUrl, '_blank', 'Share via Facebook!');
     item += link.socialButton('tw-share', 'icon-link fa fa-twitter fa-2x', twUrl, '_blank', 'Share via Twitter!');
     item += link.socialButton('rd-share', 'icon-link fa fa-reddit fa-2x', rdUrl, '_blank', 'Share via Reddit!');
-    item += link.socialButton('email-share', 'icon-link fa fa-envelope fa-2x', rdUrl, '_blank', 'Share via Email!');
+    item += link.socialButton('email-share', 'icon-link fa fa-envelope fa-2x', emailUrl, '_blank', 'Share via Email!');
     item += "</div>";
 
+    // Create Dialog Box Content
     $dialog.html(item).iCheck({checkboxClass: 'icheckbox_square-grey'});
 
     // If selected during the animation, the cursor will go to the
@@ -105,36 +102,38 @@ export default class Dialog extends React.Component {
     setTimeout(updateLink, 500);
     // When an icon-link is clicked, replace the URL with current encoded link.
     $(".icon-link").on("click", function() {
-      var fullEncodedLink = encodeURIComponent(model.link.get());
+      // var fullEncodedLink = encodeURIComponent(model.link.get());
+      defaultLink = model.link.get();
+
       var promise = model.link.shorten();
-
-      // Set Facebook
-      var fbLink = document.getElementById("fb-share");
-      fbLink.setAttribute("href", "https://www.facebook.com/dialog/share?" + "app_id=" + fbAppId + "&href=" + fullEncodedLink + "&redirect_uri=" + fullEncodedLink + "&display=popup");
-
-      // Set Twitter
-      var twLink = document.getElementById("tw-share");
-      twLink.setAttribute("href", "https://twitter.com/intent/tweet?" + "url=" + fullEncodedLink + "&text=" + twMessage + "%20-");
-
-      // Set Reddit
-      var rdLink = document.getElementById("rd-share");
-      rdLink.setAttribute("href", "https://www.reddit.com/r/nasa/submit?" + "url=" + fullEncodedLink + "&title=" + shareMessage);
-
-      // Set Email
-      var emailLink = document.getElementById("email-share");
-      emailLink.setAttribute("href", "mailto:?" + "subject=" + shareMessage + "&body=" + shareMessage + "%20-%20" + fullEncodedLink);
+      // // Set Facebook
+      // var fbLink = document.getElementById("fb-share");
+      // fbLink.setAttribute("href", "https://www.facebook.com/dialog/share?" + "app_id=" + fbAppId + "&href=" + fullEncodedLink + "&redirect_uri=" + fullEncodedLink + "&display=popup");
+      //
+      // // Set Twitter
+      // var twLink = document.getElementById("tw-share");
+      // twLink.setAttribute("href", "https://twitter.com/intent/tweet?" + "url=" + fullEncodedLink + "&text=" + twMessage + "%20-");
+      //
+      // // Set Reddit
+      // var rdLink = document.getElementById("rd-share");
+      // rdLink.setAttribute("href", "https://www.reddit.com/r/nasa/submit?" + "url=" + fullEncodedLink + "&title=" + shareMessage);
+      //
+      // // Set Email
+      // var emailLink = document.getElementById("email-share");
+      // emailLink.setAttribute("href", "mailto:?" + "subject=" + shareMessage + "&body=" + shareMessage + "%20-%20" + fullEncodedLink);
 
       // If a short link can be generated, replace the full link.
       promise.done(function(result) {
         if (result.status_code === 200) {
           var shortLink = result.data.url;
-          var shortEncodedLink = encodeURIComponent(shortLink);
-
-          // Set Twitter
-          twLink.setAttribute("href", "https://twitter.com/intent/tweet?" + "url=" + shortEncodedLink + "&text=" + twMessage + "%20-");
-
-          // Set Email
-          emailLink.setAttribute("href", "mailto:?" + "subject=" + shareMessage + "&body=" + shareMessage + "%20-%20" + shortEncodedLink);
+          // var shortEncodedLink = encodeURIComponent(shortLink);
+          defaultLink = shortLink;
+          //
+          // // Set Twitter
+          // twLink.setAttribute("href", "https://twitter.com/intent/tweet?" + "url=" + shortEncodedLink + "&text=" + twMessage + "%20-");
+          //
+          // // Set Email
+          // emailLink.setAttribute("href", "mailto:?" + "subject=" + shareMessage + "&body=" + shareMessage + "%20-%20" + shortEncodedLink);
           return false;
         }
       });
