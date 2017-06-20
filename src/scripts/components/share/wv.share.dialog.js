@@ -33,7 +33,6 @@ export default class Dialog extends React.Component {
     var config = this.props.configs;
     var model = this.props.models;
     var urlShortening = config.features.urlShortening;
-    var item;
 
     var defaultLink = encodeURIComponent('http://worldview.earthdata.nasa.gov');
     var fbAppId = '121285908450463';
@@ -41,7 +40,7 @@ export default class Dialog extends React.Component {
     var twMessage = encodeURIComponent('Check out what I found in #NASAWorldview');
     var emailBody = shareMessage + "%20-%20" + defaultLink;
     var display = 'popup';
-
+    var item;
     var fbUrl = link.facebookUrlParams(fbAppId, defaultLink, defaultLink, display);
     var twUrl = link.twitterUrlParams(defaultLink, twMessage);
     var rdUrl = link.redditUrlParams(defaultLink, twMessage);
@@ -57,10 +56,10 @@ export default class Dialog extends React.Component {
 
     // Social Sharing
     item += "<div id='social-share'>";
-    item += socialButton('fb-share', 'icon-link fa fa-facebook fa-2x', fbUrl, '_blank', 'Share via Facebook!');
-    item += socialButton('tw-share', 'icon-link fa fa-twitter fa-2x', twUrl, '_blank', 'Share via Twitter!');
-    item += socialButton('rd-share', 'icon-link fa fa-reddit fa-2x', rdUrl, '_blank', 'Share via Reddit!');
-    item += socialButton('email-share', 'icon-link fa fa-envelope fa-2x', rdUrl, '_blank', 'Share via Email!');
+    item += link.socialButton('fb-share', 'icon-link fa fa-facebook fa-2x', fbUrl, '_blank', 'Share via Facebook!');
+    item += link.socialButton('tw-share', 'icon-link fa fa-twitter fa-2x', twUrl, '_blank', 'Share via Twitter!');
+    item += link.socialButton('rd-share', 'icon-link fa fa-reddit fa-2x', rdUrl, '_blank', 'Share via Reddit!');
+    item += link.socialButton('email-share', 'icon-link fa fa-envelope fa-2x', rdUrl, '_blank', 'Share via Email!');
     item += "</div>";
 
     $dialog.html(item).iCheck({checkboxClass: 'icheckbox_square-grey'});

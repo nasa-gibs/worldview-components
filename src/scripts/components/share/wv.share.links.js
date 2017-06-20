@@ -37,13 +37,16 @@ export default class ShareLinks {
   }
 
   socialButton(id, className, href, target, title) {
-    item += "<a ";
-    item += "id='" + id;
-    item += "' class='" + className;
-    item += "' href='" + href;
-    item += "' target='" + target;
-    item += "' title='" + title;
-    item += "'></a>";
+    var link;
+    link = "<a ";
+    link += "id='" + id;
+    link += "' class='" + className;
+    link += "' href='" + href;
+    link += "' target='" + target;
+    link += "' title='" + title;
+    link += "'></a>";
+
+    return link;
   }
 
 }
