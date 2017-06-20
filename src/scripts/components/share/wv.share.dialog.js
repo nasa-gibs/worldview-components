@@ -13,6 +13,9 @@
  */
 
 import React from 'react';
+import ShareLinks from './wv.share.links';
+
+const link = new ShareLinks();
 
 export default class Dialog extends React.Component {
 
@@ -22,15 +25,8 @@ export default class Dialog extends React.Component {
       configs: props.configs,
       models: props.models,
     };
-    // this.updates = this.updates.bind(this);
     this.openDialog = this.openDialog.bind(this);
   }
-
-  // updates() {
-  //   this.setState({
-  //     getModelsLink: props.getModelsLink
-  //   });
-  // }
 
   openDialog() {
 
@@ -39,6 +35,7 @@ export default class Dialog extends React.Component {
       var model = this.props.models;
       var urlShortening = config.features.urlShortening;
 
+      // URL Shortening
       var item =  "<div id='wv-link' >" +
           "<input type='text' value='' name='permalink_content' id='permalink_content' readonly/>";
       if ( urlShortening ) {
@@ -57,7 +54,9 @@ export default class Dialog extends React.Component {
 
       item += "<div id='social-share'>";
 
+
       // Facebook: https://developers.facebook.com/docs/sharing/reference/share-dialog#redirect
+      // link.facebook(app_id, href, redirect_uri, display);
       item += "<a id='fb-share' class='icon-link fa fa-facebook fa-2x' href='https://www.facebook.com/dialog/share?" +
           "app_id=" + fbAppId +
           "&href=" + defaultLink +
@@ -67,6 +66,7 @@ export default class Dialog extends React.Component {
           "title='Share via Facebook!'></a>";
 
       // Twitter: https://dev.twitter.com/web/tweet-button/parameters#web-intent-example
+      // link.twitter(url, text);
       item += "<a id='tw-share' class='icon-link fa fa-twitter fa-2x' href='https://twitter.com/intent/tweet?" +
           "url=" + defaultLink +
           "&text=" + twMessage + "%20-' " +
@@ -75,6 +75,7 @@ export default class Dialog extends React.Component {
 
       // Reddit
       // https://www.reddit.com/r/nasa/submit?url=[URL]&title=[TITLE]
+      // link.reddit(url, title);
       item += "<a id='rd-share' class='icon-link fa fa-reddit fa-2x' href='https://www.reddit.com/r/nasa/submit?" +
           "url=" + defaultLink +
           "&title=" + shareMessage + "' " +
@@ -82,6 +83,7 @@ export default class Dialog extends React.Component {
           "title='Share via Reddit!'></a>";
 
       // Email
+      // link.email(subject, body);
       item += "<a id='email-share' class='icon-link fa fa-envelope fa-2x' href='mailto:?" +
           "subject=" + shareMessage +
           "&body=" + shareMessage + "%20-%20" + defaultLink + "' " +

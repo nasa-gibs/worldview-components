@@ -13,8 +13,7 @@ export {default as AnimationWidget} from './components/animationwidget/wv.animat
 export {default as RangeSelector} from './components/rangeselection/wv.timeline.rangeselection.js';
 export {default as DateSelector} from './components/dateSelector/wv.dateSelector.js';
 export {default as ToolTip} from './components/tooltip/wv.tooltip.js';
-export {default as Dialog} from './components/modal/wv.dialog.js';
-export {default as Share} from './components/share/wv.share.js';
+export {default as Share} from './components/share/wv.share.dialog.js';
 export {default as Utils} from './components/util/wv.utils.js';
 export {default as GA} from './components/util/wv.googleAnalytics.js';
 export {default as DateLine} from './components/dateline/wv.line.js';
