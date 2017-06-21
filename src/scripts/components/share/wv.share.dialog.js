@@ -53,7 +53,6 @@ export default class Dialog extends React.Component {
 
     // When an icon-link is clicked, replace the URL with current encoded link.
     $(".icon-link").on("click", function() {
-      console.log('clicked!');
       var promise = model.link.shorten();
       defaultLink = model.link.get();
       emailBody = shareMessage + " - " + defaultLink;
@@ -91,8 +90,8 @@ export default class Dialog extends React.Component {
       dialogClass: "wv-panel wv-link-panel",
       title: "Copy this link to share:",
       show: {
-          effect: "slide",
-          direction: "up"
+        effect: "slide",
+        direction: "up"
       },
       width: 300,
       height: "auto",
@@ -141,10 +140,10 @@ export default class Dialog extends React.Component {
     });
 
     var error = function() {
-        console.warn("Unable to shorten URL");
-        console.warn.apply(console, arguments);
-        wv.ui.notify("Unable to shorten the permalink at this time. " +
-          "Please try again later.");
+      console.warn("Unable to shorten URL");
+      console.warn.apply(console, arguments);
+      wv.ui.notify("Unable to shorten the permalink at this time. " +
+        "Please try again later.");
     };
 
     $("#wv-link-shorten-check").prop("checked", false);

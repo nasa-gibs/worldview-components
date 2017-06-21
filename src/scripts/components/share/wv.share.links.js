@@ -31,13 +31,14 @@ export default class ShareLinks {
     return 'https://www.reddit.com/r/nasa/submit' + util.objectToGetParams({ url, title });
   }
 
-  // Email
+  // Email: mailto:?subject=[SUBJECT]&body=[BODY]
   emailUrlParams(subject, body) {
     return 'mailto:' + util.objectToGetParams({ subject, body });
   }
 
   socialButton(id, className, href, target, title) {
     var link;
+
     link = "<a ";
     link += "id='" + id;
     link += "' class='" + className;
