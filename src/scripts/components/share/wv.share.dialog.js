@@ -23,7 +23,6 @@ export default class Dialog extends React.Component {
     var $dialog = wv.ui.getDialog();
     var config = this.props.configs;
     var model = this.props.models;
-    var promise = model.link.shorten();
     var defaultLink = model.link.get();
     var shareMessage = 'Check out what I found in NASA Worldview!';
     var twMessage = 'Check out what I found in #NASAWorldview - ';
@@ -32,19 +31,6 @@ export default class Dialog extends React.Component {
     var twUrl = link.twitterUrlParams(defaultLink, twMessage);
     var rdUrl = link.redditUrlParams(defaultLink, shareMessage);
     var emailUrl = link.emailUrlParams(shareMessage, emailBody);
-
-    // If a short link can be generated, replace the full link.
-    promise.done(function(result) {
-      if (result.status_code === 200) {
-        defaultLink = result.data.url;
-        emailBody = shareMessage + " - " + defaultLink;
-        fbUrl = link.facebookUrlParams('121285908450463', defaultLink, defaultLink, 'popup');
-        twUrl = link.twitterUrlParams(defaultLink, twMessage);
-        rdUrl = link.redditUrlParams(defaultLink, shareMessage);
-        emailUrl = link.emailUrlParams(shareMessage, emailBody);
-        return false;
-      }
-    });
 
     // URL Shortening
     var item = "<div id='wv-link' >" +
@@ -64,6 +50,31 @@ export default class Dialog extends React.Component {
 
     // Create Dialog Box Content
     $dialog.html(item).iCheck({checkboxClass: 'icheckbox_square-grey'});
+
+    // When an icon-link is clicked, replace the URL with current encoded link.
+    $(".icon-link").on("click", function() {
+      console.log('clicked!');
+      var promise = model.link.shorten();
+      defaultLink = model.link.get();
+      emailBody = shareMessage + " - " + defaultLink;
+
+      document.getElementById("fb-share").setAttribute("href", link.facebookUrlParams('121285908450463', defaultLink, defaultLink, 'popup'));
+      document.getElementById("tw-share").setAttribute("href", link.twitterUrlParams(defaultLink, twMessage));
+      document.getElementById("rd-share").setAttribute("href", link.redditUrlParams(defaultLink, shareMessage));
+      document.getElementById("email-share").setAttribute("href", link.emailUrlParams(shareMessage, emailBody));
+
+      // If a short link can be generated, replace the full link.
+      promise.done(function(result) {
+        if (result.status_code === 200) {
+          defaultLink = result.data.url;
+          emailBody = shareMessage + " - " + defaultLink;
+
+          document.getElementById("tw-share").setAttribute("href", link.twitterUrlParams(defaultLink, twMessage));
+          document.getElementById("email-share").setAttribute("href", link.emailUrlParams(shareMessage, emailBody));
+          return false;
+        }
+      });
+    });
 
     // If selected during the animation, the cursor will go to the
     // end of the input box
