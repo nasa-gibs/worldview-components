@@ -25,7 +25,7 @@ export default class Dialog extends React.Component {
     var model = this.props.models;
     var defaultLink = model.link.get();
     var shareMessage = 'Check out what I found in NASA Worldview!';
-    var twMessage = 'Check out what I found in #NASAWorldview - ';
+    var twMessage = 'Check out what I found in #NASAWorldview -';
     var emailBody = shareMessage + " - " + defaultLink;
     var fbUrl = link.facebookUrlParams('121285908450463', defaultLink, defaultLink, 'popup');
     var twUrl = link.twitterUrlParams(defaultLink, twMessage);
