@@ -12,7 +12,7 @@ Prerequisites:
 
 Install dependencies (NOTE for Windows users: omit the "sudo" part of the following commands as it [isn't available](https://stackoverflow.com/questions/22527668/sudo-command-not-found-on-cygwin)):
 ```bash
-# install local version of grunt
+# install local version of gulp
 sudo npm install --global gulp-cli
 ```
 
