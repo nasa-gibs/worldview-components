@@ -17,8 +17,8 @@ const util = new Util();
 
 export default class ShareLinks {
   // Facebook: https://developers.facebook.com/docs/sharing/reference/share-dialog#redirect
-  facebookUrlParams(app_id, href, redirect_uri, display) {
-    return 'https://www.facebook.com/dialog/share' + util.objectToGetParams({ app_id, href, redirect_uri, display });
+  facebookUrlParams(appId, href, redirectUri, display) {
+    return 'https://www.facebook.com/dialog/share' + util.objectToGetParams({ appId, href, redirectUri, display });
   }
 
   // Twitter: https://dev.twitter.com/web/tweet-button/parameters#web-intent-example

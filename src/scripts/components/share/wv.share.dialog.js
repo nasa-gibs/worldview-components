@@ -21,21 +21,20 @@ export default class Dialog extends React.Component {
 
   openDialog() {
     var $dialog = wv.ui.getDialog();
-    var config = this.props.configs;
-    var model = this.props.models;
-    var defaultLink = model.link.get();
+    var modelLink = this.props.modelsLink;
+    var getLink = modelLink.get();
     var shareMessage = 'Check out what I found in NASA Worldview!';
     var twMessage = 'Check out what I found in #NASAWorldview -';
-    var emailBody = shareMessage + " - " + defaultLink;
-    var fbUrl = link.facebookUrlParams('121285908450463', defaultLink, defaultLink, 'popup');
-    var twUrl = link.twitterUrlParams(defaultLink, twMessage);
-    var rdUrl = link.redditUrlParams(defaultLink, shareMessage);
+    var emailBody = shareMessage + " - " + getLink;
+    var fbUrl = link.facebookUrlParams('121285908450463', getLink, getLink, 'popup');
+    var twUrl = link.twitterUrlParams(getLink, twMessage);
+    var rdUrl = link.redditUrlParams(getLink, shareMessage);
     var emailUrl = link.emailUrlParams(shareMessage, emailBody);
 
     // URL Shortening
     var item = "<div id='wv-link' >" +
       "<input type='text' value='' name='permalink_content' id='permalink_content' readonly/>";
-    if (config.features.urlShortening) {
+    if (this.props.urlShortening) {
       item += "<span autofocus></span><div id='wv-link-shorten'>" + "<input type='checkbox' value='' id='wv-link-shorten-check' />" + "<label id='wv-link-shorten-label' for='wv-link-shorten-check'>Shorten this link</label>" + "</div>";
     }
     item += "</div>";
@@ -53,22 +52,22 @@ export default class Dialog extends React.Component {
 
     // When an icon-link is clicked, replace the URL with current encoded link.
     $(".icon-link").on("click", function() {
-      var promise = model.link.shorten();
-      defaultLink = model.link.get();
-      emailBody = shareMessage + " - " + defaultLink;
+      var promise = modelLink.shorten();
+      getLink = modelLink.get();
+      emailBody = shareMessage + " - " + getLink;
 
-      document.getElementById("fb-share").setAttribute("href", link.facebookUrlParams('121285908450463', defaultLink, defaultLink, 'popup'));
-      document.getElementById("tw-share").setAttribute("href", link.twitterUrlParams(defaultLink, twMessage));
-      document.getElementById("rd-share").setAttribute("href", link.redditUrlParams(defaultLink, shareMessage));
+      document.getElementById("fb-share").setAttribute("href", link.facebookUrlParams('121285908450463', getLink, getLink, 'popup'));
+      document.getElementById("tw-share").setAttribute("href", link.twitterUrlParams(getLink, twMessage));
+      document.getElementById("rd-share").setAttribute("href", link.redditUrlParams(getLink, shareMessage));
       document.getElementById("email-share").setAttribute("href", link.emailUrlParams(shareMessage, emailBody));
 
       // If a short link can be generated, replace the full link.
       promise.done(function(result) {
         if (result.status_code === 200) {
-          defaultLink = result.data.url;
-          emailBody = shareMessage + " - " + defaultLink;
+          getLink = result.data.url;
+          emailBody = shareMessage + " - " + getLink;
 
-          document.getElementById("tw-share").setAttribute("href", link.twitterUrlParams(defaultLink, twMessage));
+          document.getElementById("tw-share").setAttribute("href", link.twitterUrlParams(getLink, twMessage));
           document.getElementById("email-share").setAttribute("href", link.emailUrlParams(shareMessage, emailBody));
           return false;
         }
@@ -78,13 +77,13 @@ export default class Dialog extends React.Component {
     // If selected during the animation, the cursor will go to the
     // end of the input box
     var updateLink = function() {
-      $('#permalink_content').val(model.link.get());
+      $('#permalink_content').val(modelLink.get());
       $("#wv-link-shorten-check").iCheck("uncheck");
       $('#permalink_content').focus();
       $('#permalink_content').select();
     };
 
-    model.link.events.on("update", updateLink);
+    modelLink.events.on("update", updateLink);
 
     $dialog.dialog({
       dialogClass: "wv-panel wv-link-panel",
@@ -102,7 +101,7 @@ export default class Dialog extends React.Component {
     }).on("dialogclose", function() {
       $("#wv-link-button-check").prop("checked", false);
       $button.button("refresh");
-      model.link.events.off("update", updateLink);
+      modelLink.events.off("update", updateLink);
     });
     wv.ui.positionDialog($dialog, {
       my: "left top",
@@ -111,7 +110,7 @@ export default class Dialog extends React.Component {
     });
     $(".ui-dialog").zIndex(600);
 
-    $('#permalink_content').val(model.link.get());
+    $('#permalink_content').val(modelLink.get());
     $dialog.dialog("open");
     setTimeout(updateLink, 500);
 
@@ -119,7 +118,7 @@ export default class Dialog extends React.Component {
     $("#wv-link-shorten-check").on("ifChanged", function() {
       var checked = $("#wv-link-shorten-check").prop("checked");
       if (checked) {
-        var promise = model.link.shorten();
+        var promise = modelLink.shorten();
         WVC.GA.event('Link', 'Check', 'Shorten');
         $("#permalink_content").val("Please wait...");
         promise.done(function(result) {
@@ -132,7 +131,7 @@ export default class Dialog extends React.Component {
           error(textStatus, errorThrown);
         });
       } else {
-        $('#permalink_content').val(model.link.get());
+        $('#permalink_content').val(modelLink.get());
         WVC.GA.event('Link', 'Check', 'Lengthen');
       }
       $('#permalink_content').focus();
