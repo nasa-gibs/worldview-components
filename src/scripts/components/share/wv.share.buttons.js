@@ -14,6 +14,11 @@
 
 import React from 'react';
 import ShareLinks from './wv.share.links';
+import Facebook from './wv.facebook';
+import Twitter from './wv.twitter';
+import Reddit from './wv.reddit';
+import Email from './wv.email';
+
 
 const link = new ShareLinks();
 
@@ -32,8 +37,7 @@ export default class ShareButtons extends React.Component {
     return {__html: item};
   }
 
-  shareButtons() {
-    var item;
+  render() {
     var modelLink = this.props.models.link;
     var getLink = modelLink.get();
     var shareMessage = 'Check out what I found in NASA Worldview!';
@@ -44,19 +48,15 @@ export default class ShareButtons extends React.Component {
     var rdUrl = link.redditUrlParams(getLink, shareMessage);
     var emailUrl = link.emailUrlParams(shareMessage, emailBody);
 
-    item = link.socialButton('fb-share', 'icon-link fa fa-facebook fa-2x', fbUrl, '_blank', 'Share via Facebook!');
-    item += link.socialButton('tw-share', 'icon-link fa fa-twitter fa-2x', twUrl, '_blank', 'Share via Twitter!');
-    item += link.socialButton('rd-share', 'icon-link fa fa-reddit fa-2x', rdUrl, '_blank', 'Share via Reddit!');
-    item += link.socialButton('email-share', 'icon-link fa fa-envelope fa-2x', emailUrl, '_self', 'Share via Email!');
-
-    return {__html: item};
-  }
-
-  render() {
     return (
       <div>
         <div id='wv-link' dangerouslySetInnerHTML={this.urlShortener()} />
-        <div id='social-share' dangerouslySetInnerHTML={this.shareButtons()} />
+        <div id="social-share">
+          <Facebook fbUrl={fbUrl} />
+          <Twitter twUrl={twUrl} />
+          <Reddit rdUrl={rdUrl} />
+          <Email emailUrl={emailUrl} />
+        </div>
       </div>
     );
   }
