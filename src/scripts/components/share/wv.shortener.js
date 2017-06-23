@@ -19,11 +19,11 @@ export default class Shortener extends React.Component {
   render() {
     return (
       <div id='wv-link'>
-        <input type='text' value='' name='permalink_content' id='permalink_content' readonly/>";
-        <span autofocus></span>
+        <input type='text' value='' name='permalink_content' id='permalink_content' readOnly />
+        <span autoFocus></span>
         <div id='wv-link-shorten'>
           <input type='checkbox' value='' id='wv-link-shorten-check' />
-          <label id='wv-link-shorten-label' for='wv-link-shorten-check'>Shorten this link</label>
+          <label id='wv-link-shorten-label' htmlFor='wv-link-shorten-check'>Shorten this link</label>
         </div>
       </div>
     );
