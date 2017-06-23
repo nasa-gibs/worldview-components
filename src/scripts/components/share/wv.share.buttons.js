@@ -14,11 +14,11 @@
 
 import React from 'react';
 import ShareLinks from './wv.share.links';
+import { linkmodel } from './wv.share.model';
 import Facebook from './wv.facebook';
 import Twitter from './wv.twitter';
 import Reddit from './wv.reddit';
 import Email from './wv.email';
-
 
 const link = new ShareLinks();
 
@@ -26,11 +26,11 @@ export default class ShareButtons extends React.Component {
 
   urlShortener() {
     var item;
-    var urlShortening = this.props.configs;
+    var urlShortening = this.props.urlShortening;
 
     // URL Shortening
     item = "<input type='text' value='' name='permalink_content' id='permalink_content' readonly/>";
-    if (urlShortening) {
+    if (this.props.urlShortening) {
       item += "<span autofocus></span><div id='wv-link-shorten'>" + "<input type='checkbox' value='' id='wv-link-shorten-check' />" + "<label id='wv-link-shorten-label' for='wv-link-shorten-check'>Shorten this link</label>" + "</div>";
     }
 
@@ -38,8 +38,8 @@ export default class ShareButtons extends React.Component {
   }
 
   render() {
-    var modelLink = this.props.models.link;
-    var getLink = modelLink.get();
+    var model = linkmodel();
+    var getLink = model.get();
     var shareMessage = 'Check out what I found in NASA Worldview!';
     var twMessage = 'Check out what I found in #NASAWorldview -';
     var emailBody = shareMessage + " - " + getLink;
