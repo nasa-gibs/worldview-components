@@ -14,28 +14,16 @@
 
 import React from 'react';
 import ShareLinks from './wv.share.links';
-import { linkmodel } from './wv.share.model';
+import Shortener from './wv.shortener';
 import Facebook from './wv.facebook';
 import Twitter from './wv.twitter';
 import Reddit from './wv.reddit';
 import Email from './wv.email';
+import { linkmodel } from './wv.share.model';
 
 const link = new ShareLinks();
 
-export default class ShareButtons extends React.Component {
-
-  urlShortener() {
-    var item;
-    var urlShortening = this.props.urlShortening;
-
-    // URL Shortening
-    item = "<input type='text' value='' name='permalink_content' id='permalink_content' readonly/>";
-    if (this.props.urlShortening) {
-      item += "<span autofocus></span><div id='wv-link-shorten'>" + "<input type='checkbox' value='' id='wv-link-shorten-check' />" + "<label id='wv-link-shorten-label' for='wv-link-shorten-check'>Shorten this link</label>" + "</div>";
-    }
-
-    return {__html: item};
-  }
+export default class Share extends React.Component {
 
   render() {
     var model = linkmodel();
@@ -50,7 +38,7 @@ export default class ShareButtons extends React.Component {
 
     return (
       <div>
-        <div id='wv-link' dangerouslySetInnerHTML={this.urlShortener()} />
+        <Shortener />
         <div id="social-share">
           <Facebook fbUrl={fbUrl} />
           <Twitter twUrl={twUrl} />
