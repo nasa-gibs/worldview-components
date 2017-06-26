@@ -77,10 +77,29 @@ export function linkmodel(config) {
         }
       });
     }
-    var promise = $.getJSON("service/link/shorten.cgi" + mock + "?url=" + encodeURIComponent(link));
-    promise.done(function(result) {
-      shortenCache[link] = result;
-    });
+    // TODO: Test the promise function & build catches replaced jquery with vanilla js
+    // var promise = $.getJSON("service/link/shorten.cgi" + mock + "?url=" + encodeURIComponent(link));
+    //
+    // promise.done(function(result) {
+    //   shortenCache[link] = result;
+    // });
+    // return promise;
+    var promise = new XMLHttpRequest();
+    promise.open('GET', "service/link/shorten.cgi" + mock + "?url=" + encodeURIComponent(url), true);
+
+    promise.onload = function() {
+      if (promise.status >= 200 && promise.status < 400) {
+        shortenCache[link] = JSON.parse(promise.responseText);
+      } else {
+        // Server available but it returned an error
+      }
+    };
+
+    promise.onerror = function() {
+      // There was a connection error
+    };
+
+    promise.send();
     return promise;
   };
 
