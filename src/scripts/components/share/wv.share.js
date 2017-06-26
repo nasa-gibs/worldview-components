@@ -19,7 +19,6 @@ import Shortener from './wv.shortener';
 export default class Share extends React.Component {
 
   render() {
-
     return (
       <div>
         <Shortener />
@@ -27,5 +26,4 @@ export default class Share extends React.Component {
       </div>
     );
   }
-
 }
