@@ -13,6 +13,7 @@
  */
 
 import _ from 'lodash';
+import Deferred from 'deferred-js';
 import {utilEvents} from '../util/wv.util.events';
 
 
@@ -65,11 +66,11 @@ export function linkmodel(config) {
       link = self.get();
     }
     if (shortenCache[link]) {
-      return $.Deferred().resolve(shortenCache[link]);
+      return Deferred().resolve(shortenCache[link]);
     }
     if (/localhost/.test(link)) {
       console.warn("Cannot shorten localhost, using", DEBUG_SHORTEN_LINK);
-      return $.Deferred().resolve({
+      return Deferred().resolve({
         status_code: 200,
         data: {
           url: DEBUG_SHORTEN_LINK

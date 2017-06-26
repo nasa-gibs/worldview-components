@@ -93,17 +93,13 @@ export default class Links extends React.Component {
     var shareMessage = 'Check out what I found in NASA Worldview!';
     var twMessage = 'Check out what I found in #NASAWorldview -';
     var emailBody = shareMessage + " - " + getLink;
-    var fbUrl = this.facebookUrlParams('121285908450463', getLink, getLink, 'popup');
-    var twUrl = this.twitterUrlParams(getLink, twMessage);
-    var rdUrl = this.redditUrlParams(getLink, shareMessage);
-    var emailUrl = this.emailUrlParams(shareMessage, emailBody);
 
     return (
       <div id="social-share">
-        <a id="fb-share" className="icon-link fa fa-facebook fa-2x" href={fbUrl} onClick={this.replaceUrl} target="_blank" title="Share via Facebook!" />
-        <a id="tw-share" className="icon-link fa fa-twitter fa-2x" href={twUrl} onClick={this.replaceUrl} target="_blank" title="Share via Twitter!" />
-        <a id="rd-share" className="icon-link fa fa-reddit fa-2x" href={rdUrl} onClick={this.replaceUrl} target="_blank" title="Share via Reddit!" />
-        <a id="email-share" className="icon-link fa fa-envelope fa-2x" href={emailUrl} onClick={this.replaceUrl} target="_self" title="Share via Email!" />
+        <a id="fb-share" className="icon-link fa fa-facebook fa-2x" href={this.facebookUrlParams('121285908450463', getLink, getLink, 'popup')} onClick={this.replaceUrl} target="_blank" title="Share via Facebook!" />
+        <a id="tw-share" className="icon-link fa fa-twitter fa-2x" href={this.twitterUrlParams(getLink, twMessage)} onClick={this.replaceUrl} target="_blank" title="Share via Twitter!" />
+        <a id="rd-share" className="icon-link fa fa-reddit fa-2x" href={this.redditUrlParams(getLink, shareMessage)} onClick={this.replaceUrl} target="_blank" title="Share via Reddit!" />
+        <a id="email-share" className="icon-link fa fa-envelope fa-2x" href={this.emailUrlParams(shareMessage, emailBody)} onClick={this.replaceUrl} target="_self" title="Share via Email!" />
       </div>
     );
   }
