@@ -19,6 +19,11 @@ const util = new Util();
 
 export default class Links extends React.Component {
 
+  constructor() {
+    super();
+    this.replaceUrl = this.replaceUrl.bind(this);
+  }
+
   // Facebook: https://developers.facebook.com/docs/sharing/reference/share-dialog#redirect
   facebookUrlParams(appId, href, redirectUri, display) {
     return 'https://www.facebook.com/dialog/share' + util.objectToGetParams({ appId, href, redirectUri, display });
@@ -43,25 +48,23 @@ export default class Links extends React.Component {
   replaceUrl() {
     var model = linkmodel();
     var promise = model.shorten();
-    var getLink = encodeURIComponent(model.get());
+    var getLink = model.get();
     var shareMessage = 'Check out what I found in NASA Worldview!';
     var twMessage = 'Check out what I found in #NASAWorldview -';
-    var emailBody = shareMessage + "%20-%20" + getLink;
-    // var fbUrl = this.facebookUrlParams('121285908450463', getLink, getLink, 'popup');
-    // var twUrl = this.twitterUrlParams(getLink, twMessage);
-    // var rdUrl = this.redditUrlParams(getLink, shareMessage);
-    // var emailUrl = this.emailUrlParams(shareMessage, emailBody);
+    var emailBody = shareMessage + " - " + getLink;
 
-    document.getElementById("fb-share").setAttribute("href", "https://www.facebook.com/dialog/share?" + "app_id=" + '121285908450463' + "&href=" + getLink + "&redirect_uri=" + getLink + "&display=popup");
-    document.getElementById("tw-share").setAttribute("href", "https://twitter.com/intent/tweet?" + "url=" + getLink + "&text=" + twMessage);
-    document.getElementById("rd-share").setAttribute("href", "https://www.reddit.com/r/nasa/submit?" + "url=" + getLink + "&title=" + shareMessage);
-    document.getElementById("email-share").setAttribute("href", "mailto:?" + "subject=" + shareMessage + "&body=" + emailBody);
+    document.getElementById("fb-share").setAttribute("href", this.facebookUrlParams('121285908450463', getLink, getLink, 'popup'));
+    document.getElementById("tw-share").setAttribute("href", this.twitterUrlParams(getLink, twMessage));
+    document.getElementById("rd-share").setAttribute("href", this.redditUrlParams(getLink, shareMessage));
+    document.getElementById("email-share").setAttribute("href", this.emailUrlParams(shareMessage, emailBody));
 
     // If a short link can be generated, replace the full link.
     promise.done(function(result) {
       if (result.status_code === 200) {
         getLink = encodeURIComponent(result.data.url);
-        emailBody = shareMessage + "%20-%20" + getLink;
+        shareMessage = encodeURIComponent(shareMessage);
+        twMessage = encodeURIComponent(twMessage);
+        emailBody = shareMessage + encodeURIComponent(" - ") + getLink;
 
         document.getElementById("tw-share").setAttribute("href", "https://twitter.com/intent/tweet?" + "url=" + getLink + "&text=" + twMessage);
         document.getElementById("email-share").setAttribute("href", "mailto:?" + "subject=" + shareMessage + "&body=" + emailBody);
