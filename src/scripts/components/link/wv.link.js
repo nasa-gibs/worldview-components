@@ -13,8 +13,8 @@
  */
 
 import React from 'react';
-import ShareButtons from './wv.share.buttons';
-import Shortener from './wv.shortener';
+import ShareButtons from './wv.link.share';
+import Shortener from './wv.link.shortener';
 
 export default class Share extends React.Component {
 

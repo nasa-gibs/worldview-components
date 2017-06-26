@@ -14,7 +14,7 @@
 
 import React from 'react';
 import Util from '../util/wv.utils';
-import {linkmodel} from './wv.share.model';
+import {linkmodel} from './wv.link.model';
 const util = new Util();
 
 export default class Links extends React.Component {

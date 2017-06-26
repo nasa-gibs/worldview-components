@@ -13,7 +13,7 @@
  */
 
 import _ from 'lodash';
-import {utilEvents} from './wv.util.events';
+import {utilEvents} from '../util/wv.util.events';
 
 
 export function linkmodel(config) {
