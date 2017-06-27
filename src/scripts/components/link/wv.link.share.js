@@ -13,31 +13,8 @@
  */
 
 import React from 'react';
-import Util from '../util/wv.utils';
-// import {linkmodel} from './wv.link.model';
-const util = new Util();
 
 export default class Links extends React.Component {
-
-  // Facebook: https://developers.facebook.com/docs/sharing/reference/share-dialog#redirect
-  facebookUrlParams(appId, href, redirectUri, display) {
-    return 'https://www.facebook.com/dialog/share' + util.objectToGetParams({ appId, href, redirectUri, display });
-  }
-
-  // Twitter: https://dev.twitter.com/web/tweet-button/parameters#web-intent-example
-  twitterUrlParams(url, text) {
-    return 'https://twitter.com/intent/tweet' + util.objectToGetParams({ url, text });
-  }
-
-  // Reddit: https://www.reddit.com/r/nasa/submit?url=[URL]&title=[TITLE]
-  redditUrlParams(url, title) {
-    return 'https://www.reddit.com/r/nasa/submit' + util.objectToGetParams({ url, title });
-  }
-
-  // Email: mailto:?subject=[SUBJECT]&body=[BODY]
-  emailUrlParams(subject, body) {
-    return 'mailto:' + util.objectToGetParams({ subject, body });
-  }
 
   render() {
     return (

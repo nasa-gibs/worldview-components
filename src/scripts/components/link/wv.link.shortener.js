@@ -13,8 +13,6 @@
  */
 
 import React from 'react';
-// import GA from '../util/wv.googleAnalytics';
-// import {linkmodel} from './wv.link.model';
 
 export default class Shortener extends React.Component {
 
