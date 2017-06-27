@@ -13,6 +13,7 @@
  */
 
 import React from 'react';
+import GA from '../util/wv.googleAnalytics';
 import {linkmodel} from './wv.link.model';
 
 export default class Shortener extends React.Component {
@@ -35,7 +36,7 @@ export default class Shortener extends React.Component {
 
     if (checkedValue) {
       var promise = model.shorten();
-      // WVC.GA.event('Link', 'Check', 'Shorten');
+      GA.event('Link', 'Check', 'Shorten');
       document.getElementById("permalink_content").value = "Please wait...";
       promise.done(function(result) {
         if (result.status_code === 200) {
@@ -49,9 +50,8 @@ export default class Shortener extends React.Component {
       document.getElementById("permalink_content").focus();
       document.getElementById("permalink_content").select();
     } else {
-      console.log('not checked');
       document.getElementById("permalink_content").value = model.get();
-      // WVC.GA.event('Link', 'Check', 'Lengthen');
+      GA.event('Link', 'Check', 'Lengthen');
       document.getElementById("permalink_content").focus();
       document.getElementById("permalink_content").select();
     }
