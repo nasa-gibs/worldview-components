@@ -21,7 +21,7 @@ export default class Link extends React.Component {
   render() {
     return (
       <div>
-        <Shortener />
+        <Shortener on={this.props.urlShortener} />
         <ShareButtons
           fbLink={this.props.fbLink}
           twLink={this.props.twLink}

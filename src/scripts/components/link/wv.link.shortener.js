@@ -17,14 +17,21 @@ import React from 'react';
 export default class Shortener extends React.Component {
 
   render() {
+    var span, checkbox;
+    if (this.props.on) {
+      span = <span autoFocus></span>;
+      checkbox =
+      <div id='wv-link-shorten'>
+        <input type='checkbox' value='' id='wv-link-shorten-check' />
+        <label id='wv-link-shorten-label' htmlFor='wv-link-shorten-check'>Shorten this link</label>
+      </div>;
+    }
+
     return (
       <div id='wv-link'>
         <input type='text' value='' name='permalink_content' id='permalink_content' readOnly />
-        <span autoFocus></span>
-        <div id='wv-link-shorten'>
-          <input type='checkbox' value='' id='wv-link-shorten-check' />
-          <label id='wv-link-shorten-label' htmlFor='wv-link-shorten-check'>Shorten this link</label>
-        </div>
+        {span}
+        {checkbox}
       </div>
     );
   }
