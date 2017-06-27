@@ -14,7 +14,7 @@
 
 import React from 'react';
 import GA from '../util/wv.googleAnalytics';
-import {model} from './wv.link.model';
+import {linkmodel} from './wv.link.model';
 
 export default class Shortener extends React.Component {
 
@@ -24,7 +24,7 @@ export default class Shortener extends React.Component {
   }
 
   shortenCheck() {
-    var model = model();
+    var model = linkmodel();
     var checkedValue = document.getElementById('wv-link-shorten-check').checked;
 
     var error = function() {

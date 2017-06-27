@@ -14,7 +14,7 @@
 
 import React from 'react';
 import Util from '../util/wv.utils';
-import {model} from './wv.link.model';
+import {linkmodel} from './wv.link.model';
 const util = new Util();
 
 export default class Links extends React.Component {
@@ -47,7 +47,7 @@ export default class Links extends React.Component {
   // When an icon-link is clicked, replace the URL with current encoded link.
   replaceUrl(e) {
     // e.preventDefault();
-    var model = model();
+    var model = linkmodel();
     var promise = model.shorten();
     var getLink = model.get();
     var shareMessage = 'Check out what I found in NASA Worldview!';
@@ -89,7 +89,7 @@ export default class Links extends React.Component {
   }
 
   render() {
-    var model = model();
+    var model = linkmodel();
     var getLink = model.get();
     var shareMessage = 'Check out what I found in NASA Worldview!';
     var twMessage = 'Check out what I found in #NASAWorldview -';

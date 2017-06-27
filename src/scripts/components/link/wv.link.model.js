@@ -17,7 +17,7 @@ import Deferred from 'deferred-js';
 import {utilEvents} from '../util/wv.util.events';
 
 
-export function model(config) {
+export function linkmodel(config) {
 
   var self = {};
   var DEBUG_SHORTEN_LINK = "http://go.nasa.gov/1iKIZ4j";
