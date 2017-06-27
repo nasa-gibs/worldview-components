@@ -14,7 +14,7 @@
 
 import React from 'react';
 import Util from '../util/wv.utils';
-import {linkmodel} from './wv.link.model';
+import {model} from './wv.link.model';
 const util = new Util();
 
 export default class Links extends React.Component {
@@ -45,8 +45,9 @@ export default class Links extends React.Component {
   }
 
   // When an icon-link is clicked, replace the URL with current encoded link.
-  replaceUrl() {
-    var model = linkmodel();
+  replaceUrl(e) {
+    // e.preventDefault();
+    var model = model();
     var promise = model.shorten();
     var getLink = model.get();
     var shareMessage = 'Check out what I found in NASA Worldview!';
@@ -88,7 +89,7 @@ export default class Links extends React.Component {
   }
 
   render() {
-    var model = linkmodel();
+    var model = model();
     var getLink = model.get();
     var shareMessage = 'Check out what I found in NASA Worldview!';
     var twMessage = 'Check out what I found in #NASAWorldview -';
@@ -96,10 +97,10 @@ export default class Links extends React.Component {
 
     return (
       <div id="social-share">
-        <a id="fb-share" className="icon-link fa fa-facebook fa-2x" href={this.facebookUrlParams('121285908450463', getLink, getLink, 'popup')} onClick={this.replaceUrl} target="_blank" title="Share via Facebook!" />
-        <a id="tw-share" className="icon-link fa fa-twitter fa-2x" href={this.twitterUrlParams(getLink, twMessage)} onClick={this.replaceUrl} target="_blank" title="Share via Twitter!" />
-        <a id="rd-share" className="icon-link fa fa-reddit fa-2x" href={this.redditUrlParams(getLink, shareMessage)} onClick={this.replaceUrl} target="_blank" title="Share via Reddit!" />
-        <a id="email-share" className="icon-link fa fa-envelope fa-2x" href={this.emailUrlParams(shareMessage, emailBody)} onClick={this.replaceUrl} target="_self" title="Share via Email!" />
+        <a id="fb-share" className="icon-link fa fa-facebook fa-2x" href={this.facebookUrlParams('121285908450463', getLink, getLink, 'popup')} target="_blank" title="Share via Facebook!" />
+        <a id="tw-share" className="icon-link fa fa-twitter fa-2x" href={this.twitterUrlParams(getLink, twMessage)} target="_blank" title="Share via Twitter!" />
+        <a id="rd-share" className="icon-link fa fa-reddit fa-2x" href={this.redditUrlParams(getLink, shareMessage)} target="_blank" title="Share via Reddit!" />
+        <a id="email-share" className="icon-link fa fa-envelope fa-2x" href={this.emailUrlParams(shareMessage, emailBody)} target="_self" title="Share via Email!" />
       </div>
     );
   }

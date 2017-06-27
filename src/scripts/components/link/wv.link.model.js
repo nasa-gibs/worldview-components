@@ -17,7 +17,7 @@ import Deferred from 'deferred-js';
 import {utilEvents} from '../util/wv.util.events';
 
 
-export function linkmodel(config) {
+export function model(config) {
 
   var self = {};
   var DEBUG_SHORTEN_LINK = "http://go.nasa.gov/1iKIZ4j";
@@ -46,16 +46,6 @@ export function linkmodel(config) {
     }
   };
 
-  self.register = function(component) {
-    components.push(component);
-    if (component.events) {
-      component.events.any(function() {
-        self.events.trigger("update");
-      });
-    }
-    return self;
-  };
-
   self.get = function() {
     var url = window.location.href;
     return url;
@@ -77,15 +67,9 @@ export function linkmodel(config) {
         }
       });
     }
-    // TODO: Test the promise function & build catches replaced jquery with vanilla js
-    // var promise = $.getJSON("service/link/shorten.cgi" + mock + "?url=" + encodeURIComponent(link));
-    //
-    // promise.done(function(result) {
-    //   shortenCache[link] = result;
-    // });
-    // return promise;
+    // TODO: Build error catches
     var promise = new XMLHttpRequest();
-    promise.open('GET', "service/link/shorten.cgi" + mock + "?url=" + encodeURIComponent(url), true);
+    promise.open('GET', "service/link/shorten.cgi" + mock + "?url=" + encodeURIComponent(link), true);
 
     promise.onload = function() {
       if (promise.status >= 200 && promise.status < 400) {
@@ -108,14 +92,6 @@ export function linkmodel(config) {
     _.each(components, function(component) {
       component.load(state, errors);
     });
-  };
-
-  var encode = function(value) {
-    var encoded = encodeURIComponent(value);
-    _.each(ENCODING_EXCEPTIONS, function(exception) {
-      encoded = encoded.replace(exception.match, exception.replace);
-    });
-    return encoded;
   };
 
   init();
