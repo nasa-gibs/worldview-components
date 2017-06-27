@@ -60,6 +60,7 @@ export default class Links extends React.Component {
     document.getElementById("email-share").setAttribute("href", this.emailUrlParams(shareMessage, emailBody));
 
     // If a short link can be generated, replace the full link.
+    // Replace the .done function with an ES6 equivelant
     promise.done(function(result) {
       if (result.status_code === 200) {
         getLink = encodeURIComponent(result.data.url);

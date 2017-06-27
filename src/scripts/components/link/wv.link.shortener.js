@@ -38,6 +38,7 @@ export default class Shortener extends React.Component {
       var promise = model.shorten();
       GA.event('Link', 'Check', 'Shorten');
       document.getElementById("permalink_content").value = "Please wait...";
+      // Replace the .done function with an ES6 equivelant
       promise.done(function(result) {
         if (result.status_code === 200) {
           document.getElementById("permalink_content").value = result.data.url;
