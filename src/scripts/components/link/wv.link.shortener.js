@@ -13,50 +13,10 @@
  */
 
 import React from 'react';
-import GA from '../util/wv.googleAnalytics';
-import {linkmodel} from './wv.link.model';
+// import GA from '../util/wv.googleAnalytics';
+// import {linkmodel} from './wv.link.model';
 
 export default class Shortener extends React.Component {
-
-  constructor() {
-    super();
-    this.shortenCheck = this.shortenCheck.bind(this);
-  }
-
-  shortenCheck() {
-    var model = linkmodel();
-    var checkedValue = document.getElementById('wv-link-shorten-check').checked;
-
-    var error = function() {
-      console.warn("Unable to shorten URL");
-      console.warn.apply(console, arguments);
-      // wv.ui.notify("Unable to shorten the permalink at this time. " +
-      //   "Please try again later.");
-    };
-
-    if (checkedValue) {
-      var promise = model.shorten();
-      GA.event('Link', 'Check', 'Shorten');
-      document.getElementById("permalink_content").value = "Please wait...";
-      // Replace the .done function with an ES6 equivelant
-      promise.done(function(result) {
-        if (result.status_code === 200) {
-          document.getElementById("permalink_content").value = result.data.url;
-        } else {
-          error(result.status_code, result.status_txt);
-        }
-      }).fail(function(jqXHR, textStatus, errorThrown) {
-        error(textStatus, errorThrown);
-      });
-      document.getElementById("permalink_content").focus();
-      document.getElementById("permalink_content").select();
-    } else {
-      document.getElementById("permalink_content").value = model.get();
-      GA.event('Link', 'Check', 'Lengthen');
-      document.getElementById("permalink_content").focus();
-      document.getElementById("permalink_content").select();
-    }
-  }
 
   render() {
     return (
@@ -64,7 +24,7 @@ export default class Shortener extends React.Component {
         <input type='text' value='' name='permalink_content' id='permalink_content' readOnly />
         <span autoFocus></span>
         <div id='wv-link-shorten'>
-          <input type='checkbox' value='' id='wv-link-shorten-check' onChange={this.shortenCheck} />
+          <input type='checkbox' value='' id='wv-link-shorten-check' />
           <label id='wv-link-shorten-label' htmlFor='wv-link-shorten-check'>Shorten this link</label>
         </div>
       </div>

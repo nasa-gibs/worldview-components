@@ -22,7 +22,12 @@ export default class Link extends React.Component {
     return (
       <div>
         <Shortener />
-        <ShareButtons />
+        <ShareButtons
+          fbLink={this.props.fbLink}
+          twLink={this.props.twLink}
+          rdLink={this.props.rdLink}
+          emailLink={this.props.emailLink}
+        />
       </div>
     );
   }

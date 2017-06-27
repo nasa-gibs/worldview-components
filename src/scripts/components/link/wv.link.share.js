@@ -14,15 +14,10 @@
 
 import React from 'react';
 import Util from '../util/wv.utils';
-import {linkmodel} from './wv.link.model';
+// import {linkmodel} from './wv.link.model';
 const util = new Util();
 
 export default class Links extends React.Component {
-
-  constructor() {
-    super();
-    this.replaceUrl = this.replaceUrl.bind(this);
-  }
 
   // Facebook: https://developers.facebook.com/docs/sharing/reference/share-dialog#redirect
   facebookUrlParams(appId, href, redirectUri, display) {
@@ -44,64 +39,13 @@ export default class Links extends React.Component {
     return 'mailto:' + util.objectToGetParams({ subject, body });
   }
 
-  // When an icon-link is clicked, replace the URL with current encoded link.
-  replaceUrl(e) {
-    // e.preventDefault();
-    var model = linkmodel();
-    var promise = model.shorten();
-    var getLink = model.get();
-    var shareMessage = 'Check out what I found in NASA Worldview!';
-    var twMessage = 'Check out what I found in #NASAWorldview -';
-    var emailBody = shareMessage + " - " + getLink;
-
-    document.getElementById("fb-share").setAttribute("href", this.facebookUrlParams('121285908450463', getLink, getLink, 'popup'));
-    document.getElementById("tw-share").setAttribute("href", this.twitterUrlParams(getLink, twMessage));
-    document.getElementById("rd-share").setAttribute("href", this.redditUrlParams(getLink, shareMessage));
-    document.getElementById("email-share").setAttribute("href", this.emailUrlParams(shareMessage, emailBody));
-
-    // If a short link can be generated, replace the full link.
-    // Replace the .done function with an ES6 equivelant
-    promise.done(function(result) {
-      if (result.status_code === 200) {
-        getLink = encodeURIComponent(result.data.url);
-        shareMessage = encodeURIComponent(shareMessage);
-        twMessage = encodeURIComponent(twMessage);
-        emailBody = shareMessage + encodeURIComponent(" - ") + getLink;
-
-        document.getElementById("tw-share").setAttribute("href", "https://twitter.com/intent/tweet?" + "url=" + getLink + "&text=" + twMessage);
-        document.getElementById("email-share").setAttribute("href", "mailto:?" + "subject=" + shareMessage + "&body=" + emailBody);
-        return false;
-      }
-    });
-  }
-
-  socialButton(id, className, href, target, title) {
-    var link;
-
-    link = "<a ";
-    link += "id='" + id;
-    link += "' class='" + className;
-    link += "' href='" + href;
-    link += "' target='" + target;
-    link += "' title='" + title;
-    link += "'></a>";
-
-    return link;
-  }
-
   render() {
-    var model = linkmodel();
-    var getLink = model.get();
-    var shareMessage = 'Check out what I found in NASA Worldview!';
-    var twMessage = 'Check out what I found in #NASAWorldview -';
-    var emailBody = shareMessage + " - " + getLink;
-
     return (
       <div id="social-share">
-        <a id="fb-share" className="icon-link fa fa-facebook fa-2x" href={this.facebookUrlParams('121285908450463', getLink, getLink, 'popup')} target="_blank" title="Share via Facebook!" />
-        <a id="tw-share" className="icon-link fa fa-twitter fa-2x" href={this.twitterUrlParams(getLink, twMessage)} target="_blank" title="Share via Twitter!" />
-        <a id="rd-share" className="icon-link fa fa-reddit fa-2x" href={this.redditUrlParams(getLink, shareMessage)} target="_blank" title="Share via Reddit!" />
-        <a id="email-share" className="icon-link fa fa-envelope fa-2x" href={this.emailUrlParams(shareMessage, emailBody)} target="_self" title="Share via Email!" />
+        <a id="fb-share" className="icon-link fa fa-facebook fa-2x" href={this.props.fbLink} target="_blank" title="Share via Facebook!" />
+        <a id="tw-share" className="icon-link fa fa-twitter fa-2x" href={this.props.twLink} target="_blank" title="Share via Twitter!" />
+        <a id="rd-share" className="icon-link fa fa-reddit fa-2x" href={this.props.rdLink} target="_blank" title="Share via Reddit!" />
+        <a id="email-share" className="icon-link fa fa-envelope fa-2x" href={this.props.emailLink} target="_self" title="Share via Email!" />
       </div>
     );
   }
