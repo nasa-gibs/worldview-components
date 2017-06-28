@@ -19,10 +19,10 @@ export default class Links extends React.Component {
   render() {
     return (
       <div id="social-share">
-        <a id="fb-share" className="icon-link fa fa-facebook fa-2x" href={this.props.fbLink} target="_blank" title="Share via Facebook!" />
-        <a id="tw-share" className="icon-link fa fa-twitter fa-2x" href={this.props.twLink} target="_blank" title="Share via Twitter!" />
-        <a id="rd-share" className="icon-link fa fa-reddit fa-2x" href={this.props.rdLink} target="_blank" title="Share via Reddit!" />
-        <a id="email-share" className="icon-link fa fa-envelope fa-2x" href={this.props.emailLink} target="_self" title="Share via Email!" />
+        <a id="fb-share" className="icon-link fa fa-facebook fa-2x" href={this.props.fbLink} onClick={this.props.onClick} target="_blank" title="Share via Facebook!" />
+        <a id="tw-share" className="icon-link fa fa-twitter fa-2x" href={this.props.twLink} onClick={this.props.onClick} target="_blank" title="Share via Twitter!" />
+        <a id="rd-share" className="icon-link fa fa-reddit fa-2x" href={this.props.rdLink} onClick={this.props.onClick} target="_blank" title="Share via Reddit!" />
+        <a id="email-share" className="icon-link fa fa-envelope fa-2x" href={this.props.emailLink} onClick={this.props.onClick} target="_self" title="Share via Email!" />
       </div>
     );
   }

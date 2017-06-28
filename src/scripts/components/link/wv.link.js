@@ -18,17 +18,46 @@ import Shortener from './wv.link.shortener';
 
 export default class Link extends React.Component {
 
+  constructor() {
+    super();
+    // this.functionOne = this.functionOne.bind(this);
+    this.updateLinkState = this.updateLinkState.bind(this);
+    this.clickFunction = this.clickFunction.bind(this);
+    this.state = {
+      fbLink: '',
+      twLink: '',
+      rdLink: '',
+      emailLink: ''
+    };
+  }
+
+  updateLinkState(fbLink, twLink, rdLink, emailLink, callback) {
+    this.setState({
+      fbLink : fbLink,
+      twLink : twLink,
+      rdLink : rdLink,
+      emailLink : emailLink
+    });
+    console.log(this.state);
+  }
+
+  clickFunction() {
+    // run the setLink function in WV to update the state
+  }
+
   render() {
     return (
       <div>
         <Shortener on={this.props.urlShortener} />
         <ShareButtons
-          fbLink={this.props.fbLink}
-          twLink={this.props.twLink}
-          rdLink={this.props.rdLink}
-          emailLink={this.props.emailLink}
+          fbLink={this.state.fbLink}
+          twLink={this.state.twLink}
+          rdLink={this.state.rdLink}
+          emailLink={this.state.emailLink}
+          onClick={this.clickFunction}
         />
       </div>
     );
   }
+
 }
