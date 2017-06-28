@@ -18,17 +18,16 @@ import Shortener from './wv.link.shortener';
 
 export default class Link extends React.Component {
 
-  constructor() {
-    super();
-    // this.functionOne = this.functionOne.bind(this);
+  constructor(props) {
+    super(props);
     this.updateLinkState = this.updateLinkState.bind(this);
-    this.clickFunction = this.clickFunction.bind(this);
     this.state = {
-      fbLink: '',
-      twLink: '',
-      rdLink: '',
-      emailLink: ''
+      fbLink: '#',
+      twLink: '#',
+      rdLink: '#',
+      emailLink: '#'
     };
+    console.log(this.state);
   }
 
   updateLinkState(fbLink, twLink, rdLink, emailLink, callback) {
@@ -38,11 +37,6 @@ export default class Link extends React.Component {
       rdLink : rdLink,
       emailLink : emailLink
     });
-    console.log(this.state);
-  }
-
-  clickFunction() {
-    // run the setLink function in WV to update the state
   }
 
   render() {
@@ -54,7 +48,7 @@ export default class Link extends React.Component {
           twLink={this.state.twLink}
           rdLink={this.state.rdLink}
           emailLink={this.state.emailLink}
-          onClick={this.clickFunction}
+          onClick={this.props.clickFunction}
         />
       </div>
     );
