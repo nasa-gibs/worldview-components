@@ -27,7 +27,6 @@ export default class Link extends React.Component {
       rdLink: '#',
       emailLink: '#'
     };
-    console.log(this.state);
   }
 
   updateLinkState(fbLink, twLink, rdLink, emailLink, callback) {
