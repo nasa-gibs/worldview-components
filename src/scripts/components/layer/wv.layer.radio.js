@@ -37,7 +37,7 @@ export default class LayerRadio extends React.Component {
               <Checkbox
                  id={this.props.layerId}
                  data-layer={this.props.layerId}
-                 checkboxClass="icheckbox_square-red"
+                 checkboxClass="icheckbox_square-red iCheck iCheck-checkbox"
                  increaseArea="20%"
                  />
               <h3>{this.props.title}</h3>

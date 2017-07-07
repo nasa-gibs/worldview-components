@@ -39,7 +39,7 @@ export default class LayerList extends React.Component {
       <ul id="flat-layer-list">
         {this.state.layerList.map((layer, i) => {
           return(
-                <LayerRadio key={'layer-'+ layer + '-' + i} layerId={layer} title={layer} subtitle={i} />
+                  <LayerRadio key={'layer-'+ layer + '-' + i} layerId={layer} title={this.state.config.layers[layer].title} subtitle={this.state.config.layers[layer].subtitle} />
           );
         })
         }
