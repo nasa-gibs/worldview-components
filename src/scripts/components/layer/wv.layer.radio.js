@@ -29,11 +29,12 @@ export default class LayerRadio extends React.Component {
     }
     render() {
         return(
-            <li
+            <div
                className='layers-all-layer'
                id={this.props.layerId}
                data-layer={this.props.layerId}
-               onClick={this.props.onClick}>
+               onClick={this.props.onClick}
+               style={this.props.style}>
               <Checkbox
                  id={this.props.layerId}
                  data-layer={this.props.layerId}
@@ -42,7 +43,7 @@ export default class LayerRadio extends React.Component {
                  />
               <h3>{this.props.title}</h3>
               <h5>{this.props.subtitle}</h5>
-            </li>
+            </div>
         );
     }
 }
