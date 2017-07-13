@@ -32,7 +32,6 @@
     "chai": "^3.5.0",
     "d3": "^4.1.1",
     "del": "^2.2.1",
-    "deferred-js": "^1.0.2",
     "eslint": "^3.2.0",
     "eslint-plugin-react": "^5.2.2",
     "gulp": "^3.9.1",
