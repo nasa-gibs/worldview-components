@@ -14,7 +14,6 @@
 
 import React from 'react';
 import ShareButtons from './wv.link.share';
-import Shortener from './wv.link.shortener';
 
 export default class Link extends React.Component {
 
@@ -41,7 +40,6 @@ export default class Link extends React.Component {
   render() {
     return (
       <div>
-        <Shortener on={this.props.urlShortener} />
         <ShareButtons
           fbLink={this.state.fbLink}
           twLink={this.state.twLink}
