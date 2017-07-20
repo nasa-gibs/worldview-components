@@ -14,7 +14,7 @@
 
 import React from 'react';
 import LayerRadio from './wv.layer.radio.js';
-import { List } from 'react-virtualized';
+import { List, AutoSizer } from 'react-virtualized';
 
 /*
  * A react component, Builds a list of layers using the LayerRadio component
@@ -52,14 +52,18 @@ export default class LayerList extends React.Component {
   }
   render() {
     return(
-      <List
-        id="flat-layer-list"
-        width={950}
-        height={600}
-        rowCount={this.state.layerList.length}
-        rowHeight={48}
-        rowRenderer={this.rowRenderer.bind(this)}
-      />
+      <AutoSizer>
+        {({ height, width }) => (
+          <List
+            id="flat-layer-list"
+            width={width}
+            height={height}
+            rowCount={this.state.layerList.length}
+            rowHeight={48}
+            rowRenderer={this.rowRenderer.bind(this)}
+          />
+        )}
+      </AutoSizer>
     );
   }
 }
