@@ -13,34 +13,24 @@
  */
 
 import React from 'react';
-import ShareButtons from './wv.link.share';
+import ShareLinks from './wv.share.links';
 
-export default class Link extends React.Component {
+export default class Share extends React.Component {
 
   constructor(props) {
     super(props);
-    this.updateLinkState = this.updateLinkState.bind(this);
     this.state = {
-      fbLink: '#',
-      twLink: '#',
-      rdLink: '#',
-      emailLink: '#'
+      fbLink: props.fbLink,
+      twLink: props.twLink,
+      rdLink: props.rdLink,
+      emailLink: props.emailLink
     };
-  }
-
-  updateLinkState(fbLink, twLink, rdLink, emailLink, callback) {
-    this.setState({
-      fbLink : fbLink,
-      twLink : twLink,
-      rdLink : rdLink,
-      emailLink : emailLink
-    });
   }
 
   render() {
     return (
       <div>
-        <ShareButtons
+        <ShareLinks
           fbLink={this.state.fbLink}
           twLink={this.state.twLink}
           rdLink={this.state.rdLink}
