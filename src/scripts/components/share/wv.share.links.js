@@ -14,7 +14,7 @@
 
 import React from 'react';
 
-export default class Links extends React.Component {
+export default class ShareLinks extends React.Component {
 
   render() {
     return (
