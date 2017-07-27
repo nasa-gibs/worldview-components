@@ -26,26 +26,27 @@ import { List, AutoSizer } from 'react-virtualized';
 export default class LayerList extends React.Component {
   constructor(props) {
     super(props);
-    this.state =  {
+    this.state = {
       onClick: props.onClick,
+      onUpdate: props.onUpdate,
       layerList: props.layerArray,
       config: props.layers
     };
+  }
+  componentUpdate(){
 
   }
-  rowRenderer ({
-    key,         // Unique key within array of rows
-    index,       // Index of row within collection
-    isScrolling, // The List is currently being scrolled
-    isVisible,   // This row is visible within the List (eg it is not an overscanned row)
-    style        // Style object to be applied to row (to position it)
-  }) {
+  rowRenderer ({ key, index, isScrolling, isVisible, style }) {
+    style.padding = '.5em .5em .5em .7em';
+    style.background = 'rgba(0, 0, 0, 0.85)';
+    style.color = '#fff';
+    console.log(style);
     return (
       <LayerRadio
-        key={'layer-'+ this.state.layerList[index] + '-' + key}
-        layerId={this.state.layerList[index]}
-        title={this.state.config[this.state.layerList[index]].title}
-        subtitle={this.state.config[this.state.layerList[index]].subtitle}
+        key={'layer-'+ this.props.layerArray[index] + '-' + key}
+        layerId={this.props.layerArray[index]}
+        title={this.props.layers[this.props.layerArray[index]].title}
+        subtitle={this.props.layers[this.props.layerArray[index]].subtitle}
         style={style}
       />
     );
@@ -58,8 +59,9 @@ export default class LayerList extends React.Component {
             id="flat-layer-list"
             width={width}
             height={height}
-            rowCount={this.state.layerList.length}
+            rowCount={this.props.layerArray.length}
             rowHeight={48}
+            scrollToAlignment="center"
             rowRenderer={this.rowRenderer.bind(this)}
           />
         )}

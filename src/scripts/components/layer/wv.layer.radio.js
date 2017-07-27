@@ -30,7 +30,7 @@ export default class LayerRadio extends React.Component {
     render() {
         return(
             <div
-               className='layers-all-layer'
+               className=''
                id={this.props.layerId}
                data-layer={this.props.layerId}
                onClick={this.props.onClick}
