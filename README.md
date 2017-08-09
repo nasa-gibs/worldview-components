@@ -8,6 +8,14 @@ External components built to use on the [NASA Worldview](worldview.earthdata.nas
 
 ### Installation
 
+Prerequisites:
+
+Install dependencies (NOTE for Windows users: omit the "sudo" part of the following commands as it [isn't available](https://stackoverflow.com/questions/22527668/sudo-command-not-found-on-cygwin)):
+```bash
+# install global version of gulp
+sudo npm install --global gulp-cli
+```
+
 `npm install worldview-components`
 
 ### CommonJS
@@ -53,7 +61,7 @@ A Date selection widget that handles validations. Recommended CSS can be found [
 
 #### ToolTip
 
-A widget that takes text and a array of text to display in a tooltip. When you hover over the given text you will see the array of strings. 
+A widget that takes text and a array of text to display in a tooltip. When you hover over the given text you will see the array of strings.
 Recommended CSS can be found [here](https://github.com/nasa-gibs/worldview/blob/animation-gif-react/web/css/wv.tooltip.css)
 
 ##### Example
@@ -89,5 +97,3 @@ We'd be quite excited if you'd like to contribute to Worldview Timeline Componen
 Please see our [Roadmap](https://github.com/nasa-gibs/worldview/wiki/Worldview-Roadmap) for a list of Worldview features currently in progress.
 
 Thanks for considering contributing and making our planet easier to explore!
-
-
