@@ -33,14 +33,7 @@ export default class LayerList extends React.Component {
       config: props.layers
     };
   }
-  componentUpdate(){
-
-  }
   rowRenderer ({ key, index, isScrolling, isVisible, style }) {
-    style.padding = '.5em .5em .5em .7em';
-    style.background = 'rgba(0, 0, 0, 0.85)';
-    style.color = '#fff';
-    console.log(style);
     return (
       <LayerRadio
         key={'layer-'+ this.props.layerArray[index] + '-' + key}
@@ -48,6 +41,7 @@ export default class LayerList extends React.Component {
         title={this.props.layers[this.props.layerArray[index]].title}
         subtitle={this.props.layers[this.props.layerArray[index]].subtitle}
         style={style}
+        onClick={this.props.onClick}
       />
     );
   }
@@ -60,7 +54,7 @@ export default class LayerList extends React.Component {
             width={width}
             height={height}
             rowCount={this.props.layerArray.length}
-            rowHeight={48}
+            rowHeight={53}
             scrollToAlignment="center"
             rowRenderer={this.rowRenderer.bind(this)}
           />

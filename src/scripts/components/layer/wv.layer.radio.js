@@ -13,8 +13,7 @@
  */
 
 import React from 'react';
-import {Checkbox, Radio} from 'react-icheck';
-
+import {Checkbox} from 'react-icheck';
 
 /*
  * A react component, Builds a toggle on/off layer selector
@@ -24,26 +23,46 @@ import {Checkbox, Radio} from 'react-icheck';
  * @extends React.Component
  */
 export default class LayerRadio extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return(
-            <div
-               className=''
-               id={this.props.layerId}
-               data-layer={this.props.layerId}
-               onClick={this.props.onClick}
-               style={this.props.style}>
-              <Checkbox
-                 id={this.props.layerId}
-                 data-layer={this.props.layerId}
-                 checkboxClass="icheckbox_square-red iCheck iCheck-checkbox"
-                 increaseArea="20%"
-                 />
-              <h3>{this.props.title}</h3>
-              <h5>{this.props.subtitle}</h5>
-            </div>
-        );
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      checked: false
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+  isChecked() {
+
+  }
+  handleChange() {
+    const newChecked = this.state.checked === false ? true : false;
+    this.setState({
+      checked: newChecked
+    });
+  }
+  render() {
+    return(
+      <div
+        className='margin-as-padding'
+        style={this.props.style}>
+        <div
+          className='layers-all-layer'
+          id={this.props.layerId}
+          data-layer={this.props.layerId}
+          onClick={this.handleChange}
+          >
+            <Checkbox
+              id={this.props.layerId}
+              data-layer={this.props.layerId}
+              checkboxClass="icheckbox_square-red iCheck iCheck-checkbox"
+              increaseArea="20%"
+              checked={this.state.checked}
+              onChange={this.handleChange}
+              />
+            <h3>{this.props.title}</h3>
+            <h5>{this.props.subtitle}</h5>
+        </div>
+      </div>
+    );
+  }
 }
