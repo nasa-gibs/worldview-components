@@ -29,7 +29,6 @@ export default class LayerRadio extends React.Component {
       checked: false
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
   isChecked() {
 
@@ -39,6 +38,12 @@ export default class LayerRadio extends React.Component {
     this.setState({
       checked: newChecked
     });
+    if(newChecked) {
+      this.props.onState(this.props.layerId);
+    }
+    else {
+      this.props.offState(this.props.layerId);
+    }
   }
   render() {
     return(

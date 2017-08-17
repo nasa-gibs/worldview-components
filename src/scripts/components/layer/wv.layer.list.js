@@ -27,8 +27,6 @@ export default class LayerList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      onClick: props.onClick,
-      onUpdate: props.onUpdate,
       layerList: props.layerArray,
       config: props.layers
     };
@@ -41,7 +39,8 @@ export default class LayerList extends React.Component {
         title={this.props.layers[this.props.layerArray[index]].title}
         subtitle={this.props.layers[this.props.layerArray[index]].subtitle}
         style={style}
-        onClick={this.props.onClick}
+        onState={this.props.onState}
+        offState={this.props.offState}
       />
     );
   }
