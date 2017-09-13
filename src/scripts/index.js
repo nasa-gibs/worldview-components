@@ -19,3 +19,4 @@ export {default as GA} from './components/util/wv.googleAnalytics.js';
 export {default as DateLine} from './components/dateline/wv.line.js';
 export {default as LineText} from './components/dateline/wv.linetext.js';
 export {default as LayerList} from './components/layer/wv.layer.list.js';
+export {default as LayerRadio} from './components/layer/wv.layer.radio.js';

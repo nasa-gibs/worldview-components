@@ -14,7 +14,7 @@
 
 import React from 'react';
 import LayerRadio from './wv.layer.radio.js';
-import { List, AutoSizer } from 'react-virtualized';
+import { CellMeasurer, CellMeasurerCache, List, AutoSizer } from 'react-virtualized';
 
 /*
  * A react component, Builds a list of layers using the LayerRadio component
@@ -26,22 +26,37 @@ import { List, AutoSizer } from 'react-virtualized';
 export default class LayerList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      layerList: props.layerArray,
-      config: props.layers
-    };
+
+    this._cache = new CellMeasurerCache({
+      fixedWidth: true,
+      minHeight: 23
+    });
+
+    this._getRowHeight = this._getRowHeight.bind(this);
+    this._rowRenderer = this._rowRenderer.bind(this);
   }
-  rowRenderer ({ key, index, isScrolling, isVisible, style }) {
+  _rowRenderer ({ index, isScrolling, key, parent, style }) {
     return (
-      <LayerRadio
-        key={'layer-'+ this.props.layerArray[index] + '-' + key}
-        layerId={this.props.layerArray[index]}
-        title={this.props.layers[this.props.layerArray[index]].title}
-        subtitle={this.props.layers[this.props.layerArray[index]].subtitle}
-        style={style}
-        onState={this.props.onState}
-        offState={this.props.offState}
-      />
+      <CellMeasurer
+        cache={this._cache}
+        columnIndex={0}
+        key={key}
+        parent={parent}
+        rowIndex={index}
+      >
+        {({ measure }) => (
+          <LayerRadio
+            key={'layer-'+ this.props.layerArray[index] + '-' + key}
+            layerId={this.props.layerArray[index]}
+            title={this.props.layers[this.props.layerArray[index]].title}
+            subtitle={this.props.layers[this.props.layerArray[index]].subtitle}
+            style={style}
+            onState={this.props.onState}
+            offState={this.props.offState}
+            onLoad={measure}
+          />
+        )}
+    </CellMeasurer>
     );
   }
   render() {
@@ -49,16 +64,27 @@ export default class LayerList extends React.Component {
       <AutoSizer>
         {({ height, width }) => (
           <List
+            deferredMeasurementCache={this._cache}
             id="flat-layer-list"
             width={width}
             height={height}
+            overscanRowCount={10}
             rowCount={this.props.layerArray.length}
-            rowHeight={53}
+            rowHeight={this._cache.rowHeight}
             scrollToAlignment="center"
-            rowRenderer={this.rowRenderer.bind(this)}
+            rowRenderer={this._rowRenderer}
           />
         )}
       </AutoSizer>
     );
+  }
+  _getRowHeight({ index }) {
+    const title = this.props.layers[this.props.layerArray[index]].title;
+    if(title.length >= 60) {
+      return 73;
+    }
+    else {
+      return 53;
+    }
   }
 }

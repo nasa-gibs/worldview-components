@@ -4,7 +4,7 @@
  * This code was originally developed at NASA/Goddard Space Flight Center for
  * the Earth Science Data and Information System (ESDIS) project.
  *
- * Copyright (C) 2013 - 2016 United States Government as represented by the
+ * Copyright (C) 2013 - 2017 United States Government as represented by the
  * Administrator of the National Aeronautics and Space Administration.
  * All Rights Reserved.
  *
@@ -30,9 +30,6 @@ export default class LayerRadio extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
   }
-  isChecked() {
-
-  }
   handleChange() {
     const newChecked = this.state.checked === false ? true : false;
     this.setState({
@@ -49,15 +46,16 @@ export default class LayerRadio extends React.Component {
     return(
       <div
         className='margin-as-padding'
-        style={this.props.style}>
+        id={'wrapper-' + this.props.layerId}
+        style={this.props.style}
+        >
         <div
           className='layers-all-layer'
-          id={this.props.layerId}
           data-layer={this.props.layerId}
           onClick={this.handleChange}
           >
             <Checkbox
-              id={this.props.layerId}
+              id={'checkbox-' + this.props.layerId}
               data-layer={this.props.layerId}
               checkboxClass="icheckbox_square-red iCheck iCheck-checkbox"
               increaseArea="20%"
