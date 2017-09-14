@@ -26,14 +26,21 @@ import { CellMeasurer, CellMeasurerCache, List, AutoSizer } from 'react-virtuali
 export default class LayerList extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      showLayers: false,
+      layerFilter: props.layerArray,
+      width: props.modalWidth
+    };
     this._cache = new CellMeasurerCache({
       fixedWidth: true,
-      minHeight: 23
+      minHeight: 23,
+      minWidth: this.state.width
     });
 
-    this._getRowHeight = this._getRowHeight.bind(this);
     this._rowRenderer = this._rowRenderer.bind(this);
+  }
+  componentWillUpdate(){
+    this._cache.clearAll();
   }
   _rowRenderer ({ index, isScrolling, key, parent, style }) {
     return (
@@ -46,10 +53,10 @@ export default class LayerList extends React.Component {
       >
         {({ measure }) => (
           <LayerRadio
-            key={'layer-'+ this.props.layerArray[index] + '-' + key}
-            layerId={this.props.layerArray[index]}
-            title={this.props.layers[this.props.layerArray[index]].title}
-            subtitle={this.props.layers[this.props.layerArray[index]].subtitle}
+            key={'layer-'+ this.state.layerFilter[index] + '-' + key}
+            layerId={this.state.layerFilter[index]}
+            title={this.props.layers[this.state.layerFilter[index]].title}
+            subtitle={this.props.layers[this.state.layerFilter[index]].subtitle}
             style={style}
             onState={this.props.onState}
             offState={this.props.offState}
@@ -68,8 +75,9 @@ export default class LayerList extends React.Component {
             id="flat-layer-list"
             width={width}
             height={height}
+            scrollToAlignment={"center"}
             overscanRowCount={10}
-            rowCount={this.props.layerArray.length}
+            rowCount={this.state.layerFilter.length}
             rowHeight={this._cache.rowHeight}
             scrollToAlignment="center"
             rowRenderer={this._rowRenderer}
@@ -77,14 +85,5 @@ export default class LayerList extends React.Component {
         )}
       </AutoSizer>
     );
-  }
-  _getRowHeight({ index }) {
-    const title = this.props.layers[this.props.layerArray[index]].title;
-    if(title.length >= 60) {
-      return 73;
-    }
-    else {
-      return 53;
-    }
   }
 }
