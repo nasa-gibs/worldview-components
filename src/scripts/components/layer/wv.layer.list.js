@@ -42,6 +42,9 @@ export default class LayerList extends React.Component {
   componentWillUpdate(){
     this._cache.clearAll();
   }
+  reRender (rowIndex){
+    this._cache.clear(rowIndex, 0);
+  }
   _rowRenderer ({ index, isScrolling, key, parent, style }) {
     return (
       <CellMeasurer
@@ -58,8 +61,10 @@ export default class LayerList extends React.Component {
             title={this.props.layers[this.state.layerFilter[index]].title}
             subtitle={this.props.layers[this.state.layerFilter[index]].subtitle}
             style={style}
+            rowIndex={index}
             onState={this.props.onState}
             offState={this.props.offState}
+            onChange={this.reRender.bind(this)}
             onLoad={measure}
           />
         )}
