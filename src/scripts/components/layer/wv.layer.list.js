@@ -39,17 +39,14 @@ export default class LayerList extends React.Component {
     });
 
     this._rowRenderer = this._rowRenderer.bind(this);
+    this._setListRef = this._setListRef.bind(this);
   }
   componentWillUpdate(){
     this._cache.clearAll();
   }
   reRender (rowIndex){
     this._cache.clear(rowIndex, 0);
-    this.setState({
-      ids: [
-        'layerID' + rowIndex
-      ]
-    });
+    this._layerList.recomputeRowHeights(rowIndex);
   }
   _rowRenderer ({ index, isScrolling, key, parent, style }) {
     return (
@@ -88,7 +85,7 @@ export default class LayerList extends React.Component {
             height={height}
             scrollToAlignment={"center"}
             overscanRowCount={10}
-            radiostateid={this.state.ids}
+            ref={this._setListRef}
             rowCount={this.state.layerFilter.length}
             rowHeight={this._cache.rowHeight}
             scrollToAlignment="center"
@@ -97,5 +94,8 @@ export default class LayerList extends React.Component {
         )}
       </AutoSizer>
     );
+  }
+  _setListRef (ref) {
+    this._layerList = ref;
   }
 }
