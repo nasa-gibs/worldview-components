@@ -29,7 +29,8 @@ export default class LayerList extends React.Component {
     this.state = {
       showLayers: false,
       layerFilter: props.layerArray,
-      width: props.modalWidth
+      width: props.width,
+      ids: 'layerID'
     };
     this._cache = new CellMeasurerCache({
       fixedWidth: true,
@@ -44,6 +45,11 @@ export default class LayerList extends React.Component {
   }
   reRender (rowIndex){
     this._cache.clear(rowIndex, 0);
+    this.setState({
+      ids: [
+        'layerID' + rowIndex
+      ]
+    });
   }
   _rowRenderer ({ index, isScrolling, key, parent, style }) {
     return (
@@ -82,6 +88,7 @@ export default class LayerList extends React.Component {
             height={height}
             scrollToAlignment={"center"}
             overscanRowCount={10}
+            radiostateid={this.state.ids}
             rowCount={this.state.layerFilter.length}
             rowHeight={this._cache.rowHeight}
             scrollToAlignment="center"

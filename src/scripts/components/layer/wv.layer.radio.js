@@ -87,6 +87,7 @@ export default class LayerRadio extends React.Component {
                 <span
                    className="fa fa-info-circle"
                    onClick={this.handleDetails}
+                   id={this.props.radiostateid}
                    >
                 </span>
               </h3>
