@@ -26,7 +26,7 @@ export default class LayerRadio extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: false,
+      checked: this.props.enabled || false,
       details: false,
       visible: 'hidden'
     };

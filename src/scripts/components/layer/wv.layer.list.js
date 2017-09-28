@@ -27,9 +27,10 @@ export default class LayerList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showLayers: false,
-      layerFilter: props.layerArray,
+      layerFilter: props.config.layerOrder,
+      active: props.model.active,
       width: props.width,
+      height: props.height,
       ids: 'layerID'
     };
     this._cache = new CellMeasurerCache({
@@ -49,6 +50,11 @@ export default class LayerList extends React.Component {
     this._layerList.recomputeRowHeights(rowIndex);
   }
   _rowRenderer ({ index, isScrolling, key, parent, style }) {
+    var enabled = false;
+    for(var i of this.props.model.active){
+      if(i.id === this.state.layerFilter[index])
+        enabled = true;
+    }
     return (
       <CellMeasurer
         cache={this._cache}
@@ -61,12 +67,13 @@ export default class LayerList extends React.Component {
           <LayerRadio
             key={'layer-'+ this.state.layerFilter[index] + '-' + key}
             layerId={this.state.layerFilter[index]}
-            title={this.props.layers[this.state.layerFilter[index]].title}
-            subtitle={this.props.layers[this.state.layerFilter[index]].subtitle}
+            title={this.props.config.layers[this.state.layerFilter[index]].title}
+            subtitle={this.props.config.layers[this.state.layerFilter[index]].subtitle}
+            enabled={enabled}
             style={style}
             rowIndex={index}
-            onState={this.props.onState}
-            offState={this.props.offState}
+            onState={this.props.model.add}
+            offState={this.props.model.remove}
             onChange={this.reRender.bind(this)}
             onLoad={measure}
           />
