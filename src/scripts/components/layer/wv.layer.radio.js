@@ -14,10 +14,11 @@
 
 import React from 'react';
 import {Checkbox} from 'react-icheck';
+import renderHTML from 'react-render-html';
 
 /*
  * A react component, Builds a toggle on/off layer selector
- * 
+ *
  *
  * @class LayerRadio
  * @extends React.Component
@@ -27,8 +28,7 @@ export default class LayerRadio extends React.Component {
     super(props);
     this.state = {
       checked: this.props.enabled || false,
-      details: false,
-      visible: 'hidden'
+      metadataIsVisible: this.props.expanded || false
     };
     this.handleDetails = this.handleDetails.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -47,9 +47,9 @@ export default class LayerRadio extends React.Component {
   }
   handleDetails(e) {
     e.stopPropagation();
-    const newState = this.state.details === false ? true : false;
+    const newState = this.state.metadataIsVisible === false ? true : false;
     this.setState({
-      details: newState
+      metadataIsVisible: newState
     });
     if(newState){
       this.setState({visible: 'visible'});
@@ -59,6 +59,7 @@ export default class LayerRadio extends React.Component {
       this.setState({visible: 'hidden'});
       this.props.onChange(this.props.rowIndex);
     }
+    this.props.expand(this.props.layerId);
   }
   render() {
     return(
@@ -84,21 +85,27 @@ export default class LayerRadio extends React.Component {
             <div className="layers-all-title-wrap">
               <h3>
                 {this.props.title}
-                <span
-                   className="fa fa-info-circle"
-                   onClick={this.handleDetails}
-                   >
-                </span>
+                {this.props.metadata &&
+                  <span
+                    className="fa fa-info-circle"
+                    onClick={this.handleDetails}
+                    >
+                  </span>
+                }
               </h3>
               <h5>{this.props.subtitle}</h5>
             </div>
           </div>
-          <div className={"source-metadata " + this.state.visible}>
-            {this.props.metadata}
-            <div className="metadata-more">
-              <span className="ellipsis up">^</span>
+          {this.props.metadata &&
+              <div className={"source-metadata " +
+                              (this.state.metadataIsVisible ?
+                               'visible' : 'hidden')}>
+              {renderHTML(this.props.metadata)}
+              <div className="metadata-more">
+                <span className="ellipsis up">^</span>
+              </div>
             </div>
-          </div>
+          }
         </div>
       </div>
     );

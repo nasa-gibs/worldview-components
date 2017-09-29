@@ -29,6 +29,7 @@ export default class LayerList extends React.Component {
     this.state = {
       layerFilter: props.config.layerOrder,
       active: props.model.active,
+      expanded: [],
       width: props.width,
       height: props.height,
       ids: 'layerID'
@@ -41,9 +42,23 @@ export default class LayerList extends React.Component {
 
     this._rowRenderer = this._rowRenderer.bind(this);
     this._setListRef = this._setListRef.bind(this);
+    this.saveExpand = this.saveExpand.bind(this);
   }
   componentWillUpdate(){
     this._cache.clearAll();
+  }
+  saveExpand(layer){
+    var temp = this.state.expanded;
+    var index = temp.indexOf(layer);
+    if(index > -1){
+      temp.splice(index, 1);
+    }
+    else
+      temp.push(layer);
+    this.setState({
+      expanded: temp
+    });
+    console.log(this.state.expanded);
   }
   reRender (rowIndex){
     this._cache.clear(rowIndex, 0);
@@ -55,6 +70,10 @@ export default class LayerList extends React.Component {
       if(i.id === this.state.layerFilter[index])
         enabled = true;
     }
+    var current = this.state.layerFilter[index];
+    var expanded = false;
+    if(this.state.expanded.includes(current))
+      expanded = true;
     return (
       <CellMeasurer
         cache={this._cache}
@@ -65,11 +84,14 @@ export default class LayerList extends React.Component {
       >
         {({ measure }) => (
           <LayerRadio
-            key={'layer-'+ this.state.layerFilter[index] + '-' + key}
-            layerId={this.state.layerFilter[index]}
-            title={this.props.config.layers[this.state.layerFilter[index]].title}
-            subtitle={this.props.config.layers[this.state.layerFilter[index]].subtitle}
+            key={'layer-'+ current + '-' + key}
+            layerId={current}
+            title={this.props.config.layers[current].title}
+            subtitle={this.props.config.layers[current].subtitle}
             enabled={enabled}
+            metadata={this.props.metadata[current] || null}
+            expand={this.saveExpand}
+            expanded={expanded}
             style={style}
             rowIndex={index}
             onState={this.props.model.add}
@@ -90,8 +112,7 @@ export default class LayerList extends React.Component {
             id="flat-layer-list"
             width={width}
             height={height}
-            scrollToAlignment={"center"}
-            overscanRowCount={10}
+            overscanRowCount={5}
             ref={this._setListRef}
             rowCount={this.state.layerFilter.length}
             rowHeight={this._cache.rowHeight}
