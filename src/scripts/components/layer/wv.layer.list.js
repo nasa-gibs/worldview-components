@@ -58,7 +58,6 @@ export default class LayerList extends React.Component {
     this.setState({
       expanded: temp
     });
-    console.log(this.state.expanded);
   }
   reRender (rowIndex){
     this._cache.clear(rowIndex, 0);
