@@ -62,6 +62,7 @@ export default class LayerList extends React.Component {
   reRender (rowIndex){
     this._cache.clear(rowIndex, 0);
     this._layerList.recomputeRowHeights(rowIndex);
+    this._layerList.scrollToRow(rowIndex);
   }
   _rowRenderer ({ index, isScrolling, key, parent, style }) {
     var enabled = false;
@@ -115,7 +116,7 @@ export default class LayerList extends React.Component {
             ref={this._setListRef}
             rowCount={this.state.layerFilter.length}
             rowHeight={this._cache.rowHeight}
-            scrollToAlignment="center"
+            scrollToAlignment="start"
             rowRenderer={this._rowRenderer}
           />
         )}
