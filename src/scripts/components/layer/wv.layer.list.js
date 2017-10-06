@@ -111,12 +111,12 @@ export default class LayerList extends React.Component {
             deferredMeasurementCache={this._cache}
             id="flat-layer-list"
             width={width}
-            height={height}
+            height={this.state.height}
             overscanRowCount={5}
             ref={this._setListRef}
             rowCount={this.state.layerFilter.length}
             rowHeight={this._cache.rowHeight}
-            scrollToAlignment="start"
+            scrollToAlignment="auto"
             rowRenderer={this._rowRenderer}
           />
         )}

@@ -70,10 +70,9 @@ export default class LayerRadio extends React.Component {
         >
         <div
           className='layers-all-layer'
-          data-layer={this.props.layerId}
-          onClick={this.handleChange}
-        >
-          <div className='layers-all-header'>
+          data-layer={this.props.layerId}>
+          <div className='layers-all-header'
+               onClick={this.handleChange}>
             <Checkbox
                id={'checkbox-' + this.props.layerId}
                data-layer={this.props.layerId}
