@@ -31,8 +31,7 @@ export default class LayerList extends React.Component {
       active: props.model.active,
       expanded: [],
       width: props.width,
-      height: props.height,
-      ids: 'layerID'
+      height: props.height
     };
     this._cache = new CellMeasurerCache({
       fixedWidth: true,
@@ -47,6 +46,17 @@ export default class LayerList extends React.Component {
   componentWillUpdate(){
     this._cache.clearAll();
   }
+  /*
+   * Saves the visibility/state of the metadata for each layer
+   *
+   *
+   * @method saveExpand
+   *
+   * @param {string} layerID - the layer which has metadata that
+   *  needs to be toggled
+   *
+   * @return {void}
+   */
   saveExpand(layer){
     var temp = this.state.expanded;
     var index = temp.indexOf(layer);
@@ -59,6 +69,16 @@ export default class LayerList extends React.Component {
       expanded: temp
     });
   }
+  /*
+   * Recalculates the row height for a given rowIndex
+   *
+   *
+   * @method reRender
+   *
+   * @param {number} index - Index of the row to be recalculated
+   *
+   * @return {void}
+   */
   reRender (rowIndex){
     this._cache.clear(rowIndex, 0);
     this._layerList.recomputeRowHeights(rowIndex);

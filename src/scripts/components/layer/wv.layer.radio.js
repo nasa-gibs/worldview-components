@@ -33,6 +33,15 @@ export default class LayerRadio extends React.Component {
     this.handleDetails = this.handleDetails.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+  /*
+   * Toggle switch for the iCheck layer adder/remover
+   *
+   *
+   * @method handleChange
+   *
+   *
+   * @return {void}
+   */
   handleChange() {
     const newChecked = this.state.checked === false ? true : false;
     this.setState({
@@ -45,6 +54,16 @@ export default class LayerRadio extends React.Component {
       this.props.offState(this.props.layerId);
     }
   }
+  /*
+   * Toggle switch for the metadata info button and close arrow
+   *
+   *
+   * @method handleDetails
+   *
+   * @param {e} event
+   *
+   * @return {void}
+   */
   handleDetails(e) {
     e.stopPropagation();
     const newState = this.state.metadataIsVisible === false ? true : false;
