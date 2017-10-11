@@ -40,7 +40,7 @@ export default class LayerList extends React.Component {
   saveExpandedInfoState(layer){
     var { infoExpanded } = this.state;
     var index = infoExpanded.indexOf(layer);
-    if(index){
+    if(index > -1){
       infoExpanded.splice(index, 1); // Removes layer from expanded list
     } else {
       infoExpanded.push(layer);

@@ -37,10 +37,11 @@ export default class LayerRadio extends React.Component {
    */
   toggleMetadataButtons (e) {
     e.stopPropagation();
-    var { metaDataIsVisible } = this.state;
+    var { metadataIsVisible } = this.state;
     var { onChange, rowIndex, layerId, expand } = this.props;
     this.setState({
-      metaDataIsVisible: !metaDataIsVisible,
+      metadataIsVisible: !metadataIsVisible,
+      metadataVisibility: metadataIsVisible ? 'visible' : 'hidden'
     });
     onChange(rowIndex);
     expand(layerId);
@@ -79,8 +80,7 @@ export default class LayerRadio extends React.Component {
             </div>
           </div>
           {this.props.metadata &&
-              <div className={"source-metadata " +
-                              (this.state.metadataIsVisible ?
+              <div className={"source-metadata " + (this.state.metadataIsVisible ?
                                'visible' : 'hidden')}>
               {renderHTML(this.props.metadata)}
               <div className="metadata-more" onClick={this.toggleMetadataButtons}>
