@@ -1,6 +1,6 @@
 import React from 'react';
 import LayerRadio from './wv.layer.radio.js';
-import { CellMeasurer, CellMeasurerCache, List, AutoSizer } from 'react-virtualized';
+import { CellMeasurer, CellMeasurerCache, List } from 'react-virtualized';
 
 /*
  * A react component, Builds a list of layers using the LayerRadio component
@@ -100,12 +100,10 @@ export default class LayerList extends React.Component {
   }
   render() {
     return(
-      <AutoSizer>
-        {({ height, width }) => (
-          <List
+        <List
             deferredMeasurementCache={this._cache}
             id="flat-layer-list"
-            width={width - 10}
+            width={this.state.width - 10}
             height={this.state.height}
             overscanRowCount={5}
             ref={this._setListRef}
@@ -114,8 +112,6 @@ export default class LayerList extends React.Component {
             scrollToAlignment="auto"
             rowRenderer={this._rowRenderer}
           />
-        )}
-      </AutoSizer>
     );
   }
   _setListRef (ref) {
