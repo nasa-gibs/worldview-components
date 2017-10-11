@@ -1,25 +1,9 @@
-/*
- * NASA Worldview
- *
- * This code was originally developed at NASA/Goddard Space Flight Center for
- * the Earth Science Data and Information System (ESDIS) project.
- *
- * Copyright (C) 2013 - 2017 United States Government as represented by the
- * Administrator of the National Aeronautics and Space Administration.
- * All Rights Reserved.
- *
- * Licensed under the NASA Open Source Agreement, Version 1.3
- * http://opensource.gsfc.nasa.gov/nosa.php
- */
-
 import React from 'react';
 import LayerRadio from './wv.layer.radio.js';
 import { CellMeasurer, CellMeasurerCache, List, AutoSizer } from 'react-virtualized';
 
 /*
  * A react component, Builds a list of layers using the LayerRadio component
- *
- *
  * @class LayerList
  * @extends React.Component
  */
@@ -29,7 +13,7 @@ export default class LayerList extends React.Component {
     this.state = {
       layerFilter: props.config.layerOrder,
       active: props.model.active,
-      expanded: [],
+      infoExpanded: [],
       width: props.width,
       height: props.height
     };
@@ -41,45 +25,35 @@ export default class LayerList extends React.Component {
 
     this._rowRenderer = this._rowRenderer.bind(this);
     this._setListRef = this._setListRef.bind(this);
-    this.saveExpand = this.saveExpand.bind(this);
+    this.saveExpandedInfoState = this.saveExpandedInfoState.bind(this);
   }
   componentWillUpdate(){
     this._cache.clearAll();
   }
   /*
    * Saves the visibility/state of the metadata for each layer
-   *
-   *
-   * @method saveExpand
-   *
+   * @method saveExpandedInfoState
    * @param {string} layerID - the layer which has metadata that
    *  needs to be toggled
-   *
    * @return {void}
    */
-  saveExpand(layer){
-    var temp = this.state.expanded;
-    var index = temp.indexOf(layer);
-    if(index > -1){
-      temp.splice(index, 1);
+  saveExpandedInfoState(layer){
+    var { infoExpanded } = this.state;
+    var index = infoExpanded.indexOf(layer);
+    if(index){
+      infoExpanded.splice(index, 1); // Removes layer from expanded list
+    } else {
+      infoExpanded.push(layer);
     }
-    else
-      temp.push(layer);
-    this.setState({
-      expanded: temp
-    });
+    this.setState({ infoExpanded: infoExpanded });
   }
   /*
    * Recalculates the row height for a given rowIndex
-   *
-   *
-   * @method reRender
-   *
+   * @method recalculateRowHeight
    * @param {number} index - Index of the row to be recalculated
-   *
    * @return {void}
    */
-  reRender (rowIndex){
+  recalculateRowHeight (rowIndex){
     this._cache.clear(rowIndex, 0);
     this._layerList.recomputeRowHeights(rowIndex);
     this._layerList.scrollToRow(rowIndex);
@@ -92,7 +66,7 @@ export default class LayerList extends React.Component {
     }
     var current = this.state.layerFilter[index];
     var expanded = false;
-    if(this.state.expanded.includes(current))
+    if(this.state.infoExpanded.includes(current))
       expanded = true;
     return (
       <CellMeasurer
@@ -110,13 +84,13 @@ export default class LayerList extends React.Component {
             subtitle={this.props.config.layers[current].subtitle}
             enabled={enabled}
             metadata={this.props.metadata[current] || null}
-            expand={this.saveExpand}
+            expand={this.saveExpandedInfoState}
             expanded={expanded}
             style={style}
             rowIndex={index}
             onState={this.props.model.add}
             offState={this.props.model.remove}
-            onChange={this.reRender.bind(this)}
+            onChange={this.recalculateRowHeight.bind(this)}
             onLoad={measure}
           />
         )}

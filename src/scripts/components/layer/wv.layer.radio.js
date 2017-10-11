@@ -1,25 +1,9 @@
-/*
- * NASA Worldview
- *
- * This code was originally developed at NASA/Goddard Space Flight Center for
- * the Earth Science Data and Information System (ESDIS) project.
- *
- * Copyright (C) 2013 - 2017 United States Government as represented by the
- * Administrator of the National Aeronautics and Space Administration.
- * All Rights Reserved.
- *
- * Licensed under the NASA Open Source Agreement, Version 1.3
- * http://opensource.gsfc.nasa.gov/nosa.php
- */
-
 import React from 'react';
 import {Checkbox} from 'react-icheck';
 import renderHTML from 'react-render-html';
 
 /*
  * A react component, Builds a toggle on/off layer selector
- *
- *
  * @class LayerRadio
  * @extends React.Component
  */
@@ -30,55 +14,36 @@ export default class LayerRadio extends React.Component {
       checked: this.props.enabled || false,
       metadataIsVisible: this.props.expanded || false
     };
-    this.handleDetails = this.handleDetails.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.toggleMetadataButtons = this.toggleMetadataButtons.bind(this);
+    this.toggleCheck = this.toggleCheck.bind(this);
   }
   /*
    * Toggle switch for the iCheck layer adder/remover
-   *
-   *
-   * @method handleChange
-   *
-   *
+   * @method toggleCheck
    * @return {void}
    */
-  handleChange() {
-    const newChecked = this.state.checked === false ? true : false;
-    this.setState({
-      checked: newChecked
-    });
-    if(newChecked) {
-      this.props.onState(this.props.layerId);
-    }
-    else {
-      this.props.offState(this.props.layerId);
-    }
+  toggleCheck() {
+    var { checked } = this.state;
+    var { onState, offState, layerId } = this.props;
+    if (checked) offState(layerId);
+    if (!checked) onState(layerId);
+    this.setState({checked: !checked});
   }
   /*
    * Toggle switch for the metadata info button and close arrow
-   *
-   *
-   * @method handleDetails
-   *
+   * @method toggleMetadataButtons
    * @param {e} event
-   *
    * @return {void}
    */
-  handleDetails(e) {
+  toggleMetadataButtons (e) {
     e.stopPropagation();
-    const newState = this.state.metadataIsVisible === false ? true : false;
+    var { metaDataIsVisible } = this.state;
+    var { onChange, rowIndex, layerId, expand } = this.props;
     this.setState({
-      metadataIsVisible: newState
+      metaDataIsVisible: !metaDataIsVisible,
     });
-    if(newState){
-      this.setState({visible: 'visible'});
-      this.props.onChange(this.props.rowIndex);
-    }
-    else {
-      this.setState({visible: 'hidden'});
-      this.props.onChange(this.props.rowIndex);
-    }
-    this.props.expand(this.props.layerId);
+    onChange(rowIndex);
+    expand(layerId);
   }
   render() {
     return(
@@ -91,14 +56,14 @@ export default class LayerRadio extends React.Component {
           className='layers-all-layer'
           data-layer={this.props.layerId}>
           <div className='layers-all-header'
-               onClick={this.handleChange}>
+               onClick={this.toggleCheck}>
             <Checkbox
                id={'checkbox-' + this.props.layerId}
                data-layer={this.props.layerId}
                checkboxClass="icheckbox_square-red iCheck iCheck-checkbox"
                increaseArea="20%"
                checked={this.state.checked}
-               onChange={this.handleChange}
+               onChange={this.toggleCheck}
                />
             <div className="layers-all-title-wrap">
               <h3>
@@ -106,7 +71,7 @@ export default class LayerRadio extends React.Component {
                 {this.props.metadata &&
                   <span
                     className="fa fa-info-circle"
-                    onClick={this.handleDetails}
+                    onClick={this.toggleMetadataButtons}
                     >
                   </span>
                 }
@@ -119,7 +84,7 @@ export default class LayerRadio extends React.Component {
                               (this.state.metadataIsVisible ?
                                'visible' : 'hidden')}>
               {renderHTML(this.props.metadata)}
-              <div className="metadata-more" onClick={this.handleDetails}>
+              <div className="metadata-more" onClick={this.toggleMetadataButtons}>
                 <span className="ellipsis up">^</span>
               </div>
             </div>
