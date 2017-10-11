@@ -48,7 +48,6 @@ export default class LayerRadio extends React.Component {
   render() {
     return(
       <div
-        className='margin-as-padding'
         id={'wrapper-' + this.props.layerId}
         style={this.props.style}
         >

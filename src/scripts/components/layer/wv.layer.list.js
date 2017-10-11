@@ -68,6 +68,7 @@ export default class LayerList extends React.Component {
     var expanded = false;
     if(this.state.infoExpanded.includes(current))
       expanded = true;
+    style.paddingTop = '5px';  //'Margin' for each list element
     return (
       <CellMeasurer
         cache={this._cache}
