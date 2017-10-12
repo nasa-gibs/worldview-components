@@ -103,7 +103,7 @@ export default class LayerList extends React.Component {
         <List
             deferredMeasurementCache={this._cache}
             id="flat-layer-list"
-            width={this.state.width - 10}
+            width={this.state.width}
             height={this.state.height}
             overscanRowCount={5}
             ref={this._setListRef}
