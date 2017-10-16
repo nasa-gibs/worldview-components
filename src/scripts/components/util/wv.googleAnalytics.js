@@ -30,7 +30,7 @@ export default {
       ga('send', 'pageview');
     }
   },
-	/**
+  /*
 	 * @func TrackEventGA
 	 * @static
 	 *

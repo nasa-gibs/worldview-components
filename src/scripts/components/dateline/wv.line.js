@@ -9,9 +9,9 @@ import React from 'react';
  */
 export default class Line extends React.Component {
 
- /*
-  * Sets state and extents props
-  */
+  /*
+   * Sets state and extents props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -21,47 +21,47 @@ export default class Line extends React.Component {
     };
   }
 
- /*
-  * Updates state on svg hover
-  *
-  * return {Void}
-  */
+  /*
+   * Updates state on svg hover
+   *
+   * return {Void}
+   */
   mouseOver() {
     this.setState({
       hovered: true
     });
   }
 
- /*
-  * Updates state on svg mouseout
-  *
-  * return {Void}
-  */
+  /*
+   * Updates state on svg mouseout
+   *
+   * return {Void}
+   */
   mouseOut() {
     this.setState({
       hovered: false
     });
   }
 
- /*
-  * Runs lineOver props method when
-  * the invisible line is hovered, passing
-  * event properties
-  *
-  * @param {Object} e - React event object
-  * return {Void}
-  */
+  /*
+   * Runs lineOver props method when
+   * the invisible line is hovered, passing
+   * event properties
+   *
+   * @param {Object} e - React event object
+   * return {Void}
+   */
   mouseOverHidden(e) {
     this.props.lineOver([e.clientX, e.clientY], this.props.overlay, this.props.lineX, this.props.tooltip);
   }
 
- /*
-  * Runs lineOut props method when
-  * the invisible line is not longer hovered, passing
-  * the react component to deactivate
-  *
-  * return {Void}
-  */
+  /*
+   * Runs lineOut props method when
+   * the invisible line is not longer hovered, passing
+   * the react component to deactivate
+   *
+   * return {Void}
+   */
   mouseOutHidden() {
     this.props.lineOut(this.props.tooltip);
   }

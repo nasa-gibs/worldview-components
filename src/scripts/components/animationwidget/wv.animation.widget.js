@@ -4,7 +4,6 @@ import TimeSelector from '../dateselector/wv.dateselector';
 import LoopButton from './wv.loopbutton';
 import PlayButton from './wv.playbutton';
 import AnimWidgetHeader from './wv.animation.widget.header';
-import GA from '../util/wv.googleAnalytics';
 
 
 
@@ -150,8 +149,7 @@ export default class AnimationWidget extends React.Component {
             id='end'
             onDateChange={this.onDateChange.bind(this)}
             maxDate={this.props.maxDate}
-            minDate={this.state.startDate}
-            />
+            minDate={this.state.startDate}/>
         </div>
         <i
           className="fa fa-close wv-close"

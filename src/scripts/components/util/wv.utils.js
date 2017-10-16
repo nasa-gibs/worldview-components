@@ -4,7 +4,7 @@ export default class Utils {
    */
   constructor() {
     this.monthStringArray= [ "JAN", "FEB", "MAR", "APR", "MAY", "JUN",
-                          "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" ];
+      "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" ];
   }
   /**
    * Gets the current day. Use this instead of the Date methods to allow
@@ -88,7 +88,7 @@ export default class Utils {
    * @return {Date} converted string as a date object, throws an exception if
    * the string is invalid
    */
-    // NOTE: Older Safari doesn't like Date.parse
+  // NOTE: Older Safari doesn't like Date.parse
   parseDateUTC(dateAsString) {
     var dateTimeArr = dateAsString.split(/T/);
     var yyyymmdd = dateTimeArr[0].split('-');

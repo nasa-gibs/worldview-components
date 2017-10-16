@@ -62,11 +62,11 @@ export default class TimelineDragger extends React.Component {
             }}
           />
           {
-           /*
-            * this polygon element builds a triangle
-            * based on the width and height of the
-            * rectangle element
-            */
+            /*
+             * this polygon element builds a triangle
+             * based on the width and height of the
+             * rectangle element
+             */
           }
           <polygon
             points={'0,0,' + this.props.height / 1.5 + ',0 ' + this.props.height / 3 + ', ' +this.props.height / 1.5 }
