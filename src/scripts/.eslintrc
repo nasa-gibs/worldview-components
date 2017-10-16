@@ -4,8 +4,10 @@
     "browser": true,
     "node": true
   },
-  "ecmaFeatures": {
-    "jsx": true
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
+    }
   },
   "parser": "babel-eslint",
   "plugins": [
