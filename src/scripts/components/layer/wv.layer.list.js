@@ -20,6 +20,13 @@ export default class LayerList extends React.Component {
       minWidth: props.width
     });
   }
+
+  /*
+   * Clear cell catch if component will
+   *  rerender
+   * @method componentWillUpdate
+   * @return {void}
+   */
   componentWillUpdate(){
     this._cache.clearAll();
   }
@@ -53,6 +60,13 @@ export default class LayerList extends React.Component {
     this._layerList.recomputeRowHeights(rowIndex);
     this._layerList.scrollToRow(rowIndex);
   }
+
+  /*
+   * A sub-rendering component
+   * @method _rowRenderer
+   * @param {obejct} index - an object of row traits
+   * @return {void}
+   */
   _rowRenderer ({ index, isScrolling, key, parent, style }) {
     var { model, config, metadata } = this.props;
     var { layerFilter, expandedLayers } = this.state;

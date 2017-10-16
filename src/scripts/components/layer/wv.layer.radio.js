@@ -56,15 +56,15 @@ export default class LayerRadio extends React.Component {
           className='layers-all-layer'
           data-layer={this.props.layerId}>
           <div className='layers-all-header'
-               onClick={this.toggleCheck}>
+            onClick={this.toggleCheck}>
             <Checkbox
-               id={'checkbox-' + this.props.layerId}
-               data-layer={this.props.layerId}
-               checkboxClass="icheckbox_square-red iCheck iCheck-checkbox"
-               increaseArea="20%"
-               checked={this.state.checked}
-               onChange={this.toggleCheck}
-               />
+              id={'checkbox-' + this.props.layerId}
+              data-layer={this.props.layerId}
+              checkboxClass="icheckbox_square-red iCheck iCheck-checkbox"
+              increaseArea="20%"
+              checked={this.state.checked}
+              onChange={this.toggleCheck}
+              />
             <div className="layers-all-title-wrap">
               <h3>
                 {this.props.title}
@@ -80,8 +80,7 @@ export default class LayerRadio extends React.Component {
             </div>
           </div>
           {this.props.metadata &&
-              <div className={"source-metadata " + (this.state.metadataIsVisible ?
-                               'visible' : 'hidden')}>
+            <div className={"source-metadata " + this.state.metadataIsVisible ? 'visible' : 'hidden'}>
               {renderHTML(this.props.metadata)}
               <div className="metadata-more" onClick={this.toggleMetadataButtons}>
                 <span className="ellipsis up">^</span>
