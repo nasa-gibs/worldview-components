@@ -30,9 +30,9 @@ export default class Tooltip extends React.Component {
   render() {
     return(
       <div
-      onMouseEnter={this.mouseOver.bind(this)}
-      onMouseLeave={this.mouseOut.bind(this)}
-      className="wv-tooltip-case">
+        onMouseEnter={this.mouseOver.bind(this)}
+        onMouseLeave={this.mouseOut.bind(this)}
+        className="wv-tooltip-case">
         <span>{this.props.text}</span>
         <div className="wv-tooltip" style={(this.state.hovered) ? {visibility: 'visible'} : {}} >
           <ul>

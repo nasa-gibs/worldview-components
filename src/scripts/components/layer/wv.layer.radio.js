@@ -51,7 +51,7 @@ export default class LayerRadio extends React.Component {
       <div
         id={'wrapper-' + this.props.layerId}
         style={this.props.style}
-        >
+      >
         <div
           className='layers-all-layer'
           data-layer={this.props.layerId}>
@@ -63,8 +63,7 @@ export default class LayerRadio extends React.Component {
               checkboxClass="icheckbox_square-red iCheck iCheck-checkbox"
               increaseArea="20%"
               checked={this.state.checked}
-              onChange={this.toggleCheck}
-              />
+              onChange={this.toggleCheck}/>
             <div className="layers-all-title-wrap">
               <h3>
                 {this.props.title}
@@ -72,7 +71,7 @@ export default class LayerRadio extends React.Component {
                   <span
                     className="fa fa-info-circle"
                     onClick={this.toggleMetadataButtons}
-                    >
+                  >
                   </span>
                 }
               </h3>

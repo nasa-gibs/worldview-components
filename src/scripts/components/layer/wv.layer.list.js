@@ -64,7 +64,7 @@ export default class LayerList extends React.Component {
   /*
    * Recalculates the row height for a given rowIndex
    * @method recalculateRowHeight
-   * @param {number} index - Index of the row to be recalculated
+   * @param {number} rowIndex - Index of the row to be recalculated
    * @return {void}
    */
   recalculateRowHeight (rowIndex){

@@ -7,9 +7,9 @@ import React from 'react';
  * @extends React.Component
  */
 export default class LineText extends React.Component {
- /*
-  * Sets state and extents props
-  */
+  /*
+   * Sets state and extents props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -29,9 +29,8 @@ export default class LineText extends React.Component {
           height={this.props.textHeight}
           x={this.props.x1}
           rx={this.props.recRadius}
-          opacity={this.state.active ? this.props.rectOpacity : '0'}
-          />
-          <text
+          opacity={this.state.active ? this.props.rectOpacity : '0'}/>
+        <text
           y={this.props.textY}
           x={this.props.x1 + 3}
           fill={this.props.color}
