@@ -23,6 +23,7 @@ export default class LayerList extends React.Component {
   componentWillUpdate(){
     this._cache.clearAll();
   }
+
   /*
    * Saves the visibility/state of the metadata for each layer
    * @method saveExpandedInfoState
@@ -40,6 +41,7 @@ export default class LayerList extends React.Component {
     }
     this.setState({ expandedLayers: expandedLayers });
   }
+
   /*
    * Recalculates the row height for a given rowIndex
    * @method recalculateRowHeight
@@ -90,21 +92,19 @@ export default class LayerList extends React.Component {
   render() {
     var { height, width } = this.props;
     return(
-        <List
-            deferredMeasurementCache={this._cache}
-            id="flat-layer-list"
-            width={width}
-            height={height}
-            overscanRowCount={5}
-            ref={ref=>this._setListRef(ref)}
-            rowCount={this.state.layerFilter.length}
-            rowHeight={this._cache.rowHeight}
-            scrollToAlignment="auto"
-            rowRenderer={row=>this._rowRenderer(row)}
-          />
+      <List
+        deferredMeasurementCache={this._cache}
+        id="flat-layer-list"
+        width={width}
+        height={height}
+        overscanRowCount={5}
+        ref={ref=>this._setListRef(ref)}
+        rowCount={this.state.layerFilter.length}
+        rowHeight={this._cache.rowHeight}
+        scrollToAlignment="auto"
+        rowRenderer={row=>this._rowRenderer(row)}
+      />
     );
   }
-  _setListRef (ref) {
-    this._layerList = ref;
-  }
+  _setListRef (ref) { this._layerList = ref; }
 }
