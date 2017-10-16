@@ -1,7 +1,7 @@
 {
   "name": "worldview-components",
   "version": "1.4.1",
-  "description": "worldview component that allows the timeline to play over a period of time",
+  "description": "Modular components used with NASA Worldview",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "gulp"
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/nasa-gibs/worldview-components.git"
   },
-  "license": "SEE LICENSE IN <LICENSE.md>",
+  "license": "NASA-1.3",
   "main": "./browser/wv-animation.js",
   "author": "Benjamin King <benjamin.a.king@nasa.gov>",
   "peerDependencies": {
