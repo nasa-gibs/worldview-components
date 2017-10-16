@@ -19,10 +19,6 @@ export default class LayerList extends React.Component {
       minHeight: 23,
       minWidth: props.width
     });
-
-    this._rowRenderer = this._rowRenderer.bind(this);
-    this._setListRef = this._setListRef.bind(this);
-    this.saveExpandedInfoState = this.saveExpandedInfoState.bind(this);
   }
   componentWillUpdate(){
     this._cache.clearAll();
@@ -78,13 +74,13 @@ export default class LayerList extends React.Component {
             subtitle={config.layers[current].subtitle}
             enabled={enabled}
             metadata={metadata[current] || null}
-            expand={this.saveExpandedInfoState}
+            expand={layer=>this.saveExpandedInfoState(layer)}
             expanded={expanded}
             style={style}
             rowIndex={index}
             onState={model.add}
             offState={model.remove}
-            onChange={this.recalculateRowHeight.bind(this)}
+            onChange={index=>this.recalculateRowHeight(index)}
             onLoad={measure}
           />
         )}
@@ -100,11 +96,11 @@ export default class LayerList extends React.Component {
             width={width}
             height={height}
             overscanRowCount={5}
-            ref={this._setListRef}
+            ref={ref=>this._setListRef(ref)}
             rowCount={this.state.layerFilter.length}
             rowHeight={this._cache.rowHeight}
             scrollToAlignment="auto"
-            rowRenderer={this._rowRenderer}
+            rowRenderer={row=>this._rowRenderer(row)}
           />
     );
   }
