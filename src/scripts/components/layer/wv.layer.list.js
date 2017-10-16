@@ -12,15 +12,12 @@ export default class LayerList extends React.Component {
     super(props);
     this.state = {
       layerFilter: props.config.layerOrder,
-      active: props.model.active,
-      infoExpanded: [],
-      width: props.width,
-      height: props.height
+      expandedLayers: []
     };
     this._cache = new CellMeasurerCache({
       fixedWidth: true,
       minHeight: 23,
-      minWidth: this.state.width
+      minWidth: props.width
     });
 
     this._rowRenderer = this._rowRenderer.bind(this);
@@ -38,14 +35,14 @@ export default class LayerList extends React.Component {
    * @return {void}
    */
   saveExpandedInfoState(layer){
-    var { infoExpanded } = this.state;
-    var index = infoExpanded.indexOf(layer);
+    var { expandedLayers } = this.state;
+    var index = expandedLayers.indexOf(layer);
     if(index > -1){
-      infoExpanded.splice(index, 1); // Removes layer from expanded list
+      expandedLayers.splice(index, 1); // Removes layer from expanded list
     } else {
-      infoExpanded.push(layer);
+      expandedLayers.push(layer);
     }
-    this.setState({ infoExpanded: infoExpanded });
+    this.setState({ expandedLayers: expandedLayers });
   }
   /*
    * Recalculates the row height for a given rowIndex
@@ -59,15 +56,11 @@ export default class LayerList extends React.Component {
     this._layerList.scrollToRow(rowIndex);
   }
   _rowRenderer ({ index, isScrolling, key, parent, style }) {
-    var enabled = false;
-    for(var i of this.props.model.active){
-      if(i.id === this.state.layerFilter[index])
-        enabled = true;
-    }
-    var current = this.state.layerFilter[index];
-    var expanded = false;
-    if(this.state.infoExpanded.includes(current))
-      expanded = true;
+    var { model, config, metadata } = this.props;
+    var { layerFilter, expandedLayers } = this.state;
+    var current = layerFilter[index];
+    var enabled = model.active.map(layer=>layer.id).includes(current);
+    var expanded = expandedLayers.includes(current);
     style.paddingTop = '5px';  //'Margin' for each list element
     return (
       <CellMeasurer
@@ -79,18 +72,18 @@ export default class LayerList extends React.Component {
       >
         {({ measure }) => (
           <LayerRadio
-            key={'layer-'+ current + '-' + key}
+            key={key}
             layerId={current}
-            title={this.props.config.layers[current].title}
-            subtitle={this.props.config.layers[current].subtitle}
+            title={config.layers[current].title}
+            subtitle={config.layers[current].subtitle}
             enabled={enabled}
-            metadata={this.props.metadata[current] || null}
+            metadata={metadata[current] || null}
             expand={this.saveExpandedInfoState}
             expanded={expanded}
             style={style}
             rowIndex={index}
-            onState={this.props.model.add}
-            offState={this.props.model.remove}
+            onState={model.add}
+            offState={model.remove}
             onChange={this.recalculateRowHeight.bind(this)}
             onLoad={measure}
           />
@@ -99,12 +92,13 @@ export default class LayerList extends React.Component {
     );
   }
   render() {
+    var { height, width } = this.props;
     return(
         <List
             deferredMeasurementCache={this._cache}
             id="flat-layer-list"
-            width={this.state.width}
-            height={this.state.height}
+            width={width}
+            height={height}
             overscanRowCount={5}
             ref={this._setListRef}
             rowCount={this.state.layerFilter.length}
