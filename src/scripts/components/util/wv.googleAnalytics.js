@@ -44,7 +44,7 @@ export default {
    * @return {void}
 	 */
   event(category, action, label, value) {
-    if (typeof (ga) !== "undefined") {
+    if (typeof (ga) !== 'undefined') {
       ga('send', 'event', category, action, label, value);
     }
   }

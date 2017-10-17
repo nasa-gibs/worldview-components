@@ -3,12 +3,12 @@ export default class Utils {
    * @constructor
    */
   constructor() {
-    this.monthStringArray= [ "JAN", "FEB", "MAR", "APR", "MAY", "JUN",
-      "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" ];
+    this.monthStringArray= [ 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC' ];
   }
   /**
    * Gets the current day. Use this instead of the Date methods to allow
-   * debugging alternate "now" times.
+   * debugging alternate 'now' times.
    *
    * @method today
    * @static
@@ -55,7 +55,7 @@ export default class Utils {
   }
   /**
    * Gets the current time. Use this instead of the Date methods to allow
-   * debugging alternate "now" times.
+   * debugging alternate 'now' times.
    *
    * @method now
    * @static
@@ -118,7 +118,7 @@ export default class Utils {
     return date;
   }
   repeat(value, length) {
-    var result = "";
+    var result = '';
     for(var i = 0; i < length; i++) {
       result += value;
     }
@@ -134,19 +134,19 @@ export default class Utils {
     var m = date.getUTCMonth();
     var first, last;
     switch (interval) {
-      case "day":
+      case 'day':
         var firstDay = new Date(Date.UTC(y, m, 1));
         var lastDay = new Date(Date.UTC(y, m, this.daysInMonth(date)));
         first = new Date(Math.max(firstDay, minDate)).getUTCDate();
         last = new Date(Math.min(lastDay, maxDate)).getUTCDate();
         break;
-      case "month":
+      case 'month':
         var firstMonth = new Date(Date.UTC(y, 0, 1));
         var lastMonth = new Date(Date.UTC(y, 11, 31));
         first = new Date(Math.max(firstMonth, minDate)).getUTCMonth();
         last = new Date(Math.min(lastMonth, maxDate)).getUTCMonth();
         break;
-      case "year":
+      case 'year':
         var firstYear = this.minDate();
         var lastYear = this.maxDate();
         first = new Date(Math.max(firstYear, minDate)).getUTCFullYear();
@@ -165,17 +165,17 @@ export default class Utils {
     var month = date.getUTCMonth();
     var year = date.getUTCFullYear();
     switch (interval) {
-      case "day":
+      case 'day':
         day = this.roll(day + amount, min, max);
         break;
-      case "month":
+      case 'month':
         month = this.roll(month + amount, min, max);
         break;
-      case "year":
+      case 'year':
         year = this.roll(year + amount, min, max);
         break;
       default:
-        throw new Error("[rollDate] Invalid interval: " + interval);
+        throw new Error('[rollDate] Invalid interval: ' + interval);
     }
     var daysInMonth = this.daysInMonth({year: year, month: month});
     if(day > daysInMonth) {
@@ -186,7 +186,7 @@ export default class Utils {
     return newDate;
   }
   pad(value, width, padding) {
-    value = "" + value;
+    value = '' + value;
     if(value.length < width) {
       var add = width - value.length;
       value = this.repeat(padding, add) + value;
