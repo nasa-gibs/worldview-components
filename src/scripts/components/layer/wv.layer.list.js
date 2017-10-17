@@ -21,24 +21,17 @@ export default class LayerList extends React.Component {
     });
   }
 
-  /*
-   * Clear cell catch if component will
-   *  rerender
-   * @method componentWillUpdate
-   * @return {void}
-   */
   componentWillUpdate(){
-    this._cache.clearAll();
+    this._cache.clearAll(); // Clear CellMeasurerCache
   }
 
   /*
-   * Saves the visibility/state of the metadata for each layer
-   * @method saveExpandedInfoState
-   * @param {string} layerID - the layer which has metadata that
-   *  needs to be toggled
+   * Toggles expansion of metadata for a layer given that layer's ID
+   * @method toggleExpansion
+   * @param {string} layer - the layer to be toggled
    * @return {void}
    */
-  saveExpandedInfoState(layer){
+  toggleExpansion(layer){
     var { expandedLayers } = this.state;
     var index = expandedLayers.indexOf(layer);
     if(index > -1){
@@ -62,9 +55,10 @@ export default class LayerList extends React.Component {
   }
 
   /*
-   * A sub-rendering component
+   * Renders a single row, given it's index.
+   * See https://github.com/bvaughn/react-virtualized/blob/master/docs/List.md#rowrenderer
    * @method _rowRenderer
-   * @param {obejct} index - an object of row traits
+   * @param {object} options - props used to render the row
    * @return {void}
    */
   _rowRenderer ({ index, isScrolling, key, parent, style }) {
@@ -90,7 +84,7 @@ export default class LayerList extends React.Component {
             subtitle={config.layers[current].subtitle}
             enabled={enabled}
             metadata={metadata[current] || null}
-            expand={layer=>this.saveExpandedInfoState(layer)}
+            expand={layer=>this.toggleExpansion(layer)}
             expanded={expanded}
             style={style}
             rowIndex={index}
