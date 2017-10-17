@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /*
  * A react component, Builds a SVG line who's dimensions and styles
@@ -7,7 +8,7 @@ import React from 'react';
  * @class Line
  * @extends React.Component
  */
-export default class Line extends React.Component {
+class Line extends React.Component {
 
   /*
    * Sets state and extents props
@@ -113,3 +114,23 @@ Line.defaultProps = {
     transform: 'translateX(-43px)'
   }
 };
+
+Line.propTypes = {
+  dashArray: PropTypes.string,
+  opacity: PropTypes.string,
+  width: PropTypes.string,
+  strokeWidth: PropTypes.string,
+  color: PropTypes.string,
+  height: PropTypes.number,
+  lineX: PropTypes.number,
+  lineOver: PropTypes.func,
+  lineOut: PropTypes.func,
+  svgStyle: PropTypes.object,
+  tooltip: PropTypes.object,
+  overlay: PropTypes.object,
+  style: PropTypes.object,
+  id: PropTypes.string,
+  classes: PropTypes.string
+};
+
+export default Line;

@@ -1,12 +1,12 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 /*
  * Builds an SVG text box
  *
  * @class LineText
  * @extends React.Component
  */
-export default class LineText extends React.Component {
+class LineText extends React.Component {
   /*
    * Sets state and extents props
    */
@@ -75,3 +75,22 @@ LineText.defaultProps = {
     transform: 'translateX(-140px)'
   }
 };
+
+LineText.propTypes = {
+  textOpacity: PropTypes.number,
+  rectOpacity: PropTypes.number,
+  width: PropTypes.string,
+  color: PropTypes.string,
+  textY: PropTypes.number,
+  fill: PropTypes.string,
+  dateLeft: PropTypes.string,
+  dateRight: PropTypes.string,
+  x2: PropTypes.number,
+  x1: PropTypes.number,
+  textWidth: PropTypes.number,
+  textHeight: PropTypes.number,
+  recRadius: PropTypes.number,
+  svgStyle: PropTypes.object
+}
+
+export default LineText;

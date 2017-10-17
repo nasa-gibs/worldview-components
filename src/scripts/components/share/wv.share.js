@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ShareLinks from './wv.share.links';
 
-export default class Share extends React.Component {
+class Share extends React.Component {
 
   constructor(props) {
     super(props);
@@ -28,3 +29,13 @@ export default class Share extends React.Component {
   }
 
 }
+
+Share.propTypes = {
+  fbLink: PropTypes.string,
+  twLink: PropTypes.string,
+  rdLink: PropTypes.string,
+  emailLink: PropTypes.string,
+  clickFunction: PropTypes.func
+};
+
+export default Share;

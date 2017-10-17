@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class ShareLinks extends React.Component {
+class ShareLinks extends React.Component {
   onClick(event, type) {
     event.preventDefault();
     this.props.onClick(type);
@@ -18,3 +19,13 @@ export default class ShareLinks extends React.Component {
   }
 
 }
+
+ShareLinks.propTypes = {
+  fbLink: PropTypes.string,
+  twLink: PropTypes.string,
+  rdLink: PropTypes.string,
+  emailLink: PropTypes.string,
+  onClick: PropTypes.func
+};
+
+export default ShareLinks;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import InputRange from 'react-input-range';
 import TimeSelector from '../dateselector/wv.dateselector';
 import LoopButton from './wv.loopbutton';
@@ -14,7 +15,7 @@ import AnimWidgetHeader from './wv.animation.widget.header';
  * @class AnimationWidget
  * @extends React.Component
  */
-export default class AnimationWidget extends React.Component {
+class AnimationWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state =  {
@@ -161,3 +162,26 @@ export default class AnimationWidget extends React.Component {
   }
 
 }
+
+AnimationWidget.propTypes = {
+  sliderSpeed: PropTypes.number,
+  looping: PropTypes.bool,
+  startDate: PropTypes.object,
+  endDate: PropTypes.object,
+  header: PropTypes.element,
+  incrementArray: PropTypes.array,
+  increment: PropTypes.string,
+  onSlide: PropTypes.func,
+  onPushPlay: PropTypes.func,
+  onPushPause: PropTypes.func,
+  onPushLoop: PropTypes.func,
+  onDateChange: PropTypes.func,
+  onZoomSelect: PropTypes.func,
+  sliderLabel: PropTypes.string,
+  onPushGIF: PropTypes.func,
+  minDate: PropTypes.object,
+  maxDate: PropTypes.object,
+  onClose: PropTypes.func
+}
+
+export default AnimationWidget;

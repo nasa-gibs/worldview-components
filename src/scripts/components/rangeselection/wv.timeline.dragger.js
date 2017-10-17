@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 
 /*
@@ -8,7 +9,7 @@ import Draggable from 'react-draggable';
  * @class TimelineDragger
  * @extends React.Component
  */
-export default class TimelineDragger extends React.Component {
+class TimelineDragger extends React.Component {
 
   /*
    * @constructor
@@ -86,3 +87,21 @@ export default class TimelineDragger extends React.Component {
 TimelineDragger.defaultProps = {
   visible: true
 };
+
+TimelineDragger.propTypes = {
+  opacity: PropTypes.number,
+  startLocation: PropTypes.number,
+  endLocation: PropTypes.number,
+  max: PropTypes.number,
+  height: PropTypes.number,
+  onDrag: PropTypes.func,
+  onClick: PropTypes.func,
+  color: PropTypes.string,
+  position: PropTypes.number,
+  id: PropTypes.string,
+  onStop: PropTypes.func,
+  width: PropTypes.number,
+  triangleColor: PropTypes.string
+}
+
+export default TimelineDragger;

@@ -30,7 +30,6 @@
     "browserify": "^13.1.0",
     "browserify-shim": "^3.8.12",
     "chai": "^3.5.0",
-    "d3": "^4.1.1",
     "del": "^2.2.1",
     "eslint": "^4.9.0",
     "eslint-plugin-react": "^5.2.2",
@@ -41,7 +40,13 @@
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "*",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "d3": "^4.1.1",
     "icheck": "^1.0.2",
+    "prop-types": "^15.6.0",
     "react-draggable": "^2.2.0",
     "react-icheck": "^0.3.8",
     "react-input-range": "1.0.2",

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import Util from '../util/wv.utils';
 
@@ -11,7 +12,7 @@ const util = new Util();
  *
  * @class TimelineRangeSelector
  */
-export default class DateInputColumn extends React.Component {
+class DateInputColumn extends React.Component {
 
   /*
    * @constructor
@@ -221,3 +222,19 @@ export default class DateInputColumn extends React.Component {
     );
   }
 }
+
+DateInputColumn.propTypes = {
+  value: PropTypes.node,
+  focused: PropTypes.bool,
+  tabIndex: PropTypes.number,
+  type: PropTypes.string,
+  updateDate: PropTypes.func,
+  date: PropTypes.object,
+  minDate: PropTypes.object,
+  maxDate: PropTypes.object,
+  blur: PropTypes.func,
+  nextTab: PropTypes.func,
+  height: PropTypes.string
+}
+
+export default DateInputColumn;
