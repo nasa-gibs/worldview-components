@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 /*
  * A react component, is a draggable svg
  * rect element
  *
  * @class TimelineDraggerRange
  */
-export default class TimelineDraggerRange extends React.Component {
+class TimelineDraggerRange extends React.Component {
 
   /*
    * @constructor
@@ -71,3 +72,16 @@ export default class TimelineDraggerRange extends React.Component {
   }
 
 }
+
+TimelineDraggerRange.propTypes = {
+  opacity: PropTypes.number,
+  startLocation: PropTypes.number,
+  endLocation: PropTypes.number,
+  max: PropTypes.number,
+  height: PropTypes.number,
+  onDrag: PropTypes.func,
+  onClick: PropTypes.func,
+  color: PropTypes.string
+}
+
+export default TimelineDraggerRange;

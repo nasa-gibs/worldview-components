@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Checkbox} from 'react-icheck';
 import renderHTML from 'react-render-html';
 
@@ -7,7 +8,7 @@ import renderHTML from 'react-render-html';
  * @class LayerRadio
  * @extends React.Component
  */
-export default class LayerRadio extends React.Component {
+class LayerRadio extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,3 +92,20 @@ export default class LayerRadio extends React.Component {
     );
   }
 }
+
+LayerRadio.propTypes = {
+  enabled: PropTypes.bool,
+  expanded: PropTypes.bool,
+  onState: PropTypes.func,
+  offState: PropTypes.func,
+  onChange: PropTypes.func,
+  layerId: PropTypes.string,
+  rowIndex: PropTypes.number,
+  expand: PropTypes.func,
+  style: PropTypes.object,
+  title: PropTypes.string,
+  metadata: PropTypes.string,
+  subtitle: PropTypes.string
+};
+
+export default LayerRadio;

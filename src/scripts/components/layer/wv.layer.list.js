@@ -1,5 +1,6 @@
 import React from 'react';
 import renderHTML from 'react-render-html';
+import PropTypes from 'prop-types';
 import LayerRadio from './wv.layer.radio.js';
 import { CellMeasurer, CellMeasurerCache, List } from 'react-virtualized';
 
@@ -8,7 +9,7 @@ import { CellMeasurer, CellMeasurerCache, List } from 'react-virtualized';
  * @class LayerList
  * @extends React.Component
  */
-export default class LayerList extends React.Component {
+class LayerList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -140,3 +141,13 @@ export default class LayerList extends React.Component {
   }
   _setListRef (ref) { this._layerList = ref; }
 }
+
+LayerList.propTypes = {
+  config: PropTypes.object,
+  width: PropTypes.number,
+  model: PropTypes.object,
+  metadata: PropTypes.object,
+  height: PropTypes.number
+}
+
+export default LayerList;

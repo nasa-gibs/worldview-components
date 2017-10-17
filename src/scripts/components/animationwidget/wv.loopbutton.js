@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /*
  * A react component, Builds a rather specific
@@ -7,7 +8,7 @@ import React from 'react';
  * @class AnimationWidget
  * @extends React.Component
  */
-export default class LoopButton extends React.Component {
+class LoopButton extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -23,3 +24,10 @@ export default class LoopButton extends React.Component {
     );
   }
 }
+
+LoopButton.propTypes = {
+  looping: PropTypes.bool,
+  onLoop: PropTypes.func
+}
+
+export default LoopButton;

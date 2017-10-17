@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Tooltip from '../tooltip/wv.tooltip';
 
 /*
@@ -8,7 +9,7 @@ import Tooltip from '../tooltip/wv.tooltip';
  * @class AnimationWidget
  * @extends React.Component
  */
-export default class animWidgetHeader extends React.Component {
+class animWidgetHeader extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -22,3 +23,11 @@ export default class animWidgetHeader extends React.Component {
     );
   }
 }
+
+animWidgetHeader.propTypes = {
+  text: PropTypes.string,
+  onClick: PropTypes.func,
+  toolTipTextArray: PropTypes.array
+}
+
+export default animWidgetHeader;

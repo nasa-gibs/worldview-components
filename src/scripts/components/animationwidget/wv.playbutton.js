@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /*
  * A react component, Builds a rather specific
@@ -7,7 +8,7 @@ import React from 'react';
  * @class AnimationWidget
  * @extends React.Component
  */
-export default class PlayButton extends React.Component {
+class PlayButton extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -22,3 +23,11 @@ export default class PlayButton extends React.Component {
     );
   }
 }
+
+PlayButton.propTypes = {
+  playing: PropTypes.bool,
+  pause: PropTypes.func,
+  play: PropTypes.func
+}
+
+export default PlayButton;

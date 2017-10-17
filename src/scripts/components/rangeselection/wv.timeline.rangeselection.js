@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Dragger from './wv.timeline.dragger.js';
 import DraggerRange from './wv.timeline.draggerrange.js';
 
@@ -9,7 +10,7 @@ import DraggerRange from './wv.timeline.draggerrange.js';
  *
  * @class TimelineRangeSelector
  */
-export default class TimelineRangeSelector extends React.Component {
+class TimelineRangeSelector extends React.Component {
 
   /*
    * @constructor
@@ -137,3 +138,21 @@ export default class TimelineRangeSelector extends React.Component {
   }
 
 }
+
+TimelineRangeSelector.propTypes = {
+  startLocation: PropTypes.number,
+  endLocation: PropTypes.number,
+  max: PropTypes.number,
+  pinWidth: PropTypes.number,
+  height: PropTypes.number,
+  onDrag: PropTypes.func,
+  onRangeClick: PropTypes.func,
+  rangeOpacity: PropTypes.number,
+  rangeColor: PropTypes.string,
+  startColor: PropTypes.string,
+  startTriangleColor: PropTypes.string,
+  endColor: PropTypes.string,
+  endTriangleColor: PropTypes.string
+}
+
+export default TimelineRangeSelector;

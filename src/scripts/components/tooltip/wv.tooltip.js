@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /*
  * A react component, Builds a rather specific
@@ -7,7 +8,7 @@ import React from 'react';
  * @class AnimationWidget
  * @extends React.Component
  */
-export default class Tooltip extends React.Component {
+class Tooltip extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,3 +46,11 @@ export default class Tooltip extends React.Component {
     );
   }
 }
+
+Tooltip.propTypes = {
+  onClick: PropTypes.func,
+  text: PropTypes.string.isRequired,
+  dataArray: PropTypes.array.isRequired
+};
+
+export default Tooltip;
