@@ -80,7 +80,7 @@ export default class LayerRadio extends React.Component {
             </div>
           </div>
           {this.props.metadata &&
-            <div className={"source-metadata " + this.state.metadataIsVisible ? 'visible' : 'hidden'}>
+            <div className={"source-metadata " + (this.state.metadataIsVisible ? 'visible' : 'hidden')}>
               {renderHTML(this.props.metadata)}
               <div className="metadata-more" onClick={this.toggleMetadataButtons}>
                 <span className="ellipsis up">^</span>
