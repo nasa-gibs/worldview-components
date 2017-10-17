@@ -80,8 +80,8 @@ export default class LayerList extends React.Component {
    * @param {object} options - props used to render the row
    * @return {void}
    */
-  _rowRenderer ({ index, isScrolling, key, parent, style }) {
-    var { model, config} = this.props;
+  _rowRenderer ({ index, key, parent, style }) {
+    var { model, config } = this.props;
     var { layerFilter, expandedLayers, metadata } = this.state;
     var current = layerFilter[index];
     var enabled = model.active.map(layer=>layer.id).includes(current);
