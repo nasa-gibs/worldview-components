@@ -71,7 +71,6 @@ export default class Line extends React.Component {
       <svg
         onMouseOver={this.mouseOver.bind(this)}
         onMouseOut={this.mouseOut.bind(this)}
-        className={this.props.classes}
         style={this.props.svgStyle}
         width={this.props.width}
         id={this.props.id}

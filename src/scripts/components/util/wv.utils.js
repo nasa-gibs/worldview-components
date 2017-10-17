@@ -105,7 +105,7 @@ export default class Utils {
 
     // Use default of midnight if time is not specified
     if (dateTimeArr.length > 1) {
-      var hhmmss = dateTimeArr[1].split(/[:\.Z]/);
+      var hhmmss = dateTimeArr[1].split(/[:.Z]/);
       hour = hhmmss[0] || 0;
       minute = hhmmss[1] || 0;
       second = hhmmss[2] || 0;
