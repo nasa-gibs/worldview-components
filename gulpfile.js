@@ -13,8 +13,12 @@ var del = require('del');
 var eslint = require('gulp-eslint');
 
 gulp.task('lint', () => {
-  return gulp.src(['**/*.js', '!/build', '!/lib'])
-    .pipe(eslint())
+  return gulp.src([
+    '**/*.js',
+    '!node_modules/{,/**}',
+    '!lib/{,/**}',
+    '!browser/{,/**}'
+  ]).pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
