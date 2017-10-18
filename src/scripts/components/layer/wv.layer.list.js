@@ -12,12 +12,14 @@ export default class LayerList extends React.Component {
     super(props);
     this.state = {
       layerFilter: props.config.layerOrder,
-      expandedLayers: []
+      expandedLayers: [],
+      width: props.width,
+      height: props.height
     };
     this._cache = new CellMeasurerCache({
       fixedWidth: true,
       minHeight: 23,
-      minWidth: props.width
+      minWidth: this.state.width
     });
   }
 
@@ -78,7 +80,7 @@ export default class LayerList extends React.Component {
       >
         {({ measure }) => (
           <LayerRadio
-            key={key}
+            key={'layer-'+ current + '-' + key}
             layerId={current}
             title={config.layers[current].title}
             subtitle={config.layers[current].subtitle}
@@ -98,7 +100,7 @@ export default class LayerList extends React.Component {
     );
   }
   render() {
-    var { height, width } = this.props;
+    var { height, width } = this.state;
     return(
       <List
         deferredMeasurementCache={this._cache}
