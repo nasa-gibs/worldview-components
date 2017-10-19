@@ -1,6 +1,6 @@
 {
   "name": "worldview-components",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "Modular components used with NASA Worldview",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
