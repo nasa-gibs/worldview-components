@@ -120,6 +120,7 @@ export default class LayerList extends React.Component {
         id="flat-layer-list"
         width={width}
         height={height}
+        style={{overflowY: 'scroll' /* Force scrollbars to always appear even in short lists to avoid inaccurate width calculations */ }}
         overscanRowCount={5}
         ref={ref=>this._setListRef(ref)}
         rowCount={this.state.layerFilter.length}
