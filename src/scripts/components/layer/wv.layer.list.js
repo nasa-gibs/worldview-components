@@ -1,6 +1,7 @@
 import React from 'react';
+import renderHTML from 'react-render-html';
 import LayerRadio from './wv.layer.radio.js';
-import { CellMeasurer, CellMeasurerCache, List } from 'react-virtualized';
+import { AutoSizer, CellMeasurer, CellMeasurerCache, List } from 'react-virtualized';
 
 /*
  * A react component, Builds a list of layers using the LayerRadio component
@@ -12,19 +13,26 @@ export default class LayerList extends React.Component {
     super(props);
     this.state = {
       layerFilter: props.config.layerOrder,
-      expandedLayers: [],
-      width: props.width,
-      height: props.height
+      expandedLayers: []
     };
-    this._cache = new CellMeasurerCache({
-      fixedWidth: true,
-      minHeight: 23,
-      minWidth: this.state.width
-    });
+    this._cache = new CellMeasurerCache({fixedWidth: true});
   }
 
-  componentWillUpdate(){
-    this._cache.clearAll(); // Clear CellMeasurerCache
+  componentWillUpdate(nextProps, nextState){
+    // The List component will use the previously calculated row heights when
+    // things change, unless we clear the CellMeasurerCache here
+    this._cache.clearAll();
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    // The List component calculates row height based on the previous width
+    // So if width changes (usually on window resize), we need to force a re-render
+    // This is hacky, and triggers a liner warning because it causes a layout thrash
+    // More info: https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-update-set-state.md
+    // The only other solution I could think of is to refactor the whole component
+    if (prevState.width && prevState.width !== this.state.width) {
+      this.setState({width: this.state.width}); //Force re-render if width changes
+    }
   }
 
   /*
@@ -83,7 +91,7 @@ export default class LayerList extends React.Component {
             key={'layer-'+ current + '-' + key}
             layerId={current}
             title={config.layers[current].title}
-            subtitle={config.layers[current].subtitle}
+            subtitle={renderHTML(config.layers[current].subtitle)}
             enabled={enabled}
             metadata={metadata[current] || null}
             expand={layer=>this.toggleExpansion(layer)}
@@ -100,20 +108,23 @@ export default class LayerList extends React.Component {
     );
   }
   render() {
-    var { height, width } = this.state;
     return(
-      <List
-        deferredMeasurementCache={this._cache}
-        id="flat-layer-list"
-        width={width}
-        height={height}
-        overscanRowCount={5}
-        ref={ref=>this._setListRef(ref)}
-        rowCount={this.state.layerFilter.length}
-        rowHeight={this._cache.rowHeight}
-        scrollToAlignment="auto"
-        rowRenderer={row=>this._rowRenderer(row)}
-      />
+      <AutoSizer>
+        {({ width, height }) => (
+          <List
+            deferredMeasurementCache={this._cache}
+            id="flat-layer-list"
+            width={width - 10}
+            height={height}
+            overscanRowCount={5}
+            ref={ref=>this._setListRef(ref)}
+            rowCount={this.state.layerFilter.length}
+            rowHeight={this._cache.rowHeight}
+            scrollToAlignment="auto"
+            rowRenderer={row=>this._rowRenderer(row)}
+          />
+        )}
+      </AutoSizer>
     );
   }
   _setListRef (ref) { this._layerList = ref; }
