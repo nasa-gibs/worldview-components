@@ -1,4 +1,5 @@
 import React from 'react';
+import renderHTML from 'react-render-html';
 import LayerRadio from './wv.layer.radio.js';
 import { CellMeasurer, CellMeasurerCache, List } from 'react-virtualized';
 
@@ -96,7 +97,7 @@ export default class LayerList extends React.Component {
             key={'layer-'+ current + '-' + key}
             layerId={current}
             title={config.layers[current].title}
-            subtitle={config.layers[current].subtitle}
+            subtitle={renderHTML(config.layers[current].subtitle)}
             enabled={enabled}
             metadata={metadata[current] || null}
             expand={layer=>this.toggleExpansion(layer)}
