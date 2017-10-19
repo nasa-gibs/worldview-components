@@ -13,8 +13,8 @@ export default class LayerList extends React.Component {
     this.state = {
       layerFilter: props.config.layerOrder,
       expandedLayers: [],
-      width: props.width,
-      height: props.height
+      width: props.initialWidth,
+      height: props.initialHeight
     };
     this._cache = new CellMeasurerCache({
       fixedWidth: true,
@@ -23,8 +23,21 @@ export default class LayerList extends React.Component {
     });
   }
 
-  componentWillUpdate(){
-    this._cache.clearAll(); // Clear CellMeasurerCache
+  componentWillUpdate(nextProps, nextState){
+    // The List component will use the previously calculated row heights when
+    // things change, unless we clear the CellMeasurerCache here
+    this._cache.clearAll();
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    // The List component calculates row height based on the previous width
+    // So if width changes (usually on window resize), we need to force a re-render
+    // This is hacky, and triggers a liner warning because it causes a layout thrash
+    // More info: https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-did-update-set-state.md
+    // The only other solution I could think of is to refactor the whole component
+    if (prevState.width && prevState.width !== this.state.width) {
+      this.setState({width: this.state.width}); //Force re-render if width changes
+    }
   }
 
   /*
