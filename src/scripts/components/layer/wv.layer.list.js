@@ -97,7 +97,7 @@ export default class LayerList extends React.Component {
             key={'layer-'+ current + '-' + key}
             layerId={current}
             title={config.layers[current].title}
-            subtitle={renderHTML(config.layers[current].subtitle)}
+            subtitle={renderHTML(config.layers[current].subtitle+'') /* empty string added to force this value to a string */}
             enabled={enabled}
             metadata={metadata[current] || null}
             expand={layer=>this.toggleExpansion(layer)}
