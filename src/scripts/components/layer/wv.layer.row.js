@@ -13,11 +13,10 @@ class LayerRow extends React.Component {
     super(props);
     this.state = {
       checked: this.props.isEnabled,
-      metadataIsVisible: this.props.isExpanded
+      isExpanded: this.props.isExpanded
     };
-    this.toggleMetadataButtons = this.toggleMetadataButtons.bind(this);
-    this.toggleCheck = this.toggleCheck.bind(this);
   }
+
   /*
    * Toggle switch for the iCheck layer adder/remover
    * @method toggleCheck
@@ -30,6 +29,7 @@ class LayerRow extends React.Component {
     if (!checked) onState(layerId);
     this.setState({checked: !checked});
   }
+
   /*
    * Toggle switch for the metadata info button and close arrow
    * @method toggleMetadataButtons
@@ -37,52 +37,43 @@ class LayerRow extends React.Component {
    * @return {void}
    */
   toggleMetadataButtons (e) {
-    e.stopPropagation();
-    var { metadataIsVisible } = this.state;
-    var { onChange, rowIndex, layerId, expand } = this.props;
-    this.setState({
-      metadataIsVisible: !metadataIsVisible,
-      metadataVisibility: metadataIsVisible ? 'visible' : 'hidden'
-    });
+    e.stopPropagation(); // Prevent layer from being activated
+    var { onChange, rowIndex, layerId, toggleExpansion } = this.props;
+    this.setState({isExpanded: !this.state.isExpanded});
     onChange(rowIndex);
-    expand(layerId);
+    toggleExpansion(layerId);
   }
+
   render() {
     return(
-      <div
-        id={'wrapper-' + this.props.layerId}
-        style={this.props.style}
-      >
-        <div
-          className='layers-all-layer'
-          data-layer={this.props.layerId}>
-          <div className='layers-all-header'
-            onClick={this.toggleCheck}>
+      <div id={'wrapper-' + this.props.layerId} style={this.props.style}>
+        <div className='layers-all-layer' data-layer={this.props.layerId}>
+          <div className='layers-all-header' onClick={()=>this.toggleCheck()}>
             <Checkbox
               id={'checkbox-' + this.props.layerId}
               data-layer={this.props.layerId}
               checkboxClass="icheckbox_square-red iCheck iCheck-checkbox"
               increaseArea="20%"
               checked={this.state.checked}
-              onChange={this.toggleCheck}/>
+              onChange={()=>this.toggleCheck()}
+            />
             <div className="layers-all-title-wrap">
               <h3>
                 {this.props.title}
                 {this.props.metadata &&
                   <span
                     className="fa fa-info-circle"
-                    onClick={this.toggleMetadataButtons}
-                  >
-                  </span>
+                    onClick={(e)=>this.toggleMetadataButtons(e)}
+                  ></span>
                 }
               </h3>
               <h5>{renderHTML(this.props.subtitle+'') /* Force a string because renderHTML fails on other types */}</h5>
             </div>
           </div>
-          {this.props.metadata &&
-            <div className={'source-metadata ' + (this.state.metadataIsVisible ? 'visible' : 'hidden')}>
+          {this.props.metadata && this.state.isExpanded &&
+            <div className="source-metadata visible">
               {renderHTML(this.props.metadata+'') /* Force a string because renderHTML fails on other types */}
-              <div className="metadata-more" onClick={this.toggleMetadataButtons}>
+              <div className="metadata-more" onClick={(e)=>this.toggleMetadataButtons(e)}>
                 <span className="ellipsis up">^</span>
               </div>
             </div>
@@ -101,7 +92,7 @@ LayerRow.propTypes = {
   onChange: PropTypes.func,
   layerId: PropTypes.string,
   rowIndex: PropTypes.number,
-  expand: PropTypes.func,
+  toggleExpansion: PropTypes.func,
   style: PropTypes.object,
   title: PropTypes.string,
   metadata: PropTypes.string,

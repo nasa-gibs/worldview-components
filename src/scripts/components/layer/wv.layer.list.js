@@ -50,13 +50,13 @@ class LayerList extends React.Component {
    * @param {string} layer - the layer to be toggled
    * @return {void}
    */
-  toggleExpansion(layer){
+  toggleExpansion(layerId){
     var { expandedLayers } = this.state;
-    var index = expandedLayers.indexOf(layer);
+    var index = expandedLayers.indexOf(layerId);
     if(index > -1){
       expandedLayers.splice(index, 1); // Removes layer from expanded list
     } else {
-      expandedLayers.push(layer);
+      expandedLayers.push(layerId);
     }
     this.setState({ expandedLayers: expandedLayers });
   }
@@ -105,7 +105,7 @@ class LayerList extends React.Component {
             subtitle={currentLayer.subtitle}
             isEnabled={isEnabled}
             metadata={metadata[currentLayerId] || null}
-            expand={layer=>this.toggleExpansion(layer)}
+            toggleExpansion={layerId=>this.toggleExpansion(layerId)}
             isExpanded={isExpanded}
             style={style}
             rowIndex={index}
