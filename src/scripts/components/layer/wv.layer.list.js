@@ -10,6 +10,7 @@ import { CellMeasurer, CellMeasurerCache, List } from 'react-virtualized';
 export default class LayerList extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       layerFilter: props.config.layerOrder,
       expandedLayers: [],
@@ -101,20 +102,12 @@ export default class LayerList extends React.Component {
     </CellMeasurer>
     );
   }
-  getLoader() {
-    if(this.state.isMetadataLoaded) {
-      return;
-    }
-    return (
-      <div className="loader">Loading Layer descriptions...</div>
-    );
-  }
   render() {
-    var { height, width } = this.state;
-    var loader = this.getLoader();
+    var { height, width, isMetadataLoaded } = this.state;
+
     return(
       <div>
-        {loader}
+        {(!isMetadataLoaded) ? <div className='loader'> Loading layer descriptions... </div> : null}
         <List
           deferredMeasurementCache={this._cache}
           id="flat-layer-list"
