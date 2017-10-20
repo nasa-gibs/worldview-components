@@ -4,16 +4,16 @@ import {Checkbox} from 'react-icheck';
 import renderHTML from 'react-render-html';
 
 /*
- * A react component, Builds a toggle on/off layer selector
- * @class LayerRadio
+ * A single layer search result row
+ * @class LayerRow
  * @extends React.Component
  */
-class LayerRadio extends React.Component {
+class LayerRow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: this.props.enabled || false,
-      metadataIsVisible: this.props.expanded || false
+      checked: this.props.isEnabled,
+      metadataIsVisible: this.props.isExpanded
     };
     this.toggleMetadataButtons = this.toggleMetadataButtons.bind(this);
     this.toggleCheck = this.toggleCheck.bind(this);
@@ -76,12 +76,12 @@ class LayerRadio extends React.Component {
                   </span>
                 }
               </h3>
-              <h5>{this.props.subtitle}</h5>
+              <h5>{renderHTML(this.props.subtitle+'') /* Force a string because renderHTML fails on other types */}</h5>
             </div>
           </div>
           {this.props.metadata &&
             <div className={'source-metadata ' + (this.state.metadataIsVisible ? 'visible' : 'hidden')}>
-              {renderHTML(this.props.metadata)}
+              {renderHTML(this.props.metadata+'') /* Force a string because renderHTML fails on other types */}
               <div className="metadata-more" onClick={this.toggleMetadataButtons}>
                 <span className="ellipsis up">^</span>
               </div>
@@ -93,9 +93,9 @@ class LayerRadio extends React.Component {
   }
 }
 
-LayerRadio.propTypes = {
-  enabled: PropTypes.bool,
-  expanded: PropTypes.bool,
+LayerRow.propTypes = {
+  isEnabled: PropTypes.bool,
+  isExpanded: PropTypes.bool,
   onState: PropTypes.func,
   offState: PropTypes.func,
   onChange: PropTypes.func,
@@ -108,4 +108,4 @@ LayerRadio.propTypes = {
   subtitle: PropTypes.string
 };
 
-export default LayerRadio;
+export default LayerRow;
