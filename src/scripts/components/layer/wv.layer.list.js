@@ -11,11 +11,14 @@ import { CellMeasurer, CellMeasurerCache, List } from 'react-virtualized';
 export default class LayerList extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       layerFilter: props.config.layerOrder,
       expandedLayers: [],
-      width: props.initialWidth,
-      height: props.initialHeight
+      width: props.width,
+      height: props.height,
+      isMetadataLoaded: props.isMetadataLoaded,
+      metadata: props.metadata
     };
     this._cache = new CellMeasurerCache({
       fixedWidth: true,
@@ -78,8 +81,8 @@ export default class LayerList extends React.Component {
    * @return {void}
    */
   _rowRenderer ({ index, isScrolling, key, parent, style }) {
-    var { model, config, metadata } = this.props;
-    var { layerFilter, expandedLayers } = this.state;
+    var { model, config} = this.props;
+    var { layerFilter, expandedLayers, metadata } = this.state;
     var current = layerFilter[index];
     var enabled = model.active.map(layer=>layer.id).includes(current);
     var expanded = expandedLayers.includes(current);
@@ -110,25 +113,29 @@ export default class LayerList extends React.Component {
             onLoad={measure}
           />
         )}
-    </CellMeasurer>
+      </CellMeasurer>
     );
   }
   render() {
-    var { height, width } = this.state;
+    var { height, width, isMetadataLoaded } = this.state;
+
     return(
-      <List
-        deferredMeasurementCache={this._cache}
-        id="flat-layer-list"
-        width={width}
-        height={height}
-        style={{overflowY: 'scroll' /* Force scrollbars to always appear even in short lists to avoid inaccurate width calculations */ }}
-        overscanRowCount={5}
-        ref={ref=>this._setListRef(ref)}
-        rowCount={this.state.layerFilter.length}
-        rowHeight={this._cache.rowHeight}
-        scrollToAlignment="auto"
-        rowRenderer={row=>this._rowRenderer(row)}
-      />
+      <div>
+        {(!isMetadataLoaded) ? <div className='loader'> Loading layer descriptions... </div> : null}
+        <List
+          deferredMeasurementCache={this._cache}
+          id="flat-layer-list"
+          style={{overflowY: 'scroll' /* Force scrollbars to always appear even in short lists to avoid inaccurate width calculations */ }}
+          width={width}
+          height={height}
+          overscanRowCount={5}
+          ref={ref=>this._setListRef(ref)}
+          rowCount={this.state.layerFilter.length}
+          rowHeight={this._cache.rowHeight}
+          scrollToAlignment="auto"
+          rowRenderer={row=>this._rowRenderer(row)}
+        />
+      </div>
     );
   }
   _setListRef (ref) { this._layerList = ref; }
