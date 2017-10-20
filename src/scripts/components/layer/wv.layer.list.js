@@ -144,10 +144,11 @@ class LayerList extends React.Component {
 
 LayerList.propTypes = {
   config: PropTypes.object,
-  initialWidth: PropTypes.number,
+  width: PropTypes.number,
   model: PropTypes.object,
   metadata: PropTypes.object,
-  initialHeight: PropTypes.number
+  height: PropTypes.number,
+  isMetadataLoaded: PropTypes.bool
 }
 
 export default LayerList;
