@@ -15,7 +15,7 @@ export default class LayerList extends React.Component {
       expandedLayers: [],
       width: props.width,
       height: props.height,
-      metadataLoaded: props.metadataLoaded,
+      isMetadataLoaded: props.isMetadataLoaded,
       metadata: props.metadata
     };
     this._cache = new CellMeasurerCache({
@@ -102,7 +102,7 @@ export default class LayerList extends React.Component {
     );
   }
   getLoader() {
-    if(this.state.metadataLoaded) {
+    if(this.state.isMetadataLoaded) {
       return;
     }
     return (
