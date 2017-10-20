@@ -1,6 +1,6 @@
 {
   "name": "worldview-components",
-  "version": "1.4.4",
+  "version": "1.4.8",
   "description": "Modular components used with NASA Worldview",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -40,12 +40,12 @@
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "*",
-    "react-draggable": "^2.2.0",
-    "react-input-range": "1.0.2",
     "icheck": "^1.0.2",
+    "react-draggable": "^2.2.0",
     "react-icheck": "^0.3.8",
+    "react-input-range": "1.0.2",
+    "react-render-html": "^0.5.2",
     "react-virtualized": "^9.10.0",
-    "react-render-html": "0.5.x",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
