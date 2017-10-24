@@ -18,6 +18,7 @@ export default class LayerList extends React.Component {
       width: props.width,
       height: props.height,
       metadata: props.metadata,
+
       descriptions: {}
     };
     this._cache = new CellMeasurerCache({
@@ -38,6 +39,7 @@ export default class LayerList extends React.Component {
     this.setState({
       descriptions: obj
     });
+    obj = null;
   }
   componentDidUpdate(prevProps, prevState){
     // The List component calculates row height based on the previous width
