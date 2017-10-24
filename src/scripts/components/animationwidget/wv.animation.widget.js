@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import InputRange from 'react-input-range';
 import TimeSelector from '../dateselector/wv.dateselector';
 import LoopButton from './wv.loopbutton';
 import PlayButton from './wv.playbutton';
 import AnimWidgetHeader from './wv.animation.widget.header';
-import GA from '../util/wv.googleAnalytics';
 
 
 
@@ -15,7 +15,7 @@ import GA from '../util/wv.googleAnalytics';
  * @class AnimationWidget
  * @extends React.Component
  */
-export default class AnimationWidget extends React.Component {
+class AnimationWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state =  {
@@ -150,8 +150,7 @@ export default class AnimationWidget extends React.Component {
             id='end'
             onDateChange={this.onDateChange.bind(this)}
             maxDate={this.props.maxDate}
-            minDate={this.state.startDate}
-            />
+            minDate={this.state.startDate}/>
         </div>
         <i
           className="fa fa-close wv-close"
@@ -163,3 +162,26 @@ export default class AnimationWidget extends React.Component {
   }
 
 }
+
+AnimationWidget.propTypes = {
+  sliderSpeed: PropTypes.number,
+  looping: PropTypes.bool,
+  startDate: PropTypes.object,
+  endDate: PropTypes.object,
+  header: PropTypes.element,
+  incrementArray: PropTypes.array,
+  increment: PropTypes.string,
+  onSlide: PropTypes.func,
+  onPushPlay: PropTypes.func,
+  onPushPause: PropTypes.func,
+  onPushLoop: PropTypes.func,
+  onDateChange: PropTypes.func,
+  onZoomSelect: PropTypes.func,
+  sliderLabel: PropTypes.string,
+  onPushGIF: PropTypes.func,
+  minDate: PropTypes.object,
+  maxDate: PropTypes.object,
+  onClose: PropTypes.func
+}
+
+export default AnimationWidget;

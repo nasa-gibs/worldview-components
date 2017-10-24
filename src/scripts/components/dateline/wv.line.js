@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /*
  * A react component, Builds a SVG line who's dimensions and styles
@@ -7,11 +8,11 @@ import React from 'react';
  * @class Line
  * @extends React.Component
  */
-export default class Line extends React.Component {
+class Line extends React.Component {
 
- /*
-  * Sets state and extents props
-  */
+  /*
+   * Sets state and extents props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -21,47 +22,47 @@ export default class Line extends React.Component {
     };
   }
 
- /*
-  * Updates state on svg hover
-  *
-  * return {Void}
-  */
+  /*
+   * Updates state on svg hover
+   *
+   * return {Void}
+   */
   mouseOver() {
     this.setState({
       hovered: true
     });
   }
 
- /*
-  * Updates state on svg mouseout
-  *
-  * return {Void}
-  */
+  /*
+   * Updates state on svg mouseout
+   *
+   * return {Void}
+   */
   mouseOut() {
     this.setState({
       hovered: false
     });
   }
 
- /*
-  * Runs lineOver props method when
-  * the invisible line is hovered, passing
-  * event properties
-  *
-  * @param {Object} e - React event object
-  * return {Void}
-  */
+  /*
+   * Runs lineOver props method when
+   * the invisible line is hovered, passing
+   * event properties
+   *
+   * @param {Object} e - React event object
+   * return {Void}
+   */
   mouseOverHidden(e) {
     this.props.lineOver([e.clientX, e.clientY], this.props.overlay, this.props.lineX, this.props.tooltip);
   }
 
- /*
-  * Runs lineOut props method when
-  * the invisible line is not longer hovered, passing
-  * the react component to deactivate
-  *
-  * return {Void}
-  */
+  /*
+   * Runs lineOut props method when
+   * the invisible line is not longer hovered, passing
+   * the react component to deactivate
+   *
+   * return {Void}
+   */
   mouseOutHidden() {
     this.props.lineOut(this.props.tooltip);
   }
@@ -71,7 +72,6 @@ export default class Line extends React.Component {
       <svg
         onMouseOver={this.mouseOver.bind(this)}
         onMouseOut={this.mouseOut.bind(this)}
-        className={this.props.classes}
         style={this.props.svgStyle}
         width={this.props.width}
         id={this.props.id}
@@ -114,3 +114,23 @@ Line.defaultProps = {
     transform: 'translateX(-43px)'
   }
 };
+
+Line.propTypes = {
+  dashArray: PropTypes.string,
+  opacity: PropTypes.string,
+  width: PropTypes.string,
+  strokeWidth: PropTypes.string,
+  color: PropTypes.string,
+  height: PropTypes.number,
+  lineX: PropTypes.number,
+  lineOver: PropTypes.func,
+  lineOut: PropTypes.func,
+  svgStyle: PropTypes.object,
+  tooltip: PropTypes.object,
+  overlay: PropTypes.object,
+  style: PropTypes.object,
+  id: PropTypes.string,
+  classes: PropTypes.string
+};
+
+export default Line;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DateInputColumn from './wv.dateselector.input';
 import Utils from '../util/wv.utils';
 
@@ -11,7 +12,7 @@ const util = new Utils();
  *
  * @class TimelineRangeSelector
  */
-export default class dateSelector extends React.Component {
+class dateSelector extends React.Component {
 
   /*
    * @constructor
@@ -68,8 +69,7 @@ export default class dateSelector extends React.Component {
           nextTab={this.nextTab.bind(this)}
           maxDate={this.props.maxDate}
           minDate={this.props.minDate}
-          blur={this.blur.bind(this)}
-          />
+          blur={this.blur.bind(this)} />
         <DateInputColumn
           startDate={new Date(2000)}
           today={new Date()} date={this.state.date}
@@ -104,3 +104,15 @@ export default class dateSelector extends React.Component {
     );
   }
 }
+
+dateSelector.propTypes = {
+  date: PropTypes.object,
+  maxDate: PropTypes.object,
+  minDate: PropTypes.object,
+  onDateChange: PropTypes.func,
+  id: PropTypes.string,
+  height: PropTypes.string,
+  width: PropTypes.string
+}
+
+export default dateSelector;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import Util from '../util/wv.utils';
 
@@ -11,7 +12,7 @@ const util = new Util();
  *
  * @class TimelineRangeSelector
  */
-export default class DateInputColumn extends React.Component {
+class DateInputColumn extends React.Component {
 
   /*
    * @constructor
@@ -192,10 +193,10 @@ export default class DateInputColumn extends React.Component {
     return (
       <div className="input-wrapper" style={(this.state.valid) ? {} : {borderColor: '#ff0000'}} >
         <div onClick={this.onClickUp.bind(this)} className="date-arrows date-arrow-up" data-interval={this.props.type}>
-            <svg width="25" height="8">
-              <path d="M 12.5,0 25,8 0,8 z" className="uparrow">
-              </path>
-            </svg>
+          <svg width="25" height="8">
+            <path d="M 12.5,0 25,8 0,8 z" className="uparrow">
+            </path>
+          </svg>
         </div>
         <input
           type="text"
@@ -221,3 +222,19 @@ export default class DateInputColumn extends React.Component {
     );
   }
 }
+
+DateInputColumn.propTypes = {
+  value: PropTypes.node,
+  focused: PropTypes.bool,
+  tabIndex: PropTypes.number,
+  type: PropTypes.string,
+  updateDate: PropTypes.func,
+  date: PropTypes.object,
+  minDate: PropTypes.object,
+  maxDate: PropTypes.object,
+  blur: PropTypes.func,
+  nextTab: PropTypes.func,
+  height: PropTypes.string
+}
+
+export default DateInputColumn;

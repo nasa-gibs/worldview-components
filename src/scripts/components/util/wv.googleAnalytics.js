@@ -1,17 +1,17 @@
 /* global ga:true */
 
 export default {
-  /**
-   * Initialize GA tracking if tracking
-   * code is present
-   *
-   * @func init
-   * @static
-   *
-   * @param Category {id} GA tracking code
-   *
-   * @return {void}
-   */
+  /*
+  * Initialize GA tracking if tracking
+  * code is present
+  *
+  * @func init
+  * @static
+  *
+  * @param Category {id} GA tracking code
+  *
+  * @return {void}
+  */
   init(id) {
     if(id) {
       (function(i, s, o, g, r, a, m) {
@@ -30,21 +30,20 @@ export default {
       ga('send', 'pageview');
     }
   },
-	/**
-	 * @func TrackEventGA
-	 * @static
-	 *
-	 * @param Category {string} Event group name
-	 * @param Action {string} Type of user interaction
-	 * @param Label {string} Optional string for better
-	 *     verification of the event
-	 * @param Value {number} Optional number to associate
-	 *     with event
-	 *
-   * @return {void}
-	 */
+
+  /*
+  * @func TrackEventGA
+  * @static
+  *
+  * @param Category {string} Event group name
+  * @param Action {string} Type of user interaction
+  * @param Label {string} Optional string for better verification of the event
+  * @param Value {number} Optional number to associate with event
+  *
+  * @return {void}
+  */
   event(category, action, label, value) {
-    if (typeof (ga) !== "undefined") {
+    if (typeof (ga) !== 'undefined') {
       ga('send', 'event', category, action, label, value);
     }
   }

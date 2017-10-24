@@ -11,8 +11,8 @@ export default class LayerRadio extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: this.props.enabled || false,
-      metadataIsVisible: this.props.expanded || false,
+      checked: props.isEnabled || false,
+      metadataIsVisible: props.isExpanded || false,
       metadata: null
     };
     this.toggleMetadataButtons = this.toggleMetadataButtons.bind(this);

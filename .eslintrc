@@ -1,0 +1,19 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "parser": "babel-eslint",
+  "plugins": [ "react" ],
+  "extends": [ "eslint:recommended", "plugin:react/recommended" ],
+  "rules": {
+    "quotes": [ "warn", "single" ],
+    "react/prop-types": "warn",
+    "react/no-did-update-set-state": "warn"
+  }
+}

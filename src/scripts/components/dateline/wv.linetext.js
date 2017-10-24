@@ -1,15 +1,15 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 /*
  * Builds an SVG text box
  *
  * @class LineText
  * @extends React.Component
  */
-export default class LineText extends React.Component {
- /*
-  * Sets state and extents props
-  */
+class LineText extends React.Component {
+  /*
+   * Sets state and extents props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -29,9 +29,8 @@ export default class LineText extends React.Component {
           height={this.props.textHeight}
           x={this.props.x1}
           rx={this.props.recRadius}
-          opacity={this.state.active ? this.props.rectOpacity : '0'}
-          />
-          <text
+          opacity={this.state.active ? this.props.rectOpacity : '0'}/>
+        <text
           y={this.props.textY}
           x={this.props.x1 + 3}
           fill={this.props.color}
@@ -76,3 +75,22 @@ LineText.defaultProps = {
     transform: 'translateX(-140px)'
   }
 };
+
+LineText.propTypes = {
+  textOpacity: PropTypes.number,
+  rectOpacity: PropTypes.number,
+  width: PropTypes.string,
+  color: PropTypes.string,
+  textY: PropTypes.number,
+  fill: PropTypes.string,
+  dateLeft: PropTypes.string,
+  dateRight: PropTypes.string,
+  x2: PropTypes.number,
+  x1: PropTypes.number,
+  textWidth: PropTypes.number,
+  textHeight: PropTypes.number,
+  recRadius: PropTypes.number,
+  svgStyle: PropTypes.object
+}
+
+export default LineText;
