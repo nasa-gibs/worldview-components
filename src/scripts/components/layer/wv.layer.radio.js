@@ -28,19 +28,14 @@ export default class LayerRadio extends React.Component {
 
   componentWillMount(){
     var self = this;
-    // console.log(self);
-    if(this.props.description){
+    if(this.props.description && !this.props.isDescriptionLoaded) {
       var request = new XMLHttpRequest();
       request.open('GET', 'config/metadata/' + this.props.description + '.html', true);
 
-      var loadMetadata = function(data) {
-        self.updateMetadata(data);
-      };
-
       request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
-          var data = request.responseText;
-          loadMetadata(data);
+          let data = request.responseText;
+          self.props.updateDescriptions(self.props.rowIndex, data);
         } else {
           // We reached our target server, but it returned an error
         }
@@ -105,7 +100,7 @@ export default class LayerRadio extends React.Component {
             <div className="layers-all-title-wrap">
               <h3>
                 {this.props.title}
-                {this.state.metadata &&
+                {this.props.metadata &&
                   <span
                     className="fa fa-info-circle"
                     onClick={this.toggleMetadataButtons}
@@ -116,9 +111,9 @@ export default class LayerRadio extends React.Component {
               <h5>{this.props.subtitle}</h5>
             </div>
           </div>
-          {this.state.metadata &&
+          {this.props.metadata &&
             <div className={"source-metadata " + (this.state.metadataIsVisible ? 'visible' : 'hidden')}>
-              {renderHTML(this.state.metadata)}
+              {renderHTML(this.props.metadata)}
               <div className="metadata-more" onClick={this.toggleMetadataButtons}>
                 <span className="ellipsis up">^</span>
               </div>

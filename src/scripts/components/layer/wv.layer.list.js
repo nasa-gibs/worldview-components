@@ -17,7 +17,8 @@ export default class LayerList extends React.Component {
       expandedLayers: [],
       width: props.width,
       height: props.height,
-      metadata: props.metadata
+      metadata: props.metadata,
+      descriptions: {}
     };
     this._cache = new CellMeasurerCache({
       fixedWidth: true,
@@ -31,7 +32,13 @@ export default class LayerList extends React.Component {
     // things change, unless we clear the CellMeasurerCache here
     this._cache.clearAll();
   }
-
+  updateDescriptions(rowIndex, description) {
+    var obj = this.state.descriptions;
+    obj['row' + rowIndex] = description;
+    this.setState({
+      descriptions: obj
+    });
+  }
   componentDidUpdate(prevProps, prevState){
     // The List component calculates row height based on the previous width
     // So if width changes (usually on window resize), we need to force a re-render
@@ -85,6 +92,8 @@ export default class LayerList extends React.Component {
     var current = layerFilter[index];
     var enabled = model.active.map(layer=>layer.id).includes(current);
     var expanded = expandedLayers.includes(current);
+    var metadata = this.state.descriptions['row' + index];
+    var isDescriptionLoaded = (this.state.descriptions['row' + index]) ? true : false;
     style.paddingTop = '5px';  //'Margin' for each list element
     return (
       <CellMeasurer
@@ -101,10 +110,12 @@ export default class LayerList extends React.Component {
             title={config.layers[current].title}
             subtitle={renderHTML(config.layers[current].subtitle+'') /* empty string added to force this value to a string */}
             enabled={enabled}
-            metadata={metadata[current] || null}
+            metadata={metadata || null}
             description={config.layers[current].description}
             expand={layer=>this.toggleExpansion(layer)}
             expanded={expanded}
+            isDescriptionLoaded={isDescriptionLoaded}
+            updateDescriptions={this.updateDescriptions.bind(this)}
             style={style}
             rowIndex={index}
             onState={model.add}
