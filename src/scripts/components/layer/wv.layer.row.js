@@ -29,16 +29,17 @@ class LayerRow extends React.Component {
     if (!checked) onState(layerId);
     this.setState({checked: !checked});
   }
-  componentWillMount(){
-    var self = this;
-    if(this.props.description && !this.props.isDescriptionLoaded) {
+  componentDidMount(){
+    var { description, isDescriptionLoaded, updateDescriptions, hasBeenRequested, addToRequestPool, rowIndex} = this.props;
+    if(description && !isDescriptionLoaded && !hasBeenRequested) {
+      addToRequestPool(rowIndex);
       var request = new XMLHttpRequest();
       request.open('GET', 'config/metadata/' + this.props.description + '.html', true);
 
       request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
           let data = request.responseText;
-          self.props.updateDescriptions(self.props.rowIndex, data);
+          updateDescriptions(rowIndex, data);
         } else {
           // We reached our target server, but it returned an error
         }
@@ -119,7 +120,10 @@ LayerRow.propTypes = {
   metadata: PropTypes.string,
   subtitle: PropTypes.string,
   description: PropTypes.string,
-  isDescriptionLoaded: PropTypes.bool
+  isDescriptionLoaded: PropTypes.bool,
+  updateDescriptions: PropTypes.func,
+  hasBeenRequested: PropTypes.bool,
+  addToRequestPool: PropTypes.func
 };
 
 export default LayerRow;
