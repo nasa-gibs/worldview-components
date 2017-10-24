@@ -13,20 +13,34 @@ export default class LayerRadio extends React.Component {
     this.state = {
       checked: this.props.enabled || false,
       metadataIsVisible: this.props.expanded || false,
+      metadata: null
     };
     this.toggleMetadataButtons = this.toggleMetadataButtons.bind(this);
     this.toggleCheck = this.toggleCheck.bind(this);
+    this.updateMetadata = this.updateMetadata.bind(this);
   }
 
-  componentDidMount(){
-    if(this.props.description) {
+  updateMetadata(data) {
+    this.setState({
+      metadata: data,
+    });
+  }
+
+  componentWillMount(){
+    var self = this;
+    // console.log(self);
+    if(this.props.description){
       var request = new XMLHttpRequest();
       request.open('GET', 'config/metadata/' + this.props.description + '.html', true);
+
+      var loadMetadata = function(data) {
+        self.updateMetadata(data);
+      };
 
       request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
           var data = request.responseText;
-          // console.log(data);
+          loadMetadata(data);
         } else {
           // We reached our target server, but it returned an error
         }
@@ -69,6 +83,7 @@ export default class LayerRadio extends React.Component {
     expand(layerId);
   }
   render() {
+    // if(this.state.metadata) console.log(this.state.metadata);
     return(
       <div
         id={'wrapper-' + this.props.layerId}
@@ -90,7 +105,7 @@ export default class LayerRadio extends React.Component {
             <div className="layers-all-title-wrap">
               <h3>
                 {this.props.title}
-                {this.props.metadata &&
+                {this.state.metadata &&
                   <span
                     className="fa fa-info-circle"
                     onClick={this.toggleMetadataButtons}
@@ -101,9 +116,9 @@ export default class LayerRadio extends React.Component {
               <h5>{this.props.subtitle}</h5>
             </div>
           </div>
-          {this.props.metadata &&
+          {this.state.metadata &&
             <div className={"source-metadata " + (this.state.metadataIsVisible ? 'visible' : 'hidden')}>
-              {renderHTML(this.props.metadata)}
+              {renderHTML(this.state.metadata)}
               <div className="metadata-more" onClick={this.toggleMetadataButtons}>
                 <span className="ellipsis up">^</span>
               </div>
