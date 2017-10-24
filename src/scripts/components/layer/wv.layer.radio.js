@@ -12,10 +12,32 @@ export default class LayerRadio extends React.Component {
     super(props);
     this.state = {
       checked: this.props.enabled || false,
-      metadataIsVisible: this.props.expanded || false
+      metadataIsVisible: this.props.expanded || false,
     };
     this.toggleMetadataButtons = this.toggleMetadataButtons.bind(this);
     this.toggleCheck = this.toggleCheck.bind(this);
+  }
+
+  componentDidMount(){
+    if(this.props.description) {
+      var request = new XMLHttpRequest();
+      request.open('GET', 'config/metadata/' + this.props.description + '.html', true);
+
+      request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+          var data = request.responseText;
+          // console.log(data);
+        } else {
+          // We reached our target server, but it returned an error
+        }
+      };
+
+      request.onerror = function() {
+        // There was a connection error of some sort
+      };
+
+      request.send();
+    }
   }
   /*
    * Toggle switch for the iCheck layer adder/remover

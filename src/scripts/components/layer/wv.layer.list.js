@@ -17,7 +17,6 @@ export default class LayerList extends React.Component {
       expandedLayers: [],
       width: props.width,
       height: props.height,
-      isMetadataLoaded: props.isMetadataLoaded,
       metadata: props.metadata
     };
     this._cache = new CellMeasurerCache({
@@ -103,6 +102,7 @@ export default class LayerList extends React.Component {
             subtitle={renderHTML(config.layers[current].subtitle+'') /* empty string added to force this value to a string */}
             enabled={enabled}
             metadata={metadata[current] || null}
+            description={config.layers[current].description}
             expand={layer=>this.toggleExpansion(layer)}
             expanded={expanded}
             style={style}
@@ -117,11 +117,10 @@ export default class LayerList extends React.Component {
     );
   }
   render() {
-    var { height, width, isMetadataLoaded } = this.state;
+    var { height, width } = this.state;
 
     return(
       <div>
-        {(!isMetadataLoaded) ? <div className='loader'> Loading layer descriptions... </div> : null}
         <List
           deferredMeasurementCache={this._cache}
           id="flat-layer-list"
