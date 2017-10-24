@@ -38,9 +38,8 @@ class LayerRow extends React.Component {
    */
   toggleMetadataButtons (e) {
     e.stopPropagation(); // Prevent layer from being activated
-    var { onChange, rowIndex, layerId, toggleExpansion } = this.props;
+    var { layerId, toggleExpansion } = this.props;
     this.setState({isExpanded: !this.state.isExpanded});
-    onChange(rowIndex);
     toggleExpansion(layerId);
   }
 
@@ -89,9 +88,7 @@ LayerRow.propTypes = {
   isExpanded: PropTypes.bool,
   onState: PropTypes.func,
   offState: PropTypes.func,
-  onChange: PropTypes.func,
   layerId: PropTypes.string,
-  rowIndex: PropTypes.number,
   toggleExpansion: PropTypes.func,
   style: PropTypes.object,
   title: PropTypes.string,
