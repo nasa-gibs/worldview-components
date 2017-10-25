@@ -44,34 +44,28 @@ class LayerRow extends React.Component {
   render() {
     var { checked, isExpanded } = this.state;
     var { layer } = this.props;
-    var { id, title, description, subtitle, metadata } = layer;
+    var { title, description, subtitle, metadata } = layer;
+    var headerClass = 'layers-all-header has-checkbox';
+    if (checked) headerClass += ' checked';
     return(
-      <div id={'wrapper-' + id}>
-        <div className='layers-all-layer' data-layer={id}>
-          <div className={`has-checkbox ${checked?'checked':'unchecked'} layers-all-header`} onClick={()=>this.toggleCheck()}>
-            <div className="layers-all-title-wrap">
-              <h3>
-                {title}
-                {description &&
-                  <span className="fa fa-info-circle" onClick={(e)=>{
-                    this.toggleMetadataButtons(e);
-                  }}></span>
-                }
-              </h3>
-              {subtitle?<h5 dangerouslySetInnerHTML={{__html: subtitle}} />:null}
+      <div className='layers-all-layer'>
+        <div className={headerClass} onClick={()=>this.toggleCheck()}>
+          <h3>{title}
+            {description && <span
+              className="fa fa-info-circle"
+              onClick={e=>this.toggleMetadataButtons(e)}
+            />}
+          </h3>
+          {subtitle && <h5 dangerouslySetInnerHTML={{__html: subtitle}} />}
+        </div>
+        {isExpanded && metadata &&
+          <div className="source-metadata visible">
+            <div dangerouslySetInnerHTML={{__html: metadata}} />
+            <div className="metadata-more" onClick={e=>this.toggleMetadataButtons(e)}>
+              <span className="ellipsis up">^</span>
             </div>
           </div>
-          {isExpanded && metadata &&
-            <div className="source-metadata visible">
-              <div dangerouslySetInnerHTML={{__html: metadata}} />
-              <div className="metadata-more" onClick={(e)=>{
-                this.toggleMetadataButtons(e);
-              }}>
-                <span className="ellipsis up">^</span>
-              </div>
-            </div>
-          }
-        </div>
+        }
       </div>
     );
   }
