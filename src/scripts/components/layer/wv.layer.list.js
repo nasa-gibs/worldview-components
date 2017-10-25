@@ -58,7 +58,7 @@ class LayerList extends React.Component {
         }}>
         {(filteredLayers.length < 1)?<div>No results.</div>:null}
         {filteredLayers.map((layer)=>{
-          var isEnabled = activeLayers.map(l=>l.id).includes(layer.id);
+          var isEnabled = activeLayers.some(l=>l.id === layer.id);
           var isExpanded = expandedLayers.includes(layer.id);
           var layerProjection = layer.projections[selectedProjection];
           if (layerProjection) {
@@ -67,7 +67,6 @@ class LayerList extends React.Component {
           }
           return <LayerRow
             key={layer.id}
-            style={{paddingTop:5}}
             layer={layer}
             isEnabled={isEnabled}
             isExpanded={isExpanded}

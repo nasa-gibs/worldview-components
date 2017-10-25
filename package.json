@@ -48,9 +48,7 @@
     "icheck": "^1.0.2",
     "prop-types": "^15.6.0",
     "react-draggable": "^2.2.0",
-    "react-icheck": "^0.3.8",
     "react-input-range": "1.0.2",
-    "react-render-html": "^0.5.2",
     "whatwg-fetch": "^2.0.3"
   }
 }

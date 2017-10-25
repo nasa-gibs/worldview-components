@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Checkbox} from 'react-icheck';
-import renderHTML from 'react-render-html';
 
 /*
  * A single layer search result row
@@ -18,7 +16,7 @@ class LayerRow extends React.Component {
   }
 
   /*
-   * Toggle switch for the iCheck layer adder/remover
+   * Toggle layer checked state
    * @method toggleCheck
    * @return {void}
    */
@@ -45,20 +43,12 @@ class LayerRow extends React.Component {
 
   render() {
     var { checked, isExpanded } = this.state;
-    var { layer, style } = this.props;
+    var { layer } = this.props;
     var { id, title, description, subtitle, metadata } = layer;
     return(
-      <div id={'wrapper-' + id} style={style}>
+      <div id={'wrapper-' + id} style={{paddingTop:5}}>
         <div className='layers-all-layer' data-layer={id}>
-          <div className='layers-all-header' onClick={()=>this.toggleCheck()}>
-            <Checkbox
-              id={'checkbox-' + id}
-              data-layer={id}
-              checkboxClass="icheckbox_square-red iCheck iCheck-checkbox"
-              increaseArea="20%"
-              checked={checked}
-              onChange={()=>this.toggleCheck()}
-            />
+          <div className={`${checked?'checked':'unchecked'} layers-all-header`} onClick={()=>this.toggleCheck()}>
             <div className="layers-all-title-wrap">
               <h3>
                 {title}
@@ -68,12 +58,12 @@ class LayerRow extends React.Component {
                   }}></span>
                 }
               </h3>
-              {subtitle?<h5>{renderHTML(subtitle)}</h5>:null}
+              {subtitle?<h5 dangerouslySetInnerHTML={{__html: subtitle}} />:null}
             </div>
           </div>
           {isExpanded && metadata &&
             <div className="source-metadata visible">
-              {renderHTML(metadata)}
+              <div dangerouslySetInnerHTML={{__html: metadata}} />
               <div className="metadata-more" onClick={(e)=>{
                 this.toggleMetadataButtons(e);
               }}>
@@ -93,8 +83,7 @@ LayerRow.propTypes = {
   isExpanded: PropTypes.bool,
   onState: PropTypes.func,
   offState: PropTypes.func,
-  toggleExpansion: PropTypes.func,
-  style: PropTypes.object
+  toggleExpansion: PropTypes.func
 };
 
 export default LayerRow;
