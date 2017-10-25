@@ -37,7 +37,9 @@ class LayerList extends React.Component {
       if (!layer.metadata) {
         var { origin, pathname } = window.location;
         var uri = `${origin}${pathname}config/metadata/${layer.description}.html`;
-        fetch(uri).then(res=>res.text()).then(body=>{
+        fetch(uri).then(res=> {
+          return res.ok?res.text():'There was an error loading the metadata.';
+        }).then(body=>{
           layer.metadata = body;
           this.setState({layers: filteredLayers});
         });
