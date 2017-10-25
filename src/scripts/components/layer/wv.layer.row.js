@@ -63,19 +63,20 @@ class LayerRow extends React.Component {
               <h3>
                 {title}
                 {description &&
-                  <span
-                    className="fa fa-info-circle"
-                    onClick={(e)=>this.toggleMetadataButtons(e)}
-                  ></span>
+                  <span className="fa fa-info-circle" onClick={(e)=>{
+                    this.toggleMetadataButtons(e);
+                  }}></span>
                 }
               </h3>
-              <h5>{renderHTML(subtitle+'') /* Force a string because renderHTML fails on other types */}</h5>
+              {subtitle?<h5>{renderHTML(subtitle)}</h5>:null}
             </div>
           </div>
           {isExpanded && metadata &&
             <div className="source-metadata visible">
-              {renderHTML(metadata+'') /* Force a string because renderHTML fails on other types */}
-              <div className="metadata-more" onClick={(e)=>this.toggleMetadataButtons(e)}>
+              {renderHTML(metadata)}
+              <div className="metadata-more" onClick={(e)=>{
+                this.toggleMetadataButtons(e);
+              }}>
                 <span className="ellipsis up">^</span>
               </div>
             </div>

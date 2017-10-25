@@ -12,7 +12,7 @@ class LayerList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      layers: props.layers,
+      filteredLayers: props.filteredLayers,
       expandedLayers: []
     };
   }
@@ -26,46 +26,51 @@ class LayerList extends React.Component {
    * @return {void}
    */
   toggleExpansion(layerId){
-    var { layers, expandedLayers } = this.state;
+    var { filteredLayers, expandedLayers } = this.state;
     var isExpanded = expandedLayers.find(id=>id === layerId);
     if (isExpanded) {
       expandedLayers = expandedLayers.filter(id=>id !== layerId);
     } else {
       expandedLayers.push(layerId);
       this.setState({expandedLayers: expandedLayers});
-      var layer = layers.find(l=>l.id === layerId);
+      var layer = filteredLayers.find(l=>l.id === layerId);
       if (!layer.metadata) {
         var { origin, pathname } = window.location;
         var uri = `${origin}${pathname}config/metadata/${layer.description}.html`;
         fetch(uri).then(res=>res.text()).then(body=>{
           layer.metadata = body;
-          this.setState({layers: layers});
+          this.setState({layers: filteredLayers});
         });
       }
     }
   }
 
   render() {
-    var { layers, expandedLayers } = this.state;
-    var { model } = this.props;
+    var { filteredLayers, expandedLayers } = this.state;
+    var { activeLayers, selectedProjection, addLayer, removeLayer } = this.props;
     return(
       <div style={{
           height: '100%',
           overflowY: 'scroll',
           msOverflowStyle: 'scrollbar'
         }}>
-        {(layers.length < 1)?<div>No results.</div>:null}
-        {layers.map((layer)=>{
-          var isEnabled = model.active.map(l=>l.id).includes(layer.id);
+        {(filteredLayers.length < 1)?<div>No results.</div>:null}
+        {filteredLayers.map((layer)=>{
+          var isEnabled = activeLayers.map(l=>l.id).includes(layer.id);
           var isExpanded = expandedLayers.includes(layer.id);
+          var layerProjection = layer.projections[selectedProjection];
+          if (layerProjection) {
+            layer.subtitle = layerProjection.subtitle || layer.subtitle;
+            layer.title = layerProjection.title || layer.title;
+          }
           return <LayerRow
             key={layer.id}
             style={{paddingTop:5}}
             layer={layer}
             isEnabled={isEnabled}
             isExpanded={isExpanded}
-            onState={model.add}
-            offState={model.remove}
+            onState={addLayer}
+            offState={removeLayer}
             toggleExpansion={id=>this.toggleExpansion(id)}
           />
         })}
@@ -76,9 +81,11 @@ class LayerList extends React.Component {
 }
 
 LayerList.propTypes = {
-  config: PropTypes.object,
-  model: PropTypes.object,
-  layers: PropTypes.array
+  addLayer: PropTypes.func,
+  removeLayer: PropTypes.func,
+  selectedProjection: PropTypes.string,
+  activeLayers: PropTypes.array,
+  filteredLayers: PropTypes.array
 }
 
 export default LayerList;
