@@ -38,7 +38,29 @@ class LayerRow extends React.Component {
    */
   toggleMetadataButtons (e) {
     e.stopPropagation(); // Prevent layer from being activated
-    var { onChange, rowIndex, layerId, toggleExpansion } = this.props;
+    var { onChange, rowIndex, layerId, toggleExpansion, description, isDescriptionLoaded, updateDescriptions, hasBeenRequested, addToRequestPool } = this.props;
+
+    if(description && !isDescriptionLoaded && !hasBeenRequested) {
+      addToRequestPool(rowIndex);
+      var request = new XMLHttpRequest();
+      request.open('GET', 'config/metadata/' + description + '.html', true);
+
+      request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+          let data = request.responseText;
+          updateDescriptions(rowIndex, data);
+        } else {
+          // We reached our target server, but it returned an error
+        }
+      };
+
+      request.onerror = function() {
+        // There was a connection error of some sort
+      };
+
+      request.send();
+    }
+
     this.setState({isExpanded: !this.state.isExpanded});
     onChange(rowIndex);
     toggleExpansion(layerId);
@@ -60,7 +82,7 @@ class LayerRow extends React.Component {
             <div className="layers-all-title-wrap">
               <h3>
                 {this.props.title}
-                {this.props.metadata &&
+                {this.props.description &&
                   <span
                     className="fa fa-info-circle"
                     onClick={(e)=>this.toggleMetadataButtons(e)}
@@ -96,7 +118,12 @@ LayerRow.propTypes = {
   style: PropTypes.object,
   title: PropTypes.string,
   metadata: PropTypes.string,
-  subtitle: PropTypes.string
+  subtitle: PropTypes.string,
+  description: PropTypes.string,
+  isDescriptionLoaded: PropTypes.bool,
+  updateDescriptions: PropTypes.func,
+  hasBeenRequested: PropTypes.bool,
+  addToRequestPool: PropTypes.func
 };
 
 export default LayerRow;
