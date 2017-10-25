@@ -46,9 +46,9 @@ class LayerRow extends React.Component {
     var { layer } = this.props;
     var { id, title, description, subtitle, metadata } = layer;
     return(
-      <div id={'wrapper-' + id} style={{paddingTop:5}}>
+      <div id={'wrapper-' + id}>
         <div className='layers-all-layer' data-layer={id}>
-          <div className={`${checked?'checked':'unchecked'} layers-all-header`} onClick={()=>this.toggleCheck()}>
+          <div className={`has-checkbox ${checked?'checked':'unchecked'} layers-all-header`} onClick={()=>this.toggleCheck()}>
             <div className="layers-all-title-wrap">
               <h3>
                 {title}
