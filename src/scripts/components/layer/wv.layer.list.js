@@ -49,11 +49,12 @@ class LayerList extends React.Component {
     var { layers, expandedLayers } = this.state;
     var { model } = this.props;
     return(
-      <div style={{overflowY: 'scroll', height: '100%'}}>
-        {(layers.length < 1)
-          ? <div>No results.</div>
-          : null
-        }
+      <div style={{
+          height: '100%',
+          overflowY: 'scroll',
+          msOverflowStyle: 'scrollbar'
+        }}>
+        {(layers.length < 1)?<div>No results.</div>:null}
         {layers.map((layer)=>{
           var isEnabled = model.active.map(l=>l.id).includes(layer.id);
           var isExpanded = expandedLayers.includes(layer.id);
