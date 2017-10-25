@@ -24,9 +24,9 @@ class LayerRow extends React.Component {
    */
   toggleCheck() {
     var { checked } = this.state;
-    var { onState, offState, layerId } = this.props;
-    if (checked) offState(layerId);
-    if (!checked) onState(layerId);
+    var { onState, offState, layer } = this.props;
+    if (checked) offState(layer.id);
+    if (!checked) onState(layer.id);
     this.setState({checked: !checked});
   }
 
@@ -38,40 +38,43 @@ class LayerRow extends React.Component {
    */
   toggleMetadataButtons (e) {
     e.stopPropagation(); // Prevent layer from being activated
-    var { layerId, toggleExpansion } = this.props;
+    var { layer, toggleExpansion } = this.props;
     this.setState({isExpanded: !this.state.isExpanded});
-    toggleExpansion(layerId);
+    toggleExpansion(layer.id);
   }
 
   render() {
+    var { checked, isExpanded } = this.state;
+    var { layer, style } = this.props;
+    var { id, title, description, subtitle, metadata } = layer;
     return(
-      <div id={'wrapper-' + this.props.layerId} style={this.props.style}>
-        <div className='layers-all-layer' data-layer={this.props.layerId}>
+      <div id={'wrapper-' + id} style={style}>
+        <div className='layers-all-layer' data-layer={id}>
           <div className='layers-all-header' onClick={()=>this.toggleCheck()}>
             <Checkbox
-              id={'checkbox-' + this.props.layerId}
-              data-layer={this.props.layerId}
+              id={'checkbox-' + id}
+              data-layer={id}
               checkboxClass="icheckbox_square-red iCheck iCheck-checkbox"
               increaseArea="20%"
-              checked={this.state.checked}
+              checked={checked}
               onChange={()=>this.toggleCheck()}
             />
             <div className="layers-all-title-wrap">
               <h3>
-                {this.props.title}
-                {this.props.metadata &&
+                {title}
+                {description &&
                   <span
                     className="fa fa-info-circle"
                     onClick={(e)=>this.toggleMetadataButtons(e)}
                   ></span>
                 }
               </h3>
-              <h5>{renderHTML(this.props.subtitle+'') /* Force a string because renderHTML fails on other types */}</h5>
+              <h5>{renderHTML(subtitle+'') /* Force a string because renderHTML fails on other types */}</h5>
             </div>
           </div>
-          {this.props.metadata && this.state.isExpanded &&
+          {isExpanded && metadata &&
             <div className="source-metadata visible">
-              {renderHTML(this.props.metadata+'') /* Force a string because renderHTML fails on other types */}
+              {renderHTML(metadata+'') /* Force a string because renderHTML fails on other types */}
               <div className="metadata-more" onClick={(e)=>this.toggleMetadataButtons(e)}>
                 <span className="ellipsis up">^</span>
               </div>
@@ -84,16 +87,13 @@ class LayerRow extends React.Component {
 }
 
 LayerRow.propTypes = {
+  layer: PropTypes.object,
   isEnabled: PropTypes.bool,
   isExpanded: PropTypes.bool,
   onState: PropTypes.func,
   offState: PropTypes.func,
-  layerId: PropTypes.string,
   toggleExpansion: PropTypes.func,
-  style: PropTypes.object,
-  title: PropTypes.string,
-  metadata: PropTypes.string,
-  subtitle: PropTypes.string
+  style: PropTypes.object
 };
 
 export default LayerRow;

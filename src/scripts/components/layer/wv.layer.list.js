@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LayerRow from './wv.layer.row.js';
+import request from 'request';
 
 /*
  * A scrollable list of layers
@@ -12,54 +13,59 @@ class LayerList extends React.Component {
     super(props);
     this.state = {
       layers: props.layers,
-      expandedLayers: [],
-      isMetadataLoaded: props.isMetadataLoaded
+      expandedLayers: []
     };
   }
 
   /*
-   * Toggles expansion of metadata for a layer given that layer's ID
+   * Toggles expansion of metadata for a layer given that layer's ID and makes
+   * an AJAX request for the metadata if it's missing
+   *
    * @method toggleExpansion
    * @param {string} layer - the layer to be toggled
    * @return {void}
    */
   toggleExpansion(layerId){
-    var { expandedLayers } = this.state;
-    var index = expandedLayers.indexOf(layerId);
-    if(index > -1){
-      expandedLayers.splice(index, 1); // Removes layer from expanded list
+    var { layers, expandedLayers } = this.state;
+    var isExpanded = expandedLayers.find(id=>id === layerId);
+    if (isExpanded) {
+      expandedLayers = expandedLayers.filter(id=>id !== layerId);
     } else {
       expandedLayers.push(layerId);
+      this.setState({expandedLayers: expandedLayers});
+      var layer = layers.find(l=>l.id === layerId);
+      if (!layer.metadata) {
+        var { origin, pathname } = window.location;
+        var uri = `${origin}${pathname}config/metadata/${layer.description}.html`;
+        request(uri, (err, response)=>{
+          layer.metadata = response.body;
+          this.setState({layers: layers});
+        });
+      }
     }
-    this.setState({ expandedLayers: expandedLayers });
   }
 
   render() {
-    var { layers, isMetadataLoaded, expandedLayers } = this.state;
+    var { layers, expandedLayers } = this.state;
     var { model } = this.props;
     return(
       <div style={{overflowY: 'scroll', height: '100%'}}>
         {(layers.length < 1)
           ? <div>No results.</div>
-          : (!isMetadataLoaded)
-            ? <div>Loading layer descriptions...</div>
-            : null
+          : null
         }
         {layers.map((layer)=>{
           var isEnabled = model.active.map(l=>l.id).includes(layer.id);
           var isExpanded = expandedLayers.includes(layer.id);
           return <LayerRow
             key={layer.id}
-            layerId={layer.id}
-            title={layer.title}
-            subtitle={layer.subtitle}
-            isEnabled={isEnabled}
-            metadata={layer.metadata}
-            toggleExpansion={layerId=>this.toggleExpansion(layerId)}
-            isExpanded={isExpanded}
             style={{paddingTop:5}}
+            layer={layer}
+            isEnabled={isEnabled}
+            isExpanded={isExpanded}
             onState={model.add}
             offState={model.remove}
+            toggleExpansion={id=>this.toggleExpansion(id)}
           />
         })}
       </div>

@@ -50,6 +50,7 @@
     "react-draggable": "^2.2.0",
     "react-icheck": "^0.3.8",
     "react-input-range": "1.0.2",
-    "react-render-html": "^0.5.2"
+    "react-render-html": "^0.5.2",
+    "request": "^2.83.0"
   }
 }
