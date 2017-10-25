@@ -29,12 +29,24 @@ class LayerRow extends React.Component {
     if (!checked) onState(layerId);
     this.setState({checked: !checked});
   }
-  componentDidMount(){
-    var { description, isDescriptionLoaded, updateDescriptions, hasBeenRequested, addToRequestPool, rowIndex} = this.props;
+
+  /*
+   * Toggle switch for the metadata info button and close arrow
+   * @method toggleMetadataButtons
+   * @param {e} event
+   * @return {void}
+   */
+  toggleMetadataButtons (e) {
+    e.stopPropagation(); // Prevent layer from being activated
+    var { onChange, rowIndex, layerId, toggleExpansion, description, isDescriptionLoaded, updateDescriptions, hasBeenRequested, addToRequestPool } = this.props;
+    this.setState({isExpanded: !this.state.isExpanded});
+    onChange(rowIndex);
+    toggleExpansion(layerId);
+
     if(description && !isDescriptionLoaded && !hasBeenRequested) {
       addToRequestPool(rowIndex);
       var request = new XMLHttpRequest();
-      request.open('GET', 'config/metadata/' + this.props.description + '.html', true);
+      request.open('GET', 'config/metadata/' + description + '.html', true);
 
       request.onload = function() {
         if (request.status >= 200 && request.status < 400) {
@@ -51,19 +63,6 @@ class LayerRow extends React.Component {
 
       request.send();
     }
-  }
-  /*
-   * Toggle switch for the metadata info button and close arrow
-   * @method toggleMetadataButtons
-   * @param {e} event
-   * @return {void}
-   */
-  toggleMetadataButtons (e) {
-    e.stopPropagation(); // Prevent layer from being activated
-    var { onChange, rowIndex, layerId, toggleExpansion } = this.props;
-    this.setState({isExpanded: !this.state.isExpanded});
-    onChange(rowIndex);
-    toggleExpansion(layerId);
   }
 
   render() {
@@ -82,7 +81,7 @@ class LayerRow extends React.Component {
             <div className="layers-all-title-wrap">
               <h3>
                 {this.props.title}
-                {this.props.metadata &&
+                {this.props.description &&
                   <span
                     className="fa fa-info-circle"
                     onClick={(e)=>this.toggleMetadataButtons(e)}
@@ -92,7 +91,7 @@ class LayerRow extends React.Component {
               <h5>{renderHTML(this.props.subtitle+'') /* Force a string because renderHTML fails on other types */}</h5>
             </div>
           </div>
-          {this.props.metadata && this.state.isExpanded &&
+          {this.props.description && this.state.isExpanded &&
             <div className="source-metadata visible">
               {renderHTML(this.props.metadata+'') /* Force a string because renderHTML fails on other types */}
               <div className="metadata-more" onClick={(e)=>this.toggleMetadataButtons(e)}>
