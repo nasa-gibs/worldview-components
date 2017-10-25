@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LayerRow from './wv.layer.row.js';
-import request from 'request';
+import 'whatwg-fetch'; // fetch() polyfill for IE
 
 /*
  * A scrollable list of layers
@@ -37,8 +37,8 @@ class LayerList extends React.Component {
       if (!layer.metadata) {
         var { origin, pathname } = window.location;
         var uri = `${origin}${pathname}config/metadata/${layer.description}.html`;
-        request(uri, (err, response)=>{
-          layer.metadata = response.body;
+        fetch(uri).then(res=>res.text()).then(body=>{
+          layer.metadata = body;
           this.setState({layers: layers});
         });
       }
