@@ -78,8 +78,7 @@ class LayerList extends React.Component {
 LayerList.propTypes = {
   config: PropTypes.object,
   model: PropTypes.object,
-  layers: PropTypes.array,
-  isMetadataLoaded: PropTypes.bool
+  layers: PropTypes.array
 }
 
 export default LayerList;
