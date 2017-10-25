@@ -39,9 +39,6 @@ class LayerRow extends React.Component {
   toggleMetadataButtons (e) {
     e.stopPropagation(); // Prevent layer from being activated
     var { onChange, rowIndex, layerId, toggleExpansion, description, isDescriptionLoaded, updateDescriptions, hasBeenRequested, addToRequestPool } = this.props;
-    this.setState({isExpanded: !this.state.isExpanded});
-    onChange(rowIndex);
-    toggleExpansion(layerId);
 
     if(description && !isDescriptionLoaded && !hasBeenRequested) {
       addToRequestPool(rowIndex);
@@ -63,6 +60,10 @@ class LayerRow extends React.Component {
 
       request.send();
     }
+
+    this.setState({isExpanded: !this.state.isExpanded});
+    onChange(rowIndex);
+    toggleExpansion(layerId);
   }
 
   render() {
@@ -91,7 +92,7 @@ class LayerRow extends React.Component {
               <h5>{renderHTML(this.props.subtitle+'') /* Force a string because renderHTML fails on other types */}</h5>
             </div>
           </div>
-          {this.props.description && this.state.isExpanded &&
+          {this.props.metadata && this.state.isExpanded &&
             <div className="source-metadata visible">
               {renderHTML(this.props.metadata+'') /* Force a string because renderHTML fails on other types */}
               <div className="metadata-more" onClick={(e)=>this.toggleMetadataButtons(e)}>
