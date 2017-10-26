@@ -49,12 +49,13 @@ class LayerList extends React.Component {
 
   render() {
     var { filteredLayers, expandedLayers } = this.state;
-    var { activeLayers, selectedProjection, addLayer, removeLayer } = this.props;
+    var { activeLayers, addLayer, removeLayer } = this.props;
     return(
       <div style={{
           height: '100%',
           overflowY: 'scroll',
-          msOverflowStyle: 'scrollbar'
+          msOverflowStyle: 'scrollbar',
+          WebkitOverflowScrolling: 'touch'
         }}>
         {(filteredLayers.length < 1)?<div>No results.</div>:null}
         {filteredLayers.map((layer)=>{
@@ -79,7 +80,6 @@ class LayerList extends React.Component {
 LayerList.propTypes = {
   addLayer: PropTypes.func,
   removeLayer: PropTypes.func,
-  selectedProjection: PropTypes.string,
   activeLayers: PropTypes.array,
   filteredLayers: PropTypes.array
 }
