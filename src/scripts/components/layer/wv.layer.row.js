@@ -56,7 +56,7 @@ class LayerRow extends React.Component {
               onClick={e=>this.toggleMetadataButtons(e)}
             />}
           </h3>
-          {subtitle && <h5 dangerouslySetInnerHTML={{__html: subtitle}} />}
+          {subtitle && <h5>{subtitle}</h5>}
         </div>
         {isExpanded && metadata &&
           <div className="source-metadata visible">

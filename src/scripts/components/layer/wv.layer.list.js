@@ -60,11 +60,6 @@ class LayerList extends React.Component {
         {filteredLayers.map((layer)=>{
           var isEnabled = activeLayers.some(l=>l.id === layer.id);
           var isExpanded = expandedLayers.includes(layer.id);
-          var layerProjection = layer.projections[selectedProjection];
-          if (layerProjection) {
-            layer.subtitle = layerProjection.subtitle || layer.subtitle;
-            layer.title = layerProjection.title || layer.title;
-          }
           return <LayerRow
             key={layer.id}
             layer={layer}
