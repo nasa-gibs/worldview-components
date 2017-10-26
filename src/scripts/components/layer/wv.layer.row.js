@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Checkbox} from 'react-icheck';
-import renderHTML from 'react-render-html';
 
 /*
  * A single layer search result row
@@ -18,15 +16,15 @@ class LayerRow extends React.Component {
   }
 
   /*
-   * Toggle switch for the iCheck layer adder/remover
+   * Toggle layer checked state
    * @method toggleCheck
    * @return {void}
    */
   toggleCheck() {
     var { checked } = this.state;
-    var { onState, offState, layerId } = this.props;
-    if (checked) offState(layerId);
-    if (!checked) onState(layerId);
+    var { onState, offState, layer } = this.props;
+    if (checked) offState(layer.id);
+    if (!checked) onState(layer.id);
     this.setState({checked: !checked});
   }
 
@@ -38,65 +36,48 @@ class LayerRow extends React.Component {
    */
   toggleMetadataButtons (e) {
     e.stopPropagation(); // Prevent layer from being activated
-    var { onChange, rowIndex, layerId, toggleExpansion } = this.props;
+    var { layer, toggleExpansion } = this.props;
     this.setState({isExpanded: !this.state.isExpanded});
-    onChange(rowIndex);
-    toggleExpansion(layerId);
+    toggleExpansion(layer.id);
   }
 
   render() {
+    var { checked, isExpanded } = this.state;
+    var { layer } = this.props;
+    var { title, description, subtitle, metadata } = layer;
+    var headerClass = 'layers-all-header has-checkbox';
+    if (checked) headerClass += ' checked';
     return(
-      <div id={'wrapper-' + this.props.layerId} style={this.props.style}>
-        <div className='layers-all-layer' data-layer={this.props.layerId}>
-          <div className='layers-all-header' onClick={()=>this.toggleCheck()}>
-            <Checkbox
-              id={'checkbox-' + this.props.layerId}
-              data-layer={this.props.layerId}
-              checkboxClass="icheckbox_square-red iCheck iCheck-checkbox"
-              increaseArea="20%"
-              checked={this.state.checked}
-              onChange={()=>this.toggleCheck()}
-            />
-            <div className="layers-all-title-wrap">
-              <h3>
-                {this.props.title}
-                {this.props.metadata &&
-                  <span
-                    className="fa fa-info-circle"
-                    onClick={(e)=>this.toggleMetadataButtons(e)}
-                  ></span>
-                }
-              </h3>
-              <h5>{renderHTML(this.props.subtitle+'') /* Force a string because renderHTML fails on other types */}</h5>
+      <div className='layers-all-layer'>
+        <div className={headerClass} onClick={()=>this.toggleCheck()}>
+          <h3>{title}
+            {description && <span
+              className="fa fa-info-circle"
+              onClick={e=>this.toggleMetadataButtons(e)}
+            />}
+          </h3>
+          {subtitle && <h5>{subtitle}</h5>}
+        </div>
+        {isExpanded && metadata &&
+          <div className="source-metadata visible">
+            <div dangerouslySetInnerHTML={{__html: metadata}} />
+            <div className="metadata-more" onClick={e=>this.toggleMetadataButtons(e)}>
+              <span className="ellipsis up">^</span>
             </div>
           </div>
-          {this.props.metadata && this.state.isExpanded &&
-            <div className="source-metadata visible">
-              {renderHTML(this.props.metadata+'') /* Force a string because renderHTML fails on other types */}
-              <div className="metadata-more" onClick={(e)=>this.toggleMetadataButtons(e)}>
-                <span className="ellipsis up">^</span>
-              </div>
-            </div>
-          }
-        </div>
+        }
       </div>
     );
   }
 }
 
 LayerRow.propTypes = {
+  layer: PropTypes.object,
   isEnabled: PropTypes.bool,
   isExpanded: PropTypes.bool,
   onState: PropTypes.func,
   offState: PropTypes.func,
-  onChange: PropTypes.func,
-  layerId: PropTypes.string,
-  rowIndex: PropTypes.number,
-  toggleExpansion: PropTypes.func,
-  style: PropTypes.object,
-  title: PropTypes.string,
-  metadata: PropTypes.string,
-  subtitle: PropTypes.string
+  toggleExpansion: PropTypes.func
 };
 
 export default LayerRow;
