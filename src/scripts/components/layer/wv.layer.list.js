@@ -36,11 +36,13 @@ class LayerList extends React.Component {
       var layer = filteredLayers.find(l=>l.id === layerId);
       if (!layer.metadata) {
         var { origin, pathname } = window.location;
+        var errorMessage = '<p>There was an error loading layer metadata.</p>';
         var uri = `${origin}${pathname}config/metadata/${layer.description}.html`;
-        fetch(uri).then(res=> {
-          return res.ok?res.text():'There was an error loading the metadata.';
-        }).then(body=>{
-          layer.metadata = body;
+        fetch(uri).then(res=>res.ok?res.text():errorMessage).then(body=>{
+          // Check that we have a metadata html snippet, rather than a fully
+          // formed HTML file. Also avoid executing any script or style tags.
+          var isMetadataSnippet = !body.match(/<(head|body|html|style|script)[^>]*>/i);
+          layer.metadata = isMetadataSnippet? body : errorMessage;
           this.setState({layers: filteredLayers});
         });
       }
