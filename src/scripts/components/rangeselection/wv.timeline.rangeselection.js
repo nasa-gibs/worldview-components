@@ -11,16 +11,15 @@ import DraggerRange from './wv.timeline.draggerrange.js';
  * @class TimelineRangeSelector
  */
 class TimelineRangeSelector extends React.Component {
-
   /*
    * @constructor
    */
   constructor(props) {
     super(props);
-    this.state =  {
+    this.state = {
       startLocation: props.startLocation,
       endLocation: props.endLocation,
-      max: props.max,
+      max: props.max
     };
   }
   componentWillReceiveProps(props) {
@@ -48,28 +47,28 @@ class TimelineRangeSelector extends React.Component {
     var startX;
     var endX;
 
-    if(id === 'start') {
+    if (id === 'start') {
       startX = deltaX + this.state.startLocation;
       endX = this.state.endLocation;
-      if(startX < 0 || startX > endX) {
+      if (startX < 0 || startX > endX) {
         return;
       }
-      if(startX + (2 * this.props.pinWidth) >= endX) {
+      if (startX + (2 * this.props.pinWidth) >= endX) {
         endX = startX + this.props.pinWidth;
       }
-    } else if(id === 'end') {
+    } else if (id === 'end') {
       startX = this.state.startLocation;
       endX = deltaX + this.state.endLocation;
-      if(endX > this.state.max || startX > endX) {
+      if (endX > this.state.max || startX > endX) {
         return;
       }
-      if(startX + (2 * this.props.pinWidth) >= endX) {
+      if (startX + (2 * this.props.pinWidth) >= endX) {
         startX = endX - this.props.pinWidth;
       }
     } else {
-      startX = deltaX + this.state.startLocation ;
+      startX = deltaX + this.state.startLocation;
       endX = deltaX + this.state.endLocation;
-      if(endX >= this.state.max || startX < 0) {
+      if (endX >= this.state.max || startX < 0) {
         return;
       }
     }
@@ -99,7 +98,7 @@ class TimelineRangeSelector extends React.Component {
    * @method render
    */
   render() {
-    return(
+    return (
       <svg id="wv-timeline-range-selector" className="wv-timeline-range-selector">
         <DraggerRange
           width={this.props.pinWidth}
@@ -136,7 +135,6 @@ class TimelineRangeSelector extends React.Component {
       </svg>
     );
   }
-
 }
 
 TimelineRangeSelector.propTypes = {
@@ -153,6 +151,6 @@ TimelineRangeSelector.propTypes = {
   startTriangleColor: PropTypes.string,
   endColor: PropTypes.string,
   endTriangleColor: PropTypes.string
-}
+};
 
 export default TimelineRangeSelector;

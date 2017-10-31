@@ -20,7 +20,7 @@ class LineText extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <svg className='dateline-text' style={this.props.svgStyle}>
 
         <rect
@@ -91,6 +91,6 @@ LineText.propTypes = {
   textHeight: PropTypes.number,
   recRadius: PropTypes.number,
   svgStyle: PropTypes.object
-}
+};
 
 export default LineText;

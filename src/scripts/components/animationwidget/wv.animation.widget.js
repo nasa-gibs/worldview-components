@@ -6,8 +6,6 @@ import LoopButton from './wv.loopbutton';
 import PlayButton from './wv.playbutton';
 import AnimWidgetHeader from './wv.animation.widget.header';
 
-
-
 /*
  * A react component, Builds a rather specific
  * interactive widget
@@ -18,7 +16,7 @@ import AnimWidgetHeader from './wv.animation.widget.header';
 class AnimationWidget extends React.Component {
   constructor(props) {
     super(props);
-    this.state =  {
+    this.state = {
       value: props.sliderSpeed,
       looping: props.looping,
       startDate: props.startDate,
@@ -83,7 +81,7 @@ class AnimationWidget extends React.Component {
    */
   onLoop() {
     var loop = true;
-    if(this.state.looping) {
+    if (this.state.looping) {
       loop = false;
     }
     this.setState({
@@ -92,7 +90,7 @@ class AnimationWidget extends React.Component {
     this.props.onPushLoop(loop);
   }
   onDateChange(id, date) {
-    if(id === 'start') {
+    if (id === 'start') {
       this.setState({
         startDate: date
       });
@@ -111,7 +109,7 @@ class AnimationWidget extends React.Component {
     }
   }
   render() {
-    return(
+    return (
       <div id="wv-animation-widget" className="wv-animation-widget">
         <AnimWidgetHeader
           text={this.state.increment}
@@ -160,7 +158,6 @@ class AnimationWidget extends React.Component {
 
     );
   }
-
 }
 
 AnimationWidget.propTypes = {
@@ -182,6 +179,6 @@ AnimationWidget.propTypes = {
   minDate: PropTypes.object,
   maxDate: PropTypes.object,
   onClose: PropTypes.func
-}
+};
 
 export default AnimationWidget;

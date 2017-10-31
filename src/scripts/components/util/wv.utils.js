@@ -3,7 +3,7 @@ export default class Utils {
    * @constructor
    */
   constructor() {
-    this.monthStringArray= [ 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+    this.monthStringArray = [ 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
       'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC' ];
   }
   /**
@@ -43,7 +43,7 @@ export default class Utils {
   daysInMonth(d) {
     var y;
     var m;
-    if(d.getUTCFullYear) {
+    if (d.getUTCFullYear) {
       y = d.getUTCFullYear();
       m = d.getUTCMonth();
     } else {
@@ -65,8 +65,8 @@ export default class Utils {
     return new Date();
   }
   stringInArray(arra, value) {
-    for(var i = 0, len = arra.length; i < len; i++) {
-      if(arra[i] === value) {
+    for (var i = 0, len = arra.length; i < len; i++) {
+      if (arra[i] === value) {
         return i;
       }
     }
@@ -119,14 +119,14 @@ export default class Utils {
   }
   repeat(value, length) {
     var result = '';
-    for(var i = 0; i < length; i++) {
+    for (var i = 0; i < length; i++) {
       result += value;
     }
     return result;
   }
   roll(val, min, max) {
-    if(val < min) {return max - (min - val) + 1;}
-    if(val > max) {return min + (val - max) - 1;}
+    if (val < min) { return max - (min - val) + 1; }
+    if (val > max) { return min + (val - max) - 1; }
     return val;
   }
   rollRange(date, interval, minDate, maxDate) {
@@ -178,7 +178,7 @@ export default class Utils {
         throw new Error('[rollDate] Invalid interval: ' + interval);
     }
     var daysInMonth = this.daysInMonth({year: year, month: month});
-    if(day > daysInMonth) {
+    if (day > daysInMonth) {
       day = daysInMonth;
     }
     var newDate = new Date(Date.UTC(year, month, day));
@@ -187,7 +187,7 @@ export default class Utils {
   }
   pad(value, width, padding) {
     value = '' + value;
-    if(value.length < width) {
+    if (value.length < width) {
       var add = width - value.length;
       value = this.repeat(padding, add) + value;
     }

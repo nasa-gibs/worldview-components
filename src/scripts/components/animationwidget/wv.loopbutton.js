@@ -9,11 +9,8 @@ import PropTypes from 'prop-types';
  * @extends React.Component
  */
 class LoopButton extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
-    return(
+    return (
       <a href="javascript:void(null)"
         title={this.props.looping ? 'Stop Loop' : 'Loop video'}
         className={this.props.looping ? 'wv-loop-icon-case wv-icon-case active' : 'wv-loop-icon-case wv-icon-case'}
@@ -28,6 +25,6 @@ class LoopButton extends React.Component {
 LoopButton.propTypes = {
   looping: PropTypes.bool,
   onLoop: PropTypes.func
-}
+};
 
 export default LoopButton;

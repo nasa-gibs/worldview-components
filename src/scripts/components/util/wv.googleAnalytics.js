@@ -1,4 +1,4 @@
-/* global ga:true */
+/* eslint-disable */
 
 export default {
   /*

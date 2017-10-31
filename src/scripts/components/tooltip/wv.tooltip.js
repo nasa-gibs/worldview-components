@@ -29,7 +29,7 @@ class Tooltip extends React.Component {
     this.props.onClick(str);
   }
   render() {
-    return(
+    return (
       <div
         onMouseEnter={this.mouseOver.bind(this)}
         onMouseLeave={this.mouseOut.bind(this)}
@@ -38,7 +38,7 @@ class Tooltip extends React.Component {
         <div className="wv-tooltip" style={(this.state.hovered) ? {visibility: 'visible'} : {}} >
           <ul>
             {this.props.dataArray.map((dataEl, i) => {
-              return <li key={'tooltip-'+dataEl + '-' + i} id={dataEl} onClick={this.onClick.bind(this, dataEl)}>{dataEl}</li>;
+              return <li key={'tooltip-' + dataEl + '-' + i} id={dataEl} onClick={this.onClick.bind(this, dataEl)}>{dataEl}</li>;
             })}
           </ul>
         </div>

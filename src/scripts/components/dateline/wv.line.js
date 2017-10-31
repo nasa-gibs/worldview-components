@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
  * @extends React.Component
  */
 class Line extends React.Component {
-
   /*
    * Sets state and extents props
    */
@@ -68,7 +67,7 @@ class Line extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <svg
         onMouseOver={this.mouseOver.bind(this)}
         onMouseOut={this.mouseOut.bind(this)}
