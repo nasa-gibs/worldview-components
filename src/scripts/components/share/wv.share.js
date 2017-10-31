@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ShareLinks from './wv.share.links';
 
 class Share extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +26,6 @@ class Share extends React.Component {
       </div>
     );
   }
-
 }
 
 Share.propTypes = {

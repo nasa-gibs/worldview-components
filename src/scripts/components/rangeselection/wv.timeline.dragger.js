@@ -10,16 +10,12 @@ import Draggable from 'react-draggable';
  * @extends React.Component
  */
 class TimelineDragger extends React.Component {
-
   /*
    * @constructor
    */
-  constructor(props) {
-    super(props);
-  }
   checkVisibility() {
     var visibility = 'visible';
-    if(this.props.position < 0 || this.props.position > this.props.max) {
+    if (this.props.position < 0 || this.props.position > this.props.max) {
       visibility = 'hidden';
     }
     this.state = {
@@ -46,10 +42,10 @@ class TimelineDragger extends React.Component {
    */
   render() {
     this.checkVisibility();
-    return(
+    return (
       <Draggable
         onDrag={this.handleDrag.bind(this)}
-        position={{x:this.props.position, y:0}}
+        position={{x: this.props.position, y: 0}}
         onStop={this.props.onStop}
         axis="x"
       >
@@ -58,7 +54,7 @@ class TimelineDragger extends React.Component {
             width={this.props.width}
             height={this.props.height}
             style={{
-              fill:this.props.color,
+              fill: this.props.color,
               visibility: this.state.visibility
             }}
           />
@@ -70,8 +66,8 @@ class TimelineDragger extends React.Component {
              */
           }
           <polygon
-            points={'0,0,' + this.props.height / 1.5 + ',0 ' + this.props.height / 3 + ', ' +this.props.height / 1.5 }
-            transform={'translate(' + (-(this.props.width * 2.45)) + ', ' + (-(this.props.height / 2)) +')'}
+            points={'0,0,' + this.props.height / 1.5 + ',0 ' + this.props.height / 3 + ', ' + this.props.height / 1.5 }
+            transform={'translate(' + (-(this.props.width * 2.45)) + ', ' + (-(this.props.height / 2)) + ')'}
             style={{
               fill: this.props.triangleColor,
               visibility: this.state.visibility,
@@ -102,6 +98,6 @@ TimelineDragger.propTypes = {
   onStop: PropTypes.func,
   width: PropTypes.number,
   triangleColor: PropTypes.string
-}
+};
 
 export default TimelineDragger;

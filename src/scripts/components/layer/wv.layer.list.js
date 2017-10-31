@@ -25,24 +25,24 @@ class LayerList extends React.Component {
    * @param {string} layer - the layer to be toggled
    * @return {void}
    */
-  toggleExpansion(layerId){
+  toggleExpansion(layerId) {
     var { filteredLayers, expandedLayers } = this.state;
-    var isExpanded = expandedLayers.find(id=>id === layerId);
+    var isExpanded = expandedLayers.find(id => id === layerId);
     if (isExpanded) {
-      expandedLayers = expandedLayers.filter(id=>id !== layerId);
+      expandedLayers = expandedLayers.filter(id => id !== layerId);
     } else {
       expandedLayers.push(layerId);
       this.setState({expandedLayers: expandedLayers});
-      var layer = filteredLayers.find(l=>l.id === layerId);
+      var layer = filteredLayers.find(l => l.id === layerId);
       if (!layer.metadata) {
         var { origin, pathname } = window.location;
         var errorMessage = '<p>There was an error loading layer metadata.</p>';
         var uri = `${origin}${pathname}config/metadata/${layer.description}.html`;
-        fetch(uri).then(res=>res.ok?res.text():errorMessage).then(body=>{
+        fetch(uri).then(res => res.ok ? res.text() : errorMessage).then(body => {
           // Check that we have a metadata html snippet, rather than a fully
           // formed HTML file. Also avoid executing any script or style tags.
           var isMetadataSnippet = !body.match(/<(head|body|html|style|script)[^>]*>/i);
-          layer.metadata = isMetadataSnippet? body : errorMessage;
+          layer.metadata = isMetadataSnippet ? body : errorMessage;
           this.setState({layers: filteredLayers});
         });
       }
@@ -52,16 +52,16 @@ class LayerList extends React.Component {
   render() {
     var { filteredLayers, expandedLayers } = this.state;
     var { activeLayers, addLayer, removeLayer } = this.props;
-    return(
+    return (
       <div style={{
-          height: '100%',
-          overflowY: 'scroll',
-          msOverflowStyle: 'scrollbar',
-          WebkitOverflowScrolling: 'touch'
-        }}>
-        {(filteredLayers.length < 1)?<div>No results.</div>:null}
-        {filteredLayers.map((layer)=>{
-          var isEnabled = activeLayers.some(l=>l.id === layer.id);
+        height: '100%',
+        overflowY: 'scroll',
+        msOverflowStyle: 'scrollbar',
+        WebkitOverflowScrolling: 'touch'
+      }}>
+        {(filteredLayers.length < 1) ? <div>No results.</div> : null}
+        {filteredLayers.map((layer) => {
+          var isEnabled = activeLayers.some(l => l.id === layer.id);
           var isExpanded = expandedLayers.includes(layer.id);
           return <LayerRow
             key={layer.id}
@@ -70,8 +70,8 @@ class LayerList extends React.Component {
             isExpanded={isExpanded}
             onState={addLayer}
             offState={removeLayer}
-            toggleExpansion={id=>this.toggleExpansion(id)}
-          />
+            toggleExpansion={id => this.toggleExpansion(id)}
+          />;
         })}
       </div>
     );
@@ -84,6 +84,6 @@ LayerList.propTypes = {
   removeLayer: PropTypes.func,
   activeLayers: PropTypes.array,
   filteredLayers: PropTypes.array
-}
+};
 
 export default LayerList;

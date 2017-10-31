@@ -47,9 +47,9 @@ gulp.task('browser', function() {
       standalone: 'WVC',
       debug: true
     })
-    .transform('browserify-shim', {global: true})
-    .bundle()
-    .on('error', function(err) { console.error(err); this.emit('end'); });
+      .transform('browserify-shim', {global: true})
+      .bundle()
+      .on('error', function(err) { console.error(err); this.emit('end'); });
   };
 
   browserifyBundle() // Unminified
@@ -62,7 +62,7 @@ gulp.task('browser', function() {
   browserifyBundle() // Minified
     .pipe(source('wvc.min.js'))
     .pipe(buffer())
-    .pipe(uglify().on('error', function(e){ console.log(e); }))
+    .pipe(uglify().on('error', function(e) { console.log(e); }))
     .pipe(gulp.dest('browser'));
 });
 

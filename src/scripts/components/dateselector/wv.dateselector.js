@@ -13,7 +13,6 @@ const util = new Utils();
  * @class TimelineRangeSelector
  */
 class dateSelector extends React.Component {
-
   /*
    * @constructor
    */
@@ -30,7 +29,7 @@ class dateSelector extends React.Component {
     this.setState({
       date: props.date,
       maxDate: props.maxDate,
-      minDate: props.minDate,
+      minDate: props.minDate
     });
   }
   blur() {
@@ -38,7 +37,7 @@ class dateSelector extends React.Component {
   }
   nextTab(index) {
     var nextTab;
-    if(index < 3) {
+    if (index < 3) {
       nextTab = index + 1;
     } else {
       nextTab = 1;
@@ -65,7 +64,7 @@ class dateSelector extends React.Component {
           width={this.props.width}
           updateDate={this.updateDate.bind(this)}
           tabIndex={1}
-          focused={(this.state.tab == 1)}
+          focused={(this.state.tab === 1)}
           nextTab={this.nextTab.bind(this)}
           maxDate={this.props.maxDate}
           minDate={this.props.minDate}
@@ -78,7 +77,7 @@ class dateSelector extends React.Component {
           updateDate={this.updateDate.bind(this)}
           value={util.monthStringArray[this.state.date.getUTCMonth()]}
           tabIndex={2}
-          focused={(this.state.tab == 2)}
+          focused={(this.state.tab === 2)}
           nextTab={this.nextTab.bind(this)}
           maxDate={this.props.maxDate}
           minDate={this.props.minDate}
@@ -94,7 +93,7 @@ class dateSelector extends React.Component {
           updateDate={this.updateDate.bind(this)}
           value={util.pad(this.state.date.getUTCDate(), 2, '0')}
           tabIndex={3}
-          focused={(this.state.tab == 3)}
+          focused={(this.state.tab === 3)}
           nextTab={this.nextTab.bind(this)}
           maxDate={this.props.maxDate}
           minDate={this.props.minDate}
@@ -113,6 +112,6 @@ dateSelector.propTypes = {
   id: PropTypes.string,
   height: PropTypes.string,
   width: PropTypes.string
-}
+};
 
 export default dateSelector;

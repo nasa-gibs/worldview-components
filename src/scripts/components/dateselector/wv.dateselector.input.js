@@ -13,7 +13,6 @@ const util = new Util();
  * @class TimelineRangeSelector
  */
 class DateInputColumn extends React.Component {
-
   /*
    * @constructor
    */
@@ -25,7 +24,7 @@ class DateInputColumn extends React.Component {
     };
   }
   componentDidUpdate() {
-    if(this.props.focused) {
+    if (this.props.focused) {
       ReactDom.findDOMNode(this.refs['input-' + this.props.tabIndex]).focus();
     }
   }
@@ -33,9 +32,9 @@ class DateInputColumn extends React.Component {
     var size;
     var type;
     type = this.props.type;
-    if(type === 'year') {
+    if (type === 'year') {
       size = '4';
-    } else if(type === 'day') {
+    } else if (type === 'day') {
       size = 2;
     } else {
       size = 3;
@@ -47,8 +46,8 @@ class DateInputColumn extends React.Component {
   }
   onKeyPress(e) {
     var kc = e.keyCode;
-    if(kc === 9 || // tab
-      kc === 13) { //enter
+    if (kc === 9 || // tab
+      kc === 13) { // enter
       e.preventDefault();
       e.stopPropagation();
     }
@@ -57,26 +56,24 @@ class DateInputColumn extends React.Component {
     var keyCode = e.keyCode;
     var value = e.target.value;
     var newDate;
-    var entered = (keyCode == 13 || keyCode == 9);
-    if(keyCode === 38) { //up
+    var entered = (keyCode === 13 || keyCode === 9);
+    if (keyCode === 38) { // up
       e.preventDefault();
       this.onClickUp();
       return;
     }
-    if(keyCode === 40) {// down
+    if (keyCode === 40) { // down
       e.preventDefault();
       this.onClickDown();
       return;
     }
-    if (e.type == 'focusout' || entered) {
-      if(this.props.type == 'year' || this.props.type == 'day') {
-        if(!((keyCode >= 48 && keyCode <= 57)
-        || entered
-        || keyCode == 8)) {
+    if (e.type === 'focusout' || entered) {
+      if (this.props.type === 'year' || this.props.type === 'day') {
+        if (!((keyCode >= 48 && keyCode <= 57) || entered || keyCode === 8)) {
           return;
         }
       }
-      switch(this.props.type) {
+      switch (this.props.type) {
         case 'year':
           newDate = this.yearValidation(value);
           break;
@@ -87,12 +84,12 @@ class DateInputColumn extends React.Component {
           newDate = this.monthValidation(value);
           break;
       }
-      if(newDate) {
+      if (newDate) {
         this.props.updateDate(newDate);
-        if(entered) { //if enetered or tabbed
+        if (entered) { // if enetered or tabbed
           this.nextTab();
         }
-      } else if(entered) {
+      } else if (entered) {
         this.setState({
           valid: false
         });
@@ -104,7 +101,6 @@ class DateInputColumn extends React.Component {
     this.setState({
       valid: true
     });
-
   }
   onClickDown() {
     this.rollDate(-1);
@@ -114,7 +110,7 @@ class DateInputColumn extends React.Component {
   }
   yearValidation(input) {
     var newDate;
-    if((input > 1000) && (input < 9999)) {
+    if ((input > 1000) && (input < 9999)) {
       newDate = new Date((new Date(this.props.date)).setUTCFullYear(input));
       return this.validateDate(newDate);
     }
@@ -126,11 +122,10 @@ class DateInputColumn extends React.Component {
 
     maxDate = new Date(currentDate.getYear(), currentDate.getMonth() + 1, 0).getDate();
 
-    if(input > 0 && input <= maxDate) {
+    if (input > 0 && input <= maxDate) {
       newDate = new Date((new Date(currentDate)).setUTCDate(input));
       return this.validateDate(newDate);
     }
-
   }
   rollDate(amt) {
     var newDate = util.rollDate(
@@ -147,16 +142,16 @@ class DateInputColumn extends React.Component {
     var newDate;
     if ((!isNaN(input)) && input < 13 && input > 0) {
       newDate = new Date((new Date(this.props.date)).setUTCMonth(input - 1));
-      if(newDate) {
+      if (newDate) {
         this.setState({
-          value: util.monthStringArray[input-1]
+          value: util.monthStringArray[input - 1]
         });
         return this.validateDate(newDate);
       }
     } else {
       let realMonth;
       realMonth = util.stringInArray(util.monthStringArray, input);
-      if(realMonth !== false) {
+      if (realMonth !== false) {
         newDate = new Date((new Date(this.props.date)).setUTCMonth(realMonth));
         return this.validateDate(newDate);
       } else {
@@ -181,7 +176,7 @@ class DateInputColumn extends React.Component {
     this.props.nextTab(this.props.tabIndex);
   }
   validateDate(date) {
-    if(date > this.props.minDate && date <= this.props.maxDate) {
+    if (date > this.props.minDate && date <= this.props.maxDate) {
       this.setState({
         valid: true
       });
@@ -208,7 +203,7 @@ class DateInputColumn extends React.Component {
           value={this.state.value}
           tabIndex={this.props.tabIndex}
           onKeyUp={this.onKeyUp.bind(this)}
-          onKeyDown={this.onKeyPress.bind(this)} //currently not working
+          onKeyDown={this.onKeyPress.bind(this) /* currently not working */}
           onChange={this.onChange.bind(this)}
           style={{fontSize: ((this.props.height / 2) + 'px')}}
           onBlur={this.blur.bind(this)}
@@ -235,6 +230,6 @@ DateInputColumn.propTypes = {
   blur: PropTypes.func,
   nextTab: PropTypes.func,
   height: PropTypes.string
-}
+};
 
 export default DateInputColumn;

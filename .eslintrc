@@ -10,9 +10,10 @@
   },
   "parser": "babel-eslint",
   "plugins": [ "react" ],
-  "extends": [ "eslint:recommended", "plugin:react/recommended" ],
+  "extends": [ "standard", "plugin:react/recommended" ],
   "rules": {
-    "quotes": [ "warn", "single" ],
+    "semi": ["error", "always"],
+    "space-before-function-paren": "off",
     "react/no-danger": "warn",
     "react/prop-types": "warn",
     "react/no-did-update-set-state": "warn"

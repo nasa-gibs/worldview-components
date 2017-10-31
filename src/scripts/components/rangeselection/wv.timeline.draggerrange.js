@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
  * @class TimelineDraggerRange
  */
 class TimelineDraggerRange extends React.Component {
-
   /*
    * @constructor
    */
@@ -23,14 +22,14 @@ class TimelineDraggerRange extends React.Component {
     var max = this.props.max;
     var width;
 
-    if(start < 0){
+    if (start < 0) {
       start = 0;
     }
-    if(end > max){
+    if (end > max) {
       end = max;
     }
     width = end - start;
-    if(width < 0) {
+    if (width < 0) {
       width = 0;
     }
     this.state = {
@@ -48,7 +47,7 @@ class TimelineDraggerRange extends React.Component {
    *
    * @return {void}
    */
-  handleDrag(e, d){
+  handleDrag(e, d) {
     e.stopPropagation();
     this.props.onDrag(d.deltaX);
   }
@@ -70,7 +69,6 @@ class TimelineDraggerRange extends React.Component {
       />
     );
   }
-
 }
 
 TimelineDraggerRange.propTypes = {
@@ -82,6 +80,6 @@ TimelineDraggerRange.propTypes = {
   onDrag: PropTypes.func,
   onClick: PropTypes.func,
   color: PropTypes.string
-}
+};
 
 export default TimelineDraggerRange;

@@ -47,13 +47,13 @@ class LayerRow extends React.Component {
     var { title, description, subtitle, metadata } = layer;
     var headerClass = 'layers-all-header has-checkbox';
     if (checked) headerClass += ' checked';
-    return(
+    return (
       <div className='layers-all-layer'>
-        <div className={headerClass} onClick={()=>this.toggleCheck()}>
+        <div className={headerClass} onClick={() => this.toggleCheck()}>
           <h3>{title}
             {description && <span
               className="fa fa-info-circle"
-              onClick={e=>this.toggleMetadataButtons(e)}
+              onClick={e => this.toggleMetadataButtons(e)}
             />}
           </h3>
           {subtitle && <h5>{subtitle}</h5>}
@@ -61,7 +61,7 @@ class LayerRow extends React.Component {
         {isExpanded && metadata &&
           <div className="source-metadata visible">
             <div dangerouslySetInnerHTML={{__html: metadata}} />
-            <div className="metadata-more" onClick={e=>this.toggleMetadataButtons(e)}>
+            <div className="metadata-more" onClick={e => this.toggleMetadataButtons(e)}>
               <span className="ellipsis up">^</span>
             </div>
           </div>

@@ -10,11 +10,8 @@ import Tooltip from '../tooltip/wv.tooltip';
  * @extends React.Component
  */
 class animWidgetHeader extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
-    return(
+    return (
       <div className='wv-animation-widget-header'>
         {'Animate Map in '}
         <Tooltip text={this.props.text} onClick={this.props.onClick} dataArray={this.props.toolTipTextArray}/>
@@ -28,6 +25,6 @@ animWidgetHeader.propTypes = {
   text: PropTypes.string,
   onClick: PropTypes.func,
   toolTipTextArray: PropTypes.array
-}
+};
 
 export default animWidgetHeader;
