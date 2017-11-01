@@ -11,7 +11,7 @@
     "url": "https://github.com/nasa-gibs/worldview-components.git"
   },
   "license": "NASA-1.3",
-  "main": "./browser/wv-animation.js",
+  "main": "./src/scripts/index.js",
   "author": "Benjamin King <benjamin.a.king@nasa.gov>",
   "peerDependencies": {
     "react": "*",
@@ -20,6 +20,18 @@
   "browserify-shim": {
     "react-dom": "global:ReactDOM",
     "react": "global:React"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ],
+    "sourceMaps": true
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -52,6 +64,8 @@
     "d3": "^4.1.1",
     "icheck": "^1.0.2",
     "prop-types": "^15.6.0",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
     "react-draggable": "^2.2.0",
     "react-input-range": "1.0.2",
     "whatwg-fetch": "^2.0.3"
