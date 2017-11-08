@@ -10,8 +10,8 @@ class LayerRow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: this.props.isEnabled,
-      isExpanded: this.props.isExpanded
+      checked: props.isEnabled,
+      isExpanded: props.isExpanded
     };
   }
 
@@ -40,7 +40,13 @@ class LayerRow extends React.Component {
     this.setState({isExpanded: !this.state.isExpanded});
     toggleExpansion(layer.id);
   }
+  componentWillReceiveProps(nextProps) {
+    this.state = {
+      checked: nextProps.isEnabled,
+      isExpanded: nextProps.isExpanded
+    };
 
+  }
   render() {
     var { checked, isExpanded } = this.state;
     var { layer } = this.props;
