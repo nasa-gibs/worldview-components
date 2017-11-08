@@ -13,7 +13,8 @@ class LayerList extends React.Component {
     super(props);
     this.state = {
       filteredLayers: props.filteredLayers,
-      expandedLayers: []
+      expandedLayers: [],
+      activeLayers: props.activeLayers
     };
   }
 
@@ -50,9 +51,9 @@ class LayerList extends React.Component {
   }
 
   render() {
-    var { filteredLayers, expandedLayers } = this.state;
-    var { activeLayers, addLayer, removeLayer } = this.props;
-    return (
+    var { filteredLayers, expandedLayers, activeLayers } = this.state;
+    var { addLayer, removeLayer } = this.props;
+    return(
       <div style={{
         height: '100%',
         overflowY: 'scroll',
