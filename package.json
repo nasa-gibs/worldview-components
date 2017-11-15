@@ -13,14 +13,7 @@
   "license": "NASA-1.3",
   "main": "./src/scripts/index.js",
   "author": "Benjamin King <benjamin.a.king@nasa.gov>",
-  "peerDependencies": {
-    "react": "*",
-    "react-dom": "*"
-  },
-  "browserify-shim": {
-    "react-dom": "global:ReactDOM",
-    "react": "global:React"
-  },
+  "browserify-shim": {},
   "browserify": {
     "transform": [
       "babelify"
