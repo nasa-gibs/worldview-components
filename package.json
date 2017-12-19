@@ -50,15 +50,19 @@
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "*",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "peerDependencies": {
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2"
   },
   "dependencies": {
     "d3": "^4.1.1",
     "icheck": "^1.0.2",
     "prop-types": "^15.6.0",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
     "react-draggable": "^2.2.0",
     "react-input-range": "1.0.2",
     "whatwg-fetch": "^2.0.3"
