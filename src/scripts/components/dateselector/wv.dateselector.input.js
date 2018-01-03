@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactDom from 'react-dom';
 import Util from '../util/wv.utils';
 
 const util = new Util();
@@ -22,10 +21,11 @@ class DateInputColumn extends React.Component {
       value: this.props.value,
       valid: true
     };
+    this.inputs = [];
   }
   componentDidUpdate() {
     if (this.props.focused) {
-      ReactDom.findDOMNode(this.refs['input-' + this.props.tabIndex]).focus();
+      this.inputs[this.props.tabIndex].focus();
     }
   }
   componentWillMount() {
@@ -195,7 +195,7 @@ class DateInputColumn extends React.Component {
         </div>
         <input
           type="text"
-          ref={'input-' + this.props.tabIndex}
+          ref={(input) => { this.inputs[this.props.tabIndex] = input; }}
           size={this.size}
           maxLength={this.size}
           className="button-input-group"
