@@ -9,3 +9,5 @@ export {default as DateLine} from './components/dateline/wv.line.js';
 export {default as LineText} from './components/dateline/wv.linetext.js';
 export {default as LayerList} from './components/layer/wv.layer.list.js';
 export {default as LayerRow} from './components/layer/wv.layer.row.js';
+export {default as ImageResSelection} from './components/imagepanel/select.js';
+export {default as GifResSelection} from './components/animationwidget/gifpanel.js';
