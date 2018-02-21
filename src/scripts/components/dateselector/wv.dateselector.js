@@ -56,6 +56,7 @@ class dateSelector extends React.Component {
     return (
       <div className="wv-date-selector-widget">
         <DateInputColumn
+          step={1}
           startDate={new Date(2000)}
           today={new Date()}
           date={this.state.date}
@@ -71,6 +72,7 @@ class dateSelector extends React.Component {
           minDate={this.props.minDate}
           blur={this.blur.bind(this)} />
         <DateInputColumn
+          step={1}
           startDate={new Date(2000)}
           today={new Date()}
           date={this.state.date}
@@ -87,6 +89,7 @@ class dateSelector extends React.Component {
           blur={this.blur.bind(this)}
         />
         <DateInputColumn
+          step={1}
           startDate={new Date(2000)}
           today={new Date()}
           date={this.state.date}
@@ -103,6 +106,7 @@ class dateSelector extends React.Component {
           blur={this.blur.bind(this)}
         />
         <DateInputColumn
+          step={1}
           startDate={new Date(2000)}
           today={new Date()}
           date={this.state.date}
@@ -119,6 +123,7 @@ class dateSelector extends React.Component {
           blur={this.blur.bind(this)}
         />
         <DateInputColumn
+          step={10}
           startDate={new Date(2000)}
           today={new Date()}
           date={this.state.date}

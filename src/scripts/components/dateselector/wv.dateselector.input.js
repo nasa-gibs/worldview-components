@@ -103,13 +103,21 @@ class DateInputColumn extends React.Component {
     }
   }
   onClickUp() {
-    this.rollDate(1);
+    if (this.props.type === 'minute') {
+      this.rollDate(10);
+    } else {
+      this.rollDate(1);
+    }
     this.setState({
       valid: true
     });
   }
   onClickDown() {
-    this.rollDate(-1);
+    if (this.props.type === 'minute') {
+      this.rollDate(-10);
+    } else {
+      this.rollDate(-1);
+    }
     this.setState({
       valid: true
     });
@@ -167,8 +175,9 @@ class DateInputColumn extends React.Component {
 
   minuteValidation(input) {
     var newDate;
+    var coeff = 1000 * 60 * 10;
     if ((input >= 0) && (input <= 59)) {
-      newDate = new Date((new Date(this.props.date)).setUTCMinutes(input));
+      newDate = new Date(Math.round((new Date(this.props.date)).setUTCMinutes(input) / coeff) * coeff);
       return this.validateDate(newDate);
     }
   }
@@ -231,6 +240,7 @@ class DateInputColumn extends React.Component {
           onKeyDown={this.onKeyPress.bind(this) /* currently not working */}
           onChange={this.onChange.bind(this)}
           style={{fontSize: ((this.props.height / 2) + 'px')}}
+          step={this.props.step}
           onBlur={this.blur.bind(this)}
         />
         <div onClick={this.onClickDown.bind(this)} className="date-arrows date-arrow-down" data-interval={this.props.type}>
@@ -247,6 +257,7 @@ DateInputColumn.propTypes = {
   value: PropTypes.node,
   focused: PropTypes.bool,
   tabIndex: PropTypes.number,
+  step: PropTypes.number,
   type: PropTypes.string,
   updateDate: PropTypes.func,
   date: PropTypes.object,
