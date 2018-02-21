@@ -77,11 +77,17 @@ class DateInputColumn extends React.Component {
         case 'year':
           newDate = this.yearValidation(value);
           break;
+        case 'month':
+          newDate = this.monthValidation(value);
+          break;
         case 'day':
           newDate = this.dayValidation(value);
           break;
-        case 'month':
-          newDate = this.monthValidation(value);
+        case 'hour':
+          newDate = this.hourValidation(value);
+          break;
+        case 'minute':
+          newDate = this.minuteValidation(value);
           break;
       }
       if (newDate) {
@@ -115,28 +121,6 @@ class DateInputColumn extends React.Component {
       return this.validateDate(newDate);
     }
   }
-  dayValidation(input) {
-    var newDate;
-    var maxDate;
-    var currentDate = this.props.date;
-
-    maxDate = new Date(currentDate.getYear(), currentDate.getMonth() + 1, 0).getDate();
-
-    if (input > 0 && input <= maxDate) {
-      newDate = new Date((new Date(currentDate)).setUTCDate(input));
-      return this.validateDate(newDate);
-    }
-  }
-  rollDate(amt) {
-    var newDate = util.rollDate(
-      this.props.date,
-      this.props.type,
-      amt,
-      this.props.minDate,
-      this.props.maxDate
-    );
-    this.props.updateDate(newDate);
-  }
 
   monthValidation(input) {
     var newDate;
@@ -159,6 +143,57 @@ class DateInputColumn extends React.Component {
       }
     }
   }
+
+  dayValidation(input) {
+    var newDate;
+    var maxDate;
+    var currentDate = this.props.date;
+
+    maxDate = new Date(currentDate.getYear(), currentDate.getMonth() + 1, 0).getDate();
+
+    if (input > 0 && input <= maxDate) {
+      newDate = new Date((new Date(currentDate)).setUTCDate(input));
+      return this.validateDate(newDate);
+    }
+  }
+
+  hourValidation(input) {
+    var newDate;
+    var maxDate;
+    var currentDate = this.props.date;
+
+    maxDate = new Date(currentDate.getYear(), currentDate.getMonth() + 1, 0).getDate();
+
+    if (input > 0 && input <= maxDate) {
+      newDate = new Date((new Date(currentDate)).setUTCDate(input));
+      return this.validateDate(newDate);
+    }
+  }
+
+  minuteValidation(input) {
+    var newDate;
+    var maxDate;
+    var currentDate = this.props.date;
+
+    maxDate = new Date(currentDate.getYear(), currentDate.getMonth() + 1, 0).getDate();
+
+    if (input > 0 && input <= maxDate) {
+      newDate = new Date((new Date(currentDate)).setUTCDate(input));
+      return this.validateDate(newDate);
+    }
+  }
+
+  rollDate(amt) {
+    var newDate = util.rollDate(
+      this.props.date,
+      this.props.type,
+      amt,
+      this.props.minDate,
+      this.props.maxDate
+    );
+    this.props.updateDate(newDate);
+  }
+
   blur() {
     this.setState({
       value: this.props.value,
