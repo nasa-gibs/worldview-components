@@ -55,7 +55,8 @@ class dateSelector extends React.Component {
   render() {
     return (
       <div className="wv-date-selector-widget">
-        <DateInputColumn startDate={new Date(2000)}
+        <DateInputColumn
+          startDate={new Date(2000)}
           today={new Date()}
           date={this.state.date}
           value={this.state.date.getUTCFullYear()}
@@ -71,11 +72,13 @@ class dateSelector extends React.Component {
           blur={this.blur.bind(this)} />
         <DateInputColumn
           startDate={new Date(2000)}
-          today={new Date()} date={this.state.date}
-          type="month" height={this.props.height}
+          today={new Date()}
+          date={this.state.date}
+          value={util.monthStringArray[this.state.date.getUTCMonth()]}
+          type="month"
+          height={this.props.height}
           width={this.props.width}
           updateDate={this.updateDate.bind(this)}
-          value={util.monthStringArray[this.state.date.getUTCMonth()]}
           tabIndex={2}
           focused={(this.state.tab === 2)}
           nextTab={this.nextTab.bind(this)}
@@ -94,6 +97,38 @@ class dateSelector extends React.Component {
           value={util.pad(this.state.date.getUTCDate(), 2, '0')}
           tabIndex={3}
           focused={(this.state.tab === 3)}
+          nextTab={this.nextTab.bind(this)}
+          maxDate={this.props.maxDate}
+          minDate={this.props.minDate}
+          blur={this.blur.bind(this)}
+        />
+        <DateInputColumn
+          startDate={new Date(2000)}
+          today={new Date()}
+          date={this.state.date}
+          type="hour"
+          height={this.props.height}
+          width={this.props.width}
+          updateDate={this.updateDate.bind(this)}
+          value={util.pad(this.state.date.getUTCHours(), 2, '0')}
+          tabIndex={4}
+          focused={(this.state.tab === 4)}
+          nextTab={this.nextTab.bind(this)}
+          maxDate={this.props.maxDate}
+          minDate={this.props.minDate}
+          blur={this.blur.bind(this)}
+        />
+        <DateInputColumn
+          startDate={new Date(2000)}
+          today={new Date()}
+          date={this.state.date}
+          type="minute"
+          height={this.props.height}
+          width={this.props.width}
+          updateDate={this.updateDate.bind(this)}
+          value={util.pad(this.state.date.getUTCMinutes(), 2, '0')}
+          tabIndex={5}
+          focused={(this.state.tab === 5)}
           nextTab={this.nextTab.bind(this)}
           maxDate={this.props.maxDate}
           minDate={this.props.minDate}
