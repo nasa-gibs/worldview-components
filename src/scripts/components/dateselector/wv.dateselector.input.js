@@ -159,26 +159,16 @@ class DateInputColumn extends React.Component {
 
   hourValidation(input) {
     var newDate;
-    var maxDate;
-    var currentDate = this.props.date;
-
-    maxDate = new Date(currentDate.getYear(), currentDate.getMonth() + 1, 0).getDate();
-
-    if (input > 0 && input <= maxDate) {
-      newDate = new Date((new Date(currentDate)).setUTCDate(input));
+    if ((input >= 0) && (input <= 23)) {
+      newDate = new Date((new Date(this.props.date)).setUTCHours(input));
       return this.validateDate(newDate);
     }
   }
 
   minuteValidation(input) {
     var newDate;
-    var maxDate;
-    var currentDate = this.props.date;
-
-    maxDate = new Date(currentDate.getYear(), currentDate.getMonth() + 1, 0).getDate();
-
-    if (input > 0 && input <= maxDate) {
-      newDate = new Date((new Date(currentDate)).setUTCDate(input));
+    if ((input >= 0) && (input <= 59)) {
+      newDate = new Date((new Date(this.props.date)).setUTCMinutes(input));
       return this.validateDate(newDate);
     }
   }
