@@ -37,7 +37,7 @@ class dateSelector extends React.Component {
   }
   nextTab(index) {
     var nextTab;
-    if (index < 3) {
+    if (index < 5) {
       nextTab = index + 1;
     } else {
       nextTab = 1;

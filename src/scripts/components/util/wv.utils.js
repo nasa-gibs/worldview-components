@@ -134,6 +134,22 @@ export default class Utils {
     var m = date.getUTCMonth();
     var first, last;
     switch (interval) {
+      case 'minute':
+        var firstMinute = new Date(Date.UTC(y, m, 1, 0, 0));
+        var lastMinute = new Date(Date.UTC(y, m, this.daysInMonth(date), 23, 59));
+        first = new Date(Math.max(firstMinute, minDate))
+          .getUTCMinutes();
+        last = new Date(Math.min(lastMinute, maxDate))
+          .getUTCMinutes();
+        break;
+      case 'hour':
+        var firstHour = new Date(Date.UTC(y, m, 1, 0));
+        var lastHour = new Date(Date.UTC(y, m, this.daysInMonth(date), 23));
+        first = new Date(Math.max(firstHour, minDate))
+          .getUTCHours();
+        last = new Date(Math.min(lastHour, maxDate))
+          .getUTCHours();
+        break;
       case 'day':
         var firstDay = new Date(Date.UTC(y, m, 1));
         var lastDay = new Date(Date.UTC(y, m, this.daysInMonth(date)));
@@ -161,10 +177,19 @@ export default class Utils {
     var range = this.rollRange(date, interval, minDate, maxDate);
     var min = range.first;
     var max = range.last;
+    var minute = date.getUTCMinutes();
+    var hour = date.getUTCHours();
     var day = date.getUTCDate();
     var month = date.getUTCMonth();
     var year = date.getUTCFullYear();
     switch (interval) {
+      // TODO: change minute and hour hard-coded min & max to be dynamic
+      case 'minute':
+        minute = this.roll(minute + amount, 0, 59);
+        break;
+      case 'hour':
+        hour = this.roll(hour + amount, 0, 23);
+        break;
       case 'day':
         day = this.roll(day + amount, min, max);
         break;
@@ -181,7 +206,7 @@ export default class Utils {
     if (day > daysInMonth) {
       day = daysInMonth;
     }
-    var newDate = new Date(Date.UTC(year, month, day));
+    var newDate = new Date(Date.UTC(year, month, day, hour, minute));
     newDate = new Date(this.clamp(newDate, minDate, maxDate));
     return newDate;
   }
