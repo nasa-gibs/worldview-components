@@ -13,10 +13,11 @@ export class Checkbox extends React.Component {
   }
 
   handleChange(e) {
+    var boo = !this.state.checked;
     this.setState({
-      checked: !this.state.checked
+      checked: boo
     });
-    console.log(this.state.checked, e);
+    this.props.onCheck(boo);
   }
   render() {
     return (
