@@ -66,7 +66,7 @@ export default class GifPanel extends React.Component {
           classNames="wv-checkbox-gif"
           title='Check box to remove dates from Animating GIF'
           checked={this.props.checked}
-          onChange={this.props.onCheck}
+          onCheck={this.props.onCheck}
           label='Include Date Stamps'
         />
       </div>
