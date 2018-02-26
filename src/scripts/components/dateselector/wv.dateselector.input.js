@@ -263,6 +263,7 @@ DateInputColumn.propTypes = {
   date: PropTypes.object,
   minDate: PropTypes.object,
   maxDate: PropTypes.object,
+  currentZoom: PropTypes.number,
   blur: PropTypes.func,
   nextTab: PropTypes.func,
   height: PropTypes.string
