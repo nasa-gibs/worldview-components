@@ -22,14 +22,16 @@ class dateSelector extends React.Component {
       date: props.date,
       maxDate: props.maxDate,
       minDate: props.minDate,
-      tab: null
+      tab: null,
+      currentZoom: props.currentZoom
     };
   }
   componentWillReceiveProps(props) {
     this.setState({
       date: props.date,
       maxDate: props.maxDate,
-      minDate: props.minDate
+      minDate: props.minDate,
+      currentZoom: props.currentZoom
     });
   }
   blur() {
@@ -105,40 +107,44 @@ class dateSelector extends React.Component {
           minDate={this.props.minDate}
           blur={this.blur.bind(this)}
         />
-        <DateInputColumn
-          step={1}
-          startDate={new Date(2000)}
-          today={new Date()}
-          date={this.state.date}
-          type="hour"
-          height={this.props.height}
-          width={this.props.width}
-          updateDate={this.updateDate.bind(this)}
-          value={util.pad(this.state.date.getUTCHours(), 2, '0')}
-          tabIndex={4}
-          focused={(this.state.tab === 4)}
-          nextTab={this.nextTab.bind(this)}
-          maxDate={this.props.maxDate}
-          minDate={this.props.minDate}
-          blur={this.blur.bind(this)}
-        />
-        <DateInputColumn
-          step={10}
-          startDate={new Date(2000)}
-          today={new Date()}
-          date={this.state.date}
-          type="minute"
-          height={this.props.height}
-          width={this.props.width}
-          updateDate={this.updateDate.bind(this)}
-          value={util.pad(this.state.date.getUTCMinutes(), 2, '0')}
-          tabIndex={5}
-          focused={(this.state.tab === 5)}
-          nextTab={this.nextTab.bind(this)}
-          maxDate={this.props.maxDate}
-          minDate={this.props.minDate}
-          blur={this.blur.bind(this)}
-        />
+        {this.state.currentZoom >= 4 &&
+          <DateInputColumn
+            step={1}
+            startDate={new Date(2000)}
+            today={new Date()}
+            date={this.state.date}
+            type="hour"
+            height={this.props.height}
+            width={this.props.width}
+            updateDate={this.updateDate.bind(this)}
+            value={util.pad(this.state.date.getUTCHours(), 2, '0')}
+            tabIndex={4}
+            focused={(this.state.tab === 4)}
+            nextTab={this.nextTab.bind(this)}
+            maxDate={this.props.maxDate}
+            minDate={this.props.minDate}
+            blur={this.blur.bind(this)}
+          />
+        }
+        {this.state.currentZoom >= 4 &&
+          <DateInputColumn
+            step={10}
+            startDate={new Date(2000)}
+            today={new Date()}
+            date={this.state.date}
+            type="minute"
+            height={this.props.height}
+            width={this.props.width}
+            updateDate={this.updateDate.bind(this)}
+            value={util.pad(this.state.date.getUTCMinutes(), 2, '0')}
+            tabIndex={5}
+            focused={(this.state.tab === 5)}
+            nextTab={this.nextTab.bind(this)}
+            maxDate={this.props.maxDate}
+            minDate={this.props.minDate}
+            blur={this.blur.bind(this)}
+          />
+        }
       </div>
     );
   }
@@ -148,6 +154,7 @@ dateSelector.propTypes = {
   date: PropTypes.object,
   maxDate: PropTypes.object,
   minDate: PropTypes.object,
+  currentZoom: PropTypes.number,
   onDateChange: PropTypes.func,
   id: PropTypes.string,
   height: PropTypes.string,
