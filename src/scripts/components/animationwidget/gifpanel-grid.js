@@ -39,7 +39,7 @@ export class GifPanelGrid extends React.Component {
         {imageSize}
         <div className='grid-child'><span>Max Request Size</span></div>
         <div className='grid-child gif-max-size'>
-          <span>{this.props.maxGifSize + 'px'}</span>
+          <span>{this.props.maxGifSize + ' MB'}</span>
         </div>
         <div className='grid-child'><span>Image Dimensions</span></div>
         <div className='grid-child' id='wv-image-width'>
