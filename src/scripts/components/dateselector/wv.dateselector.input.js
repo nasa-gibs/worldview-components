@@ -220,7 +220,7 @@ class DateInputColumn extends React.Component {
   }
   render() {
     return (
-      <div className="input-wrapper" style={(this.state.valid) ? {} : {borderColor: '#ff0000'}} >
+      <div className={'input-wrapper' + ' input-wrapper-' + this.props.type} style={(this.state.valid) ? {} : {borderColor: '#ff0000'}} >
         <div onClick={this.onClickUp.bind(this)} className="date-arrows date-arrow-up" data-interval={this.props.type}>
           <svg width="25" height="8">
             <path d="M 12.5,0 25,8 0,8 z" className="uparrow">

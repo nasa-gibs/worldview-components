@@ -126,6 +126,7 @@ class dateSelector extends React.Component {
             blur={this.blur.bind(this)}
           />
         }
+        {this.state.currentZoom >= 4 && <div className="input-time-divider">:</div> }
         {this.state.currentZoom >= 4 &&
           <DateInputColumn
             step={10}
@@ -145,6 +146,7 @@ class dateSelector extends React.Component {
             blur={this.blur.bind(this)}
           />
         }
+        {this.state.currentZoom >= 4 && <div className="input-time-zmark">Z</div> }
       </div>
     );
   }
