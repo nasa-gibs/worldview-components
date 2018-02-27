@@ -23,7 +23,7 @@ class dateSelector extends React.Component {
       maxDate: props.maxDate,
       minDate: props.minDate,
       tab: null,
-      currentZoom: props.currentZoom
+      maxZoom: props.maxZoom
     };
   }
   componentWillReceiveProps(props) {
@@ -31,7 +31,7 @@ class dateSelector extends React.Component {
       date: props.date,
       maxDate: props.maxDate,
       minDate: props.minDate,
-      currentZoom: props.currentZoom
+      maxZoom: props.maxZoom
     });
   }
   blur() {
@@ -107,7 +107,7 @@ class dateSelector extends React.Component {
           minDate={this.props.minDate}
           blur={this.blur.bind(this)}
         />
-        {this.state.currentZoom >= 4 &&
+        {this.state.maxZoom >= 4 &&
           <DateInputColumn
             step={1}
             startDate={new Date(2000)}
@@ -126,8 +126,8 @@ class dateSelector extends React.Component {
             blur={this.blur.bind(this)}
           />
         }
-        {this.state.currentZoom >= 4 && <div className="input-time-divider">:</div> }
-        {this.state.currentZoom >= 4 &&
+        {this.state.maxZoom >= 4 && <div className="input-time-divider">:</div> }
+        {this.state.maxZoom >= 4 &&
           <DateInputColumn
             step={10}
             startDate={new Date(2000)}
@@ -146,7 +146,7 @@ class dateSelector extends React.Component {
             blur={this.blur.bind(this)}
           />
         }
-        {this.state.currentZoom >= 4 && <div className="input-time-zmark">Z</div> }
+        {this.state.maxZoom >= 4 && <div className="input-time-zmark">Z</div> }
       </div>
     );
   }
@@ -156,7 +156,7 @@ dateSelector.propTypes = {
   date: PropTypes.object,
   maxDate: PropTypes.object,
   minDate: PropTypes.object,
-  currentZoom: PropTypes.number,
+  maxZoom: PropTypes.number,
   onDateChange: PropTypes.func,
   id: PropTypes.string,
   height: PropTypes.string,
