@@ -21,7 +21,7 @@ export class Checkbox extends React.Component {
   }
   render() {
     return (
-      <div className={this.state.checked ? 'checkbox checked' : 'checkbox'}>
+      <div className={this.state.checked ? 'wv-checkbox checked' : 'wv-checkbox'}>
         <input
           type="checkbox"
           id={this.props.id}
