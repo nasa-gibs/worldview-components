@@ -11,7 +11,7 @@
 
 import React from 'react';
 import SelectionList from '../main/selector';
-import ResTable from './table';
+import ResTable from './grid';
 import PropTypes from 'prop-types';
 
 /*
