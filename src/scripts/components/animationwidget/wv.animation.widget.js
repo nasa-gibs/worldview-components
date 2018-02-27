@@ -21,7 +21,7 @@ class AnimationWidget extends React.Component {
       looping: props.looping,
       startDate: props.startDate,
       endDate: props.endDate,
-      currentZoom: props.currentZoom,
+      maxZoom: props.maxZoom,
       header: props.header,
       incrementArray: props.incrementArray,
       increment: props.increment
@@ -110,7 +110,7 @@ class AnimationWidget extends React.Component {
   }
   render() {
     return (
-      <div id="wv-animation-widget" className={'wv-animation-widget' + (this.state.currentZoom >= 4 ? ' subdaily' : '')}>
+      <div id="wv-animation-widget" className={'wv-animation-widget' + (this.state.maxZoom >= 4 ? ' subdaily' : '')}>
         <AnimWidgetHeader
           text={this.state.increment}
           toolTipTextArray={this.state.incrementArray}
@@ -139,7 +139,7 @@ class AnimationWidget extends React.Component {
             onDateChange={this.onDateChange.bind(this)}
             maxDate={this.state.endDate}
             minDate={this.props.minDate}
-            currentZoom={this.state.currentZoom}
+            maxZoom={this.state.maxZoom}
           />
           <div className='thru-label'>To</div>
           <TimeSelector
@@ -150,7 +150,7 @@ class AnimationWidget extends React.Component {
             onDateChange={this.onDateChange.bind(this)}
             maxDate={this.props.maxDate}
             minDate={this.state.startDate}
-            currentZoom={this.state.currentZoom}
+            maxZoom={this.state.maxZoom}
           />
         </div>
         <i
@@ -181,7 +181,7 @@ AnimationWidget.propTypes = {
   onPushGIF: PropTypes.func,
   minDate: PropTypes.object,
   maxDate: PropTypes.object,
-  currentZoom: PropTypes.number,
+  maxZoom: PropTypes.number,
   onClose: PropTypes.func
 };
 
