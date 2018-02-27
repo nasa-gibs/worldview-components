@@ -14,7 +14,7 @@ export default class Button extends React.Component {
         onClick={this.props.onClick}
         id={this.props.id}
         disabled={(!this.props.valid)}
-        className= {(this.props.valid) ? 'wv-button ' + this.props.className : 'wv-disabled wv-button' + this.props.className}
+        className= {(this.props.valid) ? 'wv-button ' + this.props.className : 'wv-disabled wv-button ' + this.props.className}
       >
         <span className='button-text'>{this.props.text}</span>
       </button>
