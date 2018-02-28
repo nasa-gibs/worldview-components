@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /*
  * A react component, Builds a rather specific
@@ -24,4 +25,11 @@ export default class Button extends React.Component {
 
 Button.defaultProps = {
   className: 'gray'
+};
+Button.propTypes = {
+  onClick: PropTypes.func,
+  id: PropTypes.string,
+  valid: PropTypes.bool,
+  className: PropTypes.string,
+  text: PropTypes.string
 };

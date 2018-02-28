@@ -1,18 +1,5 @@
-/*
- * NASA Worldview
- *
- * This code was originally developed at NASA/Goddard Space Flight Center for
- * the Earth Science Data and Information System (ESDIS) project.
- *
- * Copyright (C) 2013 - 2017 United States Government as represented by the
- * Administrator of the National Aeronautics and Space Administration.
- * All Rights Reserved.
- *
- * Licensed under the NASA Open Source Agreement, Version 1.3
- * http://opensource.gsfc.nasa.gov/nosa.php
- */
-
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /*
  * A react component, Builds a rather specific
@@ -41,4 +28,13 @@ export default class Selector extends React.Component {
       </select>
     );
   }
-}
+};
+
+Selector.propTypes = {
+  onChange: PropTypes.func,
+  id: PropTypes.string,
+  value: PropTypes.string,
+  checked: PropTypes.bool,
+  optionArray: PropTypes.object,
+  optionName: PropTypes.string
+};
