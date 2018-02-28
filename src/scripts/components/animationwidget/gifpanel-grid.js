@@ -14,7 +14,7 @@ export class GifPanelGrid extends React.Component {
       return (
         <div id='gif-size' className='gif-size gif-size-invalid grid-child'>
           <i className='fa fa-times fa-fw' />
-          <span>{'~' + size + 'MB'}</span>
+          <span>{'~' + size + ' MB'}</span>
         </div>
       );
     } else {
