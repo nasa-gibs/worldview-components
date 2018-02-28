@@ -45,7 +45,6 @@ class LayerRow extends React.Component {
       checked: nextProps.isEnabled,
       isExpanded: nextProps.isExpanded
     };
-
   }
   render() {
     var { checked, isExpanded } = this.state;
