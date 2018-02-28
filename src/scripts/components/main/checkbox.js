@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 /*
  * A scrollable list of layers
  * @class LayerList
@@ -40,4 +42,14 @@ export class Checkbox extends React.Component {
 };
 Checkbox.defaultProps = {
   checked: true
+};
+
+Checkbox.propTypes = {
+  onCheck: PropTypes.func,
+  id: PropTypes.string,
+  checked: PropTypes.bool,
+  classNames: PropTypes.string,
+  title: PropTypes.string,
+  name: PropTypes.string,
+  label: PropTypes.string
 };

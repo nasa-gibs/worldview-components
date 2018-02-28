@@ -94,7 +94,7 @@ GifPanel.propTypes = {
   onSelectionChange: PropTypes.func,
   resolutions: PropTypes.object,
   requestSize: PropTypes.string,
-  resolution: PropTypes.number,
+  resolution: PropTypes.string,
   speed: PropTypes.number,
   valid: PropTypes.bool
 };
