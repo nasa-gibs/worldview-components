@@ -44,9 +44,9 @@ export default class ResolutionTable extends React.Component {
       <div className='wv-image-download-grid'>
         <div className='grid-child grid-head'><span>Raw Size</span></div>
         <div className='grid-child grid-head'><span>Maximum</span></div>
-        <div className='grid-child'><span>{imageSize}</span></div>
-        <div className='grid-child wv-image-max-size'>
-          <span>{this.props.maxImageSize }</span>
+        {imageSize}
+        <div className={this.props.valid ? 'grid-child wv-image-max-size' : 'grid-child wv-image-max-size wv-image-size-invalid'} >
+          <span>{ this.props.maxImageSize }</span>
         </div>
         <div className='grid-child wv-image-dimensions' id='wv-image-dimensions'>
           <span>{this.props.width + ' x ' + this.props.height + 'px' }</span>
