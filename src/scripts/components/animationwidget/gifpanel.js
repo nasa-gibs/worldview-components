@@ -36,6 +36,7 @@ export default class GifPanel extends React.Component {
     return (
       <div className="animation-gif-dialog-wrapper">
         <div className='gif-selector-case'>
+          {this.props.firstLabel}
           <SelectionList
             id='gif-resolution'
             optionArray={this.state.resolutions}
@@ -43,7 +44,6 @@ export default class GifPanel extends React.Component {
             optionName='resolution'
             onChange={this.handleChange.bind(this)}
           />
-          {this.props.firstLabel}
         </div>
         <GifPanelGrid
           width={this.state.imgWidth}
@@ -75,7 +75,7 @@ export default class GifPanel extends React.Component {
 }
 
 GifPanel.defaultProps = {
-  firstLabel: 'Resolution (per pixel)',
+  firstLabel: 'Resolution (per pixel):',
   secondLabel: 'Format',
   maxGifSize: 20,
   showDates: true
