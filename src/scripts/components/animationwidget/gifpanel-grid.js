@@ -33,15 +33,15 @@ export class GifPanelGrid extends React.Component {
         <div className='grid-child'><span>{this.props.startDate} </span></div>
         <div className='grid-child'><span>End Date: </span></div>
         <div className='grid-child'><span>{this.props.endDate}</span></div>
-        <div className='grid-child'><span>speed</span></div>
+        <div className='grid-child'><span>Speed: </span></div>
         <div className='grid-child'><span>{this.props.speed + ' Frames Per Second'}</span></div>
-        <div className='grid-child'><span>Request Size</span></div>
+        <div className='grid-child'><span>Request Size:</span></div>
         {imageSize}
-        <div className='grid-child'><span>Max Request Size</span></div>
+        <div className='grid-child'><span>Max Request Size: </span></div>
         <div className={this.props.valid ? 'grid-child gif-max-size' : 'grid-child gif-max-size gif-size-invalid'}>
           <span>{this.props.maxGifSize + ' MB'}</span>
         </div>
-        <div className='grid-child'><span>Image Dimensions</span></div>
+        <div className='grid-child'><span>Image Dimensions:</span></div>
         <div className='grid-child' id='wv-image-width'>
           <span>{this.props.width + ' x ' + this.props.height + 'px' }</span>
         </div>
