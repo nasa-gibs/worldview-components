@@ -1,14 +1,3 @@
-/*
- * NASA Worldview
- *
- * This code was originally developed at NASA/Goddard Space Flight Center for
- * the Earth Science Data and Information System (ESDIS) project.
- *
- * Copyright (C) 2013 - 2017 United States Government as represented by the
- * Administrator of the National Aeronautics and Space Administration.
- * All Rights Reserved.
- */
-
 import React from 'react';
 import SelectionList from '../main/selector';
 import ResTable from './grid';
@@ -123,9 +112,9 @@ export default class ImageResSelection extends React.Component {
 ImageResSelection.defaultProps = {
   firstLabel: 'Resolution (per pixel)',
   secondLabel: 'Format',
-  width: '0000',
-  height: '0000',
-  imageSize: '000.00',
+  width: '0',
+  height: '0',
+  imageSize: '0',
   maxImageSize: '250 MB',
   worldfile: false,
   resolution: '1',
