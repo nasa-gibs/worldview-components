@@ -23,7 +23,8 @@ export default class GifPanel extends React.Component {
       onSelectionChange: props.onSelectionChange,
       resolution: props.resolution,
       valid: props.valid,
-      showDates: props.showDates
+      showDates: props.showDates,
+      increment: props.increment
     };
   }
   handleChange(type, value) {
@@ -55,6 +56,7 @@ export default class GifPanel extends React.Component {
           startDate={this.state.startDate}
           endDate={this.state.endDate}
           speed={this.state.speed}
+          increment={this.state.increment}
         />
         <Button
           onClick={this.props.onClick}
@@ -96,5 +98,6 @@ GifPanel.propTypes = {
   requestSize: PropTypes.string,
   resolution: PropTypes.string,
   speed: PropTypes.number,
-  valid: PropTypes.bool
+  valid: PropTypes.bool,
+  increment: PropTypes.string
 };
