@@ -35,6 +35,8 @@ export class GifPanelGrid extends React.Component {
         <div className='grid-child'><span>{this.props.endDate}</span></div>
         <div className='grid-child'><span>Speed: </span></div>
         <div className='grid-child'><span>{this.props.speed + ' Frames Per Second'}</span></div>
+        <div className='grid-child'><span>Increment:</span></div>
+        <div className='grid-child'><span>{this.props.increment}</span></div>
         <div className='grid-child'><span>Request Size:</span></div>
         {imageSize}
         <div className='grid-child'><span>Max Request Size: </span></div>
@@ -58,5 +60,6 @@ GifPanelGrid.propTypes = {
   speed: PropTypes.number,
   valid: PropTypes.bool,
   requestSize: PropTypes.number,
-  fileSizeEstimate: PropTypes.number
+  fileSizeEstimate: PropTypes.number,
+  increment: PropTypes.string
 };
