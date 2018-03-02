@@ -14,13 +14,13 @@ export class GifPanelGrid extends React.Component {
       return (
         <div id='gif-size' className='gif-size gif-size-invalid grid-child'>
           <i className='fa fa-times fa-fw' />
-          <span>{'~' + size + ' MB'}</span>
+          <span>{'~' + size + ' MB (Before Compression)'}</span>
         </div>
       );
     } else {
       return (
         <div id='gif-size' className='gif-size grid-child'>
-          <span>{'~' + size + ' MB'} </span>
+          <span>{'~' + size + ' MB (Before Compression)'} </span>
         </div>
       );
     }
@@ -29,21 +29,21 @@ export class GifPanelGrid extends React.Component {
     let imageSize = this.renderImageSize();
     return (
       <div className='gif-download-grid'>
-        <div className='grid-child'><span>Start Date: </span></div>
+        <div className='grid-child label'><span>Start Date: </span></div>
         <div className='grid-child'><span>{this.props.startDate} </span></div>
-        <div className='grid-child'><span>End Date: </span></div>
+        <div className='grid-child label'><span>End Date: </span></div>
         <div className='grid-child'><span>{this.props.endDate}</span></div>
-        <div className='grid-child'><span>Speed: </span></div>
+        <div className='grid-child label'><span>Speed: </span></div>
         <div className='grid-child'><span>{this.props.speed + ' Frames Per Second'}</span></div>
-        <div className='grid-child'><span>Increment:</span></div>
+        <div className='grid-child label'><span>Increment:</span></div>
         <div className='grid-child'><span>{this.props.increment}</span></div>
-        <div className='grid-child'><span>Request Size:</span></div>
+        <div className='grid-child label'><span>Request Size:</span></div>
         {imageSize}
-        <div className='grid-child'><span>Max Request Size: </span></div>
+        <div className='grid-child label'><span>Max Request Size: </span></div>
         <div className={this.props.valid ? 'grid-child gif-max-size' : 'grid-child gif-max-size gif-size-invalid'}>
-          <span>{this.props.maxGifSize + ' MB'}</span>
+          <span>{this.props.maxGifSize + ' MB (Before Compression)'}</span>
         </div>
-        <div className='grid-child'><span>Image Dimensions:</span></div>
+        <div className='grid-child label'><span>Image Dimensions:</span></div>
         <div className='grid-child' id='wv-image-width'>
           <span>{this.props.width + ' x ' + this.props.height + 'px' }</span>
         </div>
