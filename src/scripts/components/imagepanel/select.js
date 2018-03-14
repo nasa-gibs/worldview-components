@@ -29,7 +29,7 @@ export default class ImageResSelection extends React.Component {
     };
   }
   handleChange(type, value) {
-    var fileType = this.state.filetype;
+    var fileType = this.state.fileType;
     var resolution = this.state.resolution;
     var worldfile = this.state.worldfile;
     if (type === 'resolution') {
