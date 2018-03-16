@@ -32,6 +32,7 @@ export default class ImageResSelection extends React.Component {
     var fileType = this.state.fileType;
     var resolution = this.state.resolution;
     var worldfile = this.state.worldfile;
+
     if (type === 'resolution') {
       resolution = value;
     } else if (type === 'worldfile') {
@@ -53,7 +54,7 @@ export default class ImageResSelection extends React.Component {
           <SelectionList
             id='wv-image-format'
             optionName='filetype'
-            value={this.state.filetype}
+            value={this.state.fileType}
             optionArray={this.state.fileTypes}
             onChange={this.handleChange.bind(this)}
           />
@@ -68,6 +69,7 @@ export default class ImageResSelection extends React.Component {
         <div className='wv-image-header'>
           <select
             id='wv-image-worldfile'
+            value={this.state.worldfile}
             onChange={(e) => this.handleChange('worldfile', e.target.value)}>
             <option value='false'>No</option>
             <option value='true'>Yes</option>
