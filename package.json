@@ -48,14 +48,14 @@
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "*",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "peerDependencies": {
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.16.0",
@@ -64,7 +64,7 @@
     "icheck": "^1.0.2",
     "prop-types": "^15.6.0",
     "react-draggable": "^2.2.0",
-    "react-input-range": "1.0.2",
+    "react-input-range": "1.3.0",
     "whatwg-fetch": "^2.0.3"
   }
 }
