@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DateInputColumn from './wv.dateselector.input';
-import Utils from '../util/wv.utils';
+import DateInputColumn from './input';
+import Util from '../util/util';
 
-const util = new Utils();
+const util = new Util();
 
 /*
  * A react component, is a draggable svg

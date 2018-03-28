@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../main/button';
+import Button from '../util/button';
 
 /*
  * A table that updates with image
