@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InputRange from 'react-input-range';
-import TimeSelector from '../dateselector/wv.dateselector';
-import LoopButton from './wv.loopbutton';
-import PlayButton from './wv.playbutton';
-import AnimWidgetHeader from './wv.animation.widget.header';
+import TimeSelector from '../date-selector/date-selector';
+import LoopButton from './loop-button';
+import PlayButton from './play-button';
+import AnimWidgetHeader from './header';
 
 /*
  * A react component, Builds a rather specific

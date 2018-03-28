@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dragger from './wv.timeline.dragger.js';
-import DraggerRange from './wv.timeline.draggerrange.js';
+import Dragger from './dragger.js';
+import DraggerRange from './dragger-range.js';
 
 /*
  * A react component, is a draggable svg

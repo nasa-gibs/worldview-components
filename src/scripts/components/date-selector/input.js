@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Util from '../util/wv.utils';
+import Util from '../util/util';
 
 const util = new Util();
 

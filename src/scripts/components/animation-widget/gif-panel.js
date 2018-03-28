@@ -1,8 +1,8 @@
 import React from 'react';
-import SelectionList from '../main/selector';
-import { GifPanelGrid } from './gifpanel-grid';
-import Button from '../main/button';
-import {Checkbox} from '../main/checkbox';
+import SelectionList from '../util/selector';
+import { GifPanelGrid } from './gif-panel-grid';
+import Button from '../util/button';
+import {Checkbox} from '../util/checkbox';
 import PropTypes from 'prop-types';
 
 /*

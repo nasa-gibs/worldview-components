@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tooltip from '../tooltip/wv.tooltip';
+import Tooltip from '../tooltip/tooltip';
 
 /*
  * A react component, Builds a rather specific

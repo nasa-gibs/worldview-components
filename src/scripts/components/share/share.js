@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ShareLinks from './wv.share.links';
+import ShareLinks from './links';
 
 class Share extends React.Component {
   constructor(props) {
