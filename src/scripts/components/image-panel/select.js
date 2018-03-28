@@ -1,5 +1,5 @@
 import React from 'react';
-import SelectionList from '../main/selector';
+import SelectionList from '../util/selector';
 import ResTable from './grid';
 import PropTypes from 'prop-types';
 

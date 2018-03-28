@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LayerRow from './wv.layer.row.js';
+import LayerRow from './row.js';
 import 'whatwg-fetch'; // fetch() polyfill for IE
 
 /*
