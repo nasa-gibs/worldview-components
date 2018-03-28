@@ -39,7 +39,13 @@ class dateSelector extends React.Component {
   }
   nextTab(index) {
     var nextTab;
-    if (index < 5) {
+    var maxTab;
+    if (this.state.maxZoom >= 4) {
+      maxTab = 5;
+    } else {
+      maxTab = 3;
+    }
+    if (index < maxTab) {
       nextTab = index + 1;
     } else {
       nextTab = 1;
@@ -53,6 +59,50 @@ class dateSelector extends React.Component {
       date: date
     });
     this.props.onDateChange(this.props.id, date);
+  }
+  renderSubdaily() {
+    if (this.state.maxZoom >= 4) {
+      return (
+        <React.Fragment>
+          <DateInputColumn
+            step={1}
+            startDate={new Date(2000)}
+            today={new Date()}
+            date={this.state.date}
+            type="hour"
+            height={this.props.height}
+            width={this.props.width}
+            updateDate={this.updateDate.bind(this)}
+            value={util.pad(this.state.date.getUTCHours(), 2, '0')}
+            tabIndex={4}
+            focused={(this.state.tab === 4)}
+            nextTab={this.nextTab.bind(this)}
+            maxDate={this.props.maxDate}
+            minDate={this.props.minDate}
+            blur={this.blur.bind(this)}
+          />
+          <div className="input-time-divider">:</div>
+          <DateInputColumn
+            step={10}
+            startDate={new Date(2000)}
+            today={new Date()}
+            date={this.state.date}
+            type="minute"
+            height={this.props.height}
+            width={this.props.width}
+            updateDate={this.updateDate.bind(this)}
+            value={util.pad(this.state.date.getUTCMinutes(), 2, '0')}
+            tabIndex={5}
+            focused={(this.state.tab === 5)}
+            nextTab={this.nextTab.bind(this)}
+            maxDate={this.props.maxDate}
+            minDate={this.props.minDate}
+            blur={this.blur.bind(this)}
+          />
+          <div className="input-time-zmark">Z</div>
+        </React.Fragment>
+      );
+    }
   }
   render() {
     return (
@@ -107,46 +157,7 @@ class dateSelector extends React.Component {
           minDate={this.props.minDate}
           blur={this.blur.bind(this)}
         />
-        {this.state.maxZoom >= 4 &&
-          <DateInputColumn
-            step={1}
-            startDate={new Date(2000)}
-            today={new Date()}
-            date={this.state.date}
-            type="hour"
-            height={this.props.height}
-            width={this.props.width}
-            updateDate={this.updateDate.bind(this)}
-            value={util.pad(this.state.date.getUTCHours(), 2, '0')}
-            tabIndex={4}
-            focused={(this.state.tab === 4)}
-            nextTab={this.nextTab.bind(this)}
-            maxDate={this.props.maxDate}
-            minDate={this.props.minDate}
-            blur={this.blur.bind(this)}
-          />
-        }
-        {this.state.maxZoom >= 4 && <div className="input-time-divider">:</div> }
-        {this.state.maxZoom >= 4 &&
-          <DateInputColumn
-            step={10}
-            startDate={new Date(2000)}
-            today={new Date()}
-            date={this.state.date}
-            type="minute"
-            height={this.props.height}
-            width={this.props.width}
-            updateDate={this.updateDate.bind(this)}
-            value={util.pad(this.state.date.getUTCMinutes(), 2, '0')}
-            tabIndex={5}
-            focused={(this.state.tab === 5)}
-            nextTab={this.nextTab.bind(this)}
-            maxDate={this.props.maxDate}
-            minDate={this.props.minDate}
-            blur={this.blur.bind(this)}
-          />
-        }
-        {this.state.maxZoom >= 4 && <div className="input-time-zmark">Z</div> }
+        {this.renderSubdaily()}
       </div>
     );
   }
