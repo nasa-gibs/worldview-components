@@ -27,7 +27,7 @@ gulp.task('lib', function() {
   gulp.src(['./src/scripts/**/*.js'])
     .pipe(plumber())
     .pipe(babel({
-      presets: ['react', 'es2015']
+      presets: ['react', 'env']
     }))
     .pipe(gulp.dest('lib'));
 });
@@ -39,7 +39,7 @@ gulp.task('browser', function() {
       transform: [
         [
           'babelify', {
-            'presets': [ 'react', 'es2015' ],
+            'presets': [ 'react', 'env' ],
             'sourceMaps': true
           }
         ]
