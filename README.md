@@ -2,7 +2,7 @@
 
 ## About
 
-External components built to use on the [NASA Worldview](worldview.earthdata.nasa.gov) satellite imagery visualization application. Worldview Timeline Components is built using ES6 and facebook's [react](https://github.com/facebook/react/) JS library. This repository is the start of a larger project to make our code more scalable and readable.
+External components built to use on the [NASA Worldview](worldview.earthdata.nasa.gov) satellite imagery visualization application. Worldview Components is built using ES6 and facebook's [react](https://github.com/facebook/react/) JS library. This repository is the start of a larger project to make our code more scalable and readable.
 
 ## Getting Started
 
@@ -21,14 +21,14 @@ sudo npm install --global gulp-cli
 ### CommonJS
 
 #### Get Entire Package
-`var TimelineComponents = require('worldview-components');`
+`var WorldviewComponents = require('worldview-components');`
 #### Use Single Module
 `var DateSelector = require('worldview-components').DateSelector;`
 
 ### ES6
 
 #### Get Entire Package
-`import TimelineComponents from 'worldview-components';`
+`import WorldviewComponents from 'worldview-components';`
 
 #### Grab what you need
 `import {DateSelector, Tooltip} from 'worldview-components';`
