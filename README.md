@@ -85,7 +85,7 @@ See [LICENSE.md](LICENSE.md)
 
 ## Contributing
 
-We'd be quite excited if you'd like to contribute to Worldview Timeline Components! Whether it's finding bugs, adding new features, fixing anything broken, or improving documentation, get started by submitting an issue or pull request!
+We'd be quite excited if you'd like to contribute to Worldview Components! Whether it's finding bugs, adding new features, fixing anything broken, or improving documentation, get started by submitting an issue or pull request!
 
 Please see our [Roadmap](https://github.com/nasa-gibs/worldview/projects/7) for a list of Worldview features currently in progress.
 
