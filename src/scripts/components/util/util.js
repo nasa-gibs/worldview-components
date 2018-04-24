@@ -6,6 +6,7 @@ export default class Util {
     this.monthStringArray = [ 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
       'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC' ];
   }
+
   /**
    * Gets the current day. Use this instead of the Date methods to allow
    * debugging alternate 'now' times.
@@ -35,11 +36,13 @@ export default class Util {
     date.setUTCMilliseconds(0);
     return date;
   }
+
   clamp(val, min, max) {
     if (val < min) { return min; }
     if (val > max) { return max; }
     return val;
   }
+
   daysInMonth(d) {
     var y;
     var m;
@@ -53,6 +56,7 @@ export default class Util {
     var lastDay = new Date(Date.UTC(y, m + 1, 0));
     return lastDay.getUTCDate();
   }
+
   /**
    * Gets the current time. Use this instead of the Date methods to allow
    * debugging alternate 'now' times.
@@ -64,6 +68,7 @@ export default class Util {
   now() {
     return new Date();
   }
+
   stringInArray(arra, value) {
     for (var i = 0, len = arra.length; i < len; i++) {
       if (arra[i] === value) {
@@ -72,6 +77,7 @@ export default class Util {
     }
     return false;
   }
+
   minDate() {
     return new Date(Date.UTC(1000, 0, 1));
   }
@@ -79,6 +85,7 @@ export default class Util {
   maxDate() {
     return new Date(Date.UTC(3000, 11, 31));
   }
+
   /**
    * Parses a UTC ISO 8601 date.
    *
@@ -117,6 +124,32 @@ export default class Util {
     }
     return date;
   }
+
+  /**
+   * Converts a date into an ISO string with only the date portion.
+   *
+   * @method toISOStringDate
+   * @static
+   * @param date {Date} the date to convert
+   * @return {string} ISO string in the form of ``YYYY-MM-DD``.
+   */
+  toISOStringDate(date) {
+    return date.toISOString()
+      .split('T')[0];
+  };
+
+  /**
+   * Converts a time into an ISO string without miliseconds.
+   *
+   * @method toISOStringSeconds
+   * @static
+   * @param  {Date} date the date to convert
+   * @return {string} ISO string in the form of `YYYY-MM-DDThh:mm:ssZ`.
+   */
+  toISOStringSeconds(date) {
+    return date.toISOString().split('.')[0] + 'Z';
+  };
+
   repeat(value, length) {
     var result = '';
     for (var i = 0; i < length; i++) {
@@ -124,11 +157,13 @@ export default class Util {
     }
     return result;
   }
+
   roll(val, min, max) {
     if (val < min) { return max - (min - val) + 1; }
     if (val > max) { return min + (val - max) - 1; }
     return val;
   }
+
   rollRange(date, interval, minDate, maxDate) {
     var y = date.getUTCFullYear();
     var m = date.getUTCMonth();
@@ -171,6 +206,7 @@ export default class Util {
     }
     return { first: first, last: last };
   }
+
   rollDate(date, interval, amount, minDate, maxDate) {
     minDate = minDate || this.minDate();
     maxDate = maxDate || this.maxDate();
@@ -209,6 +245,7 @@ export default class Util {
     newDate = new Date(this.clamp(newDate, minDate, maxDate));
     return newDate;
   }
+
   pad(value, width, padding) {
     value = '' + value;
     if (value.length < width) {
