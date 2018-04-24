@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Util from '../util/util.js';
 
-/*
+const util = new Util();
+
+/**
  * A single layer search result row
  * @class LayerRow
  * @extends React.Component
@@ -15,7 +18,7 @@ class LayerRow extends React.Component {
     };
   }
 
-  /*
+  /**
    * Toggle layer checked state
    * @method toggleCheck
    * @return {void}
@@ -28,7 +31,7 @@ class LayerRow extends React.Component {
     this.setState({checked: !checked});
   }
 
-  /*
+  /**
    * Toggle switch for the metadata info button and close arrow
    * @method toggleMetadataButtons
    * @param {e} event
@@ -40,12 +43,49 @@ class LayerRow extends React.Component {
     this.setState({isExpanded: !this.state.isExpanded});
     toggleExpansion(layer.id);
   }
+
+  /**
+   * dateRangeText - Return text with the temporal range based on layer start
+   * and end dates
+   *
+   * @method toggleMetadataButtons
+   * @param  {object} layer the layer object
+   * @return {string}       Return a string with temporal range information
+   */
+  dateRangeText(layer) {
+    var dateRange, dateStart, dateStartId, dateEnd, dateEndId;
+    if (layer.startDate) {
+      if (layer.period !== 'subdaily') {
+        layer.startDate = util.toISOStringDate(util.parseDateUTC(layer.startDate));
+      }
+      dateStart = layer.startDate;
+      if (layer.id) dateStartId = layer.id + '-startDate';
+
+      if (layer.endDate) {
+        if (layer.period !== 'subdaily') {
+          layer.endDate = util.toISOStringDate(util.parseDateUTC(layer.endDate));
+        }
+        dateEnd = layer.endDate;
+      } else {
+        dateEnd = 'Present';
+      }
+      if (layer.id) dateEndId = layer.id + '-endDate';
+    }
+
+    dateRange = '<p>Temporal coverage: <span class="layer-date-start" id=' +
+    dateStartId + '>' + dateStart + '</span> - <span class="layer-end-date" id=' +
+    dateEndId + '>' + dateEnd + '</span></p>';
+
+    return dateRange;
+  }
+
   componentWillReceiveProps(nextProps) {
     this.state = {
       checked: nextProps.isEnabled,
       isExpanded: nextProps.isExpanded
     };
   }
+
   render() {
     var { checked, isExpanded } = this.state;
     var { layer } = this.props;
@@ -65,7 +105,7 @@ class LayerRow extends React.Component {
         </div>
         {isExpanded && metadata &&
           <div className="source-metadata visible">
-            <div dangerouslySetInnerHTML={{__html: metadata}} />
+            <div dangerouslySetInnerHTML={{__html: this.dateRangeText(layer) + metadata}} />
             <div className="metadata-more" onClick={e => this.toggleMetadataButtons(e)}>
               <span className="ellipsis up">^</span>
             </div>
