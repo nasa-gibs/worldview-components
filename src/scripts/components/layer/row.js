@@ -53,28 +53,37 @@ class LayerRow extends React.Component {
    * @return {string}       Return a string with temporal range information
    */
   dateRangeText(layer) {
-    var dateRange, dateStart, dateStartId, dateEnd, dateEndId;
+    var dateRange, startDate, startDateId, endDate, endDateId;
     if (layer.startDate) {
+      startDate = util.parseDate(layer.startDate);
       if (layer.period !== 'subdaily') {
-        layer.startDate = util.toISOStringDate(util.parseDateUTC(layer.startDate));
+        startDate = startDate.getDate() + ' ' + util.giveMonth(startDate) + ' ' +
+         startDate.getFullYear();
+      } else {
+        startDate = startDate.getDate() + ' ' + util.giveMonth(startDate) + ' ' +
+        startDate.getFullYear() + ' ' + util.pad(startDate.getHours(), 2, '0') + ':' +
+        util.pad(startDate.getMinutes(), 2, '0');
       }
-      dateStart = layer.startDate;
-      if (layer.id) dateStartId = layer.id + '-startDate';
+      if (layer.id) startDateId = layer.id + '-startDate';
 
       if (layer.endDate) {
         if (layer.period !== 'subdaily') {
-          layer.endDate = util.toISOStringDate(util.parseDateUTC(layer.endDate));
+          endDate = endDate.getDate() + ' ' + util.giveMonth(endDate) + ' ' +
+          endDate.getFullYear();
+        } else {
+          endDate = endDate.getDate() + ' ' + util.giveMonth(endDate) + ' ' +
+          endDate.getFullYear() + ' ' + util.pad(endDate.getHours(), 2, '0') + ':' +
+          util.pad(endDate.getMinutes(), 2, '0');
         }
-        dateEnd = layer.endDate;
       } else {
-        dateEnd = 'Present';
+        endDate = 'Present';
       }
-      if (layer.id) dateEndId = layer.id + '-endDate';
+      if (layer.id) endDateId = layer.id + '-endDate';
     }
 
     dateRange = '<p>Temporal coverage: <span class="layer-date-start" id=' +
-    dateStartId + '>' + dateStart + '</span> - <span class="layer-end-date" id=' +
-    dateEndId + '>' + dateEnd + '</span></p>';
+    startDateId + '>' + startDate + '</span> - <span class="layer-end-date" id=' +
+    endDateId + '>' + endDate + '</span></p>';
 
     return dateRange;
   }

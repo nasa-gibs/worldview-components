@@ -126,6 +126,46 @@ export default class Util {
   }
 
   /**
+   * Parses a UTC ISO 8601 date to a non UTC date
+   *
+   * @method parseDate
+   * @static
+   * @param str {string} Date to parse in the form of YYYY-MM-DDTHH:MM:SSZ`.
+   * @return {Date} converted string as a non UTC date object, throws an exception if
+   * the string is invalid
+   */
+  parseDate(dateAsString) {
+    var dateTimeArr = dateAsString.split(/T/);
+
+    var yyyymmdd = dateTimeArr[0].split(/[\s-]+/);
+
+    // Parse elements of date and time
+    var year = yyyymmdd[0];
+    var month = yyyymmdd[1] - 1;
+    var day = yyyymmdd[2];
+
+    var hour = 0;
+    var minute = 0;
+    var second = 0;
+    var millisecond = 0;
+
+    // Use default of midnight if time is not specified
+    if (dateTimeArr.length > 1) {
+      var hhmmss = dateTimeArr[1].split(/[:.Z]/);
+      hour = hhmmss[0] || 0;
+      minute = hhmmss[1] || 0;
+      second = hhmmss[2] || 0;
+      millisecond = hhmmss[3] || 0;
+    }
+    var date = new Date(year, month, day, hour, minute, second,
+      millisecond);
+    if (isNaN(date.getTime())) {
+      throw new Error('Invalid date: ' + dateAsString);
+    }
+    return date;
+  };
+
+  /**
    * Converts a date into an ISO string with only the date portion.
    *
    * @method toISOStringDate
@@ -148,6 +188,33 @@ export default class Util {
    */
   toISOStringSeconds(date) {
     return date.toISOString().split('.')[0] + 'Z';
+  };
+
+  /**
+   * Returns the month of the year for the given date object
+   *
+   * @method giveMonth
+   * @static
+   * @param date {Date} date object of which to determine the Month name
+   * @return {String} the full name of the month
+   */
+  giveMonth(d) {
+    var month = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+
+    return month[d.getUTCMonth()];
   };
 
   repeat(value, length) {
