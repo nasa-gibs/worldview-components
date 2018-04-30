@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ListGroup, ListGroupItem } from 'reactstrap';
 import Util from '../util/util.js';
 
 const util = new Util();
@@ -100,7 +101,14 @@ class LayerRow extends React.Component {
     var { checked, isExpanded } = this.state;
     var { layer } = this.props;
     var { title, description, subtitle, metadata } = layer;
+    var listItems;
     var headerClass = 'layers-all-header has-checkbox';
+    if (layer.dateRanges) {
+      listItems = layer.dateRanges.map((l) =>
+        <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
+          {l.startDate + '-' + l.endDate}
+        </ListGroupItem>);
+    }
     if (checked) headerClass += ' checked';
     return (
       <div className='layers-all-layer'>
@@ -115,7 +123,14 @@ class LayerRow extends React.Component {
         </div>
         {isExpanded && metadata &&
           <div className="source-metadata visible">
-            <div dangerouslySetInnerHTML={{__html: this.dateRangeText(layer) + metadata}} />
+            <div>{this.dateRangeText(layer)}</div>
+            <div className='layer-date-wrap'>
+              <a id='layer-date-ranges-button' className='layer-date-ranges-button'>*Show All Date Ranges</a>
+              <ListGroup className='layer-date-ranges'>
+                {listItems}
+              </ListGroup>
+            </div>
+            <div dangerouslySetInnerHTML={{__html: metadata}} />
             <div className="metadata-more" onClick={e => this.toggleMetadataButtons(e)}>
               <span className="ellipsis up">^</span>
             </div>
