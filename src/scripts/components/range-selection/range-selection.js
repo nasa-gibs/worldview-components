@@ -118,6 +118,7 @@ class TimelineRangeSelector extends React.Component {
           onDrag={this.onItemDrag.bind(this)}
           onStop={this.onDragStop.bind(this)}
           max={this.state.max}
+          draggerID='range-selector-dragger-1'
           triangleColor={this.props.startTriangleColor}
           first={true}
           id='start' />
@@ -128,6 +129,7 @@ class TimelineRangeSelector extends React.Component {
           width={this.props.pinWidth}
           height={this.props.height}
           first={false}
+          draggerID='range-selector-dragger-2'
           onDrag={this.onItemDrag.bind(this)}
           onStop={this.onDragStop.bind(this)}
           triangleColor={this.props.endTriangleColor}

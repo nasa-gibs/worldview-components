@@ -69,7 +69,8 @@ class dateSelector extends React.Component {
             startDate={new Date(2000)}
             today={new Date()}
             date={this.state.date}
-            type="hour"
+            type='hour'
+            inputId={(this.props.idSuffix) ? 'hour-' + this.props.idSuffix : ''}
             height={this.props.height}
             width={this.props.width}
             updateDate={this.updateDate.bind(this)}
@@ -87,11 +88,12 @@ class dateSelector extends React.Component {
             startDate={new Date(2000)}
             today={new Date()}
             date={this.state.date}
-            type="minute"
+            type='minute'
             height={this.props.height}
             width={this.props.width}
             updateDate={this.updateDate.bind(this)}
             value={util.pad(this.state.date.getUTCMinutes(), 2, '0')}
+            inputId={(this.props.idSuffix) ? 'minute-' + this.props.idSuffix : ''}
             tabIndex={5}
             focused={(this.state.tab === 5)}
             nextTab={this.nextTab.bind(this)}
@@ -99,24 +101,25 @@ class dateSelector extends React.Component {
             minDate={this.props.minDate}
             blur={this.blur.bind(this)}
           />
-          <div className="input-time-zmark">Z</div>
+          <div className='input-time-zmark'>Z</div>
         </React.Fragment>
       );
     }
   }
   render() {
     return (
-      <div className="wv-date-selector-widget">
+      <div className='wv-date-selector-widget'>
         <DateInputColumn
           step={1}
           startDate={new Date(2000)}
           today={new Date()}
           date={this.state.date}
           value={this.state.date.getUTCFullYear()}
-          type="year"
+          type='year'
           height={this.props.height}
           width={this.props.width}
           updateDate={this.updateDate.bind(this)}
+          inputId={(this.props.idSuffix) ? 'year-' + this.props.idSuffix : ''}
           tabIndex={1}
           focused={(this.state.tab === 1)}
           nextTab={this.nextTab.bind(this)}
@@ -129,7 +132,8 @@ class dateSelector extends React.Component {
           today={new Date()}
           date={this.state.date}
           value={util.monthStringArray[this.state.date.getUTCMonth()]}
-          type="month"
+          type='month'
+          inputId={(this.props.idSuffix) ? 'month-' + this.props.idSuffix : ''}
           height={this.props.height}
           width={this.props.width}
           updateDate={this.updateDate.bind(this)}
@@ -145,12 +149,13 @@ class dateSelector extends React.Component {
           startDate={new Date(2000)}
           today={new Date()}
           date={this.state.date}
-          type="day"
+          type='day'
           height={this.props.height}
           width={this.props.width}
           updateDate={this.updateDate.bind(this)}
           value={util.pad(this.state.date.getUTCDate(), 2, '0')}
           tabIndex={3}
+          inputId={(this.props.idSuffix) ? 'day-' + this.props.idSuffix : ''}
           focused={(this.state.tab === 3)}
           nextTab={this.nextTab.bind(this)}
           maxDate={this.props.maxDate}
@@ -171,7 +176,8 @@ dateSelector.propTypes = {
   onDateChange: PropTypes.func,
   id: PropTypes.string,
   height: PropTypes.string,
-  width: PropTypes.string
+  width: PropTypes.string,
+  idSuffix: PropTypes.string,
 };
 
 export default dateSelector;

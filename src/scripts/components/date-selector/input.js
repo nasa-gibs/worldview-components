@@ -233,7 +233,7 @@ class DateInputColumn extends React.Component {
           size={this.size}
           maxLength={this.size}
           className="button-input-group"
-          id={this.props.type + '-input-group'}
+          id={this.props.inputId}
           value={this.state.value}
           tabIndex={this.props.tabIndex}
           onKeyUp={this.onKeyUp.bind(this)}
@@ -266,7 +266,8 @@ DateInputColumn.propTypes = {
   maxZoom: PropTypes.number,
   blur: PropTypes.func,
   nextTab: PropTypes.func,
-  height: PropTypes.string
+  height: PropTypes.string,
+  inputId: PropTypes.string
 };
 
 export default DateInputColumn;
