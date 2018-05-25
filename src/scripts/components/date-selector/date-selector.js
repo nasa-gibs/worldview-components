@@ -177,7 +177,7 @@ dateSelector.propTypes = {
   id: PropTypes.string,
   height: PropTypes.string,
   width: PropTypes.string,
-  idSuffix: PropTypes.string,
+  idSuffix: PropTypes.string
 };
 
 export default dateSelector;
