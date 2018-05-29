@@ -136,6 +136,7 @@ class AnimationWidget extends React.Component {
             height="30"
             date={this.state.startDate}
             id='start'
+            idSuffix='animation-widget-start'
             onDateChange={this.onDateChange.bind(this)}
             maxDate={this.state.endDate}
             minDate={this.props.minDate}
@@ -147,6 +148,7 @@ class AnimationWidget extends React.Component {
             height="30"
             date={this.state.endDate}
             id='end'
+            idSuffix='animation-widget-end'
             onDateChange={this.onDateChange.bind(this)}
             maxDate={this.props.maxDate}
             minDate={this.state.startDate}

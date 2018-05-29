@@ -68,6 +68,7 @@ class TimelineDragger extends React.Component {
           <polygon
             points={'0,0,' + this.props.height / 1.5 + ',0 ' + this.props.height / 3 + ', ' + this.props.height / 1.5 }
             transform={'translate(' + (-(this.props.width * 2.45)) + ', ' + (-(this.props.height / 2)) + ')'}
+            id={this.props.draggerID}
             style={{
               fill: this.props.triangleColor,
               visibility: this.state.visibility,
@@ -97,7 +98,8 @@ TimelineDragger.propTypes = {
   id: PropTypes.string,
   onStop: PropTypes.func,
   width: PropTypes.number,
-  triangleColor: PropTypes.string
+  triangleColor: PropTypes.string,
+  draggerID: PropTypes.string
 };
 
 export default TimelineDragger;
