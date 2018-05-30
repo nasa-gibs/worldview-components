@@ -13,7 +13,8 @@ class LayerList extends React.Component {
     super(props);
     this.state = {
       filteredLayers: props.filteredLayers,
-      expandedLayers: [],
+      expandedMetadataLayers: [],
+      expandedDateRangesLayers: [],
       activeLayers: props.activeLayers
     };
   }
@@ -22,18 +23,18 @@ class LayerList extends React.Component {
    * Toggles expansion of metadata for a layer given that layer's ID and makes
    * an AJAX request for the metadata if it's missing
    *
-   * @method toggleExpansion
+   * @method toggleMetadataExpansion
    * @param {string} layer - the layer to be toggled
    * @return {void}
    */
-  toggleExpansion(layerId) {
-    var { filteredLayers, expandedLayers } = this.state;
-    var isExpanded = expandedLayers.find(id => id === layerId);
-    if (isExpanded) {
-      expandedLayers = expandedLayers.filter(id => id !== layerId);
+  toggleMetadataExpansion(layerId) {
+    var { filteredLayers, expandedMetadataLayers } = this.state;
+    var isMetadataExpanded = expandedMetadataLayers.find(id => id === layerId);
+    if (isMetadataExpanded) {
+      expandedMetadataLayers = expandedMetadataLayers.filter(id => id !== layerId);
     } else {
-      expandedLayers.push(layerId);
-      this.setState({expandedLayers: expandedLayers});
+      expandedMetadataLayers.push(layerId);
+      this.setState({expandedMetadataLayers: expandedMetadataLayers});
       var layer = filteredLayers.find(l => l.id === layerId);
       if (!layer.metadata) {
         var { origin, pathname } = window.location;
@@ -50,8 +51,26 @@ class LayerList extends React.Component {
     }
   }
 
+  /*
+   * Toggles expansion of date ranges for a layer given that layer's ID
+   *
+   * @method toggleDateRangesExpansion
+   * @param {string} layer - The layer being toggled
+   * @return {void}
+   */
+  toggleDateRangesExpansion(layerId) {
+    var { expandedDateRangesLayers } = this.state;
+    var isDateRangesExpanded = expandedDateRangesLayers.find(id => id === layerId);
+    if (isDateRangesExpanded) {
+      expandedDateRangesLayers = expandedDateRangesLayers.filter(id => id !== layerId);
+    } else {
+      expandedDateRangesLayers.push(layerId);
+      this.setState({expandedDateRangesLayers: expandedDateRangesLayers});
+    }
+  }
+
   render() {
-    var { filteredLayers, expandedLayers, activeLayers } = this.state;
+    var { filteredLayers, expandedMetadataLayers, expandedDateRangesLayers, activeLayers } = this.state;
     var { addLayer, removeLayer } = this.props;
     return (
       <div style={{
@@ -63,15 +82,18 @@ class LayerList extends React.Component {
         {(filteredLayers.length < 1) ? <div>No results.</div> : null}
         {filteredLayers.map((layer) => {
           var isEnabled = activeLayers.some(l => l.id === layer.id);
-          var isExpanded = expandedLayers.includes(layer.id);
+          var isMetadataExpanded = expandedMetadataLayers.includes(layer.id);
+          var isDateRangesExpanded = expandedDateRangesLayers.includes(layer.id);
           return <LayerRow
             key={layer.id}
             layer={layer}
             isEnabled={isEnabled}
-            isExpanded={isExpanded}
+            isMetadataExpanded={isMetadataExpanded}
+            isDateRangesExpanded={isDateRangesExpanded}
             onState={addLayer}
             offState={removeLayer}
-            toggleExpansion={id => this.toggleExpansion(id)}
+            toggleMetadataExpansion={id => this.toggleMetadataExpansion(id)}
+            toggleDateRangesExpansion={id => this.toggleDateRangesExpansion(id)}
           />;
         })}
       </div>
