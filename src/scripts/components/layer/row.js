@@ -72,25 +72,33 @@ class LayerRow extends React.Component {
     var dateRange = '';
     if (layer.startDate) {
       startDate = util.parseDate(layer.startDate);
-      if (layer.period !== 'subdaily') {
-        startDate = startDate.getDate() + ' ' + util.giveMonth(startDate) + ' ' +
-         startDate.getFullYear();
-      } else {
+      if (layer.period === 'subdaily') {
         startDate = startDate.getDate() + ' ' + util.giveMonth(startDate) + ' ' +
         startDate.getFullYear() + ' ' + util.pad(startDate.getHours(), 2, '0') + ':' +
         util.pad(startDate.getMinutes(), 2, '0');
+      } else if (layer.period === 'yearly') {
+        startDate = startDate.getFullYear();
+      } else if (layer.period === 'monthly') {
+        startDate = util.giveMonth(startDate) + ' ' + startDate.getFullYear();
+      } else {
+        startDate = startDate.getDate() + ' ' + util.giveMonth(startDate) + ' ' +
+        startDate.getFullYear();
       }
       if (layer.id) startDateId = layer.id + '-startDate';
 
       if (layer.endDate) {
         endDate = util.parseDate(layer.endDate);
-        if (layer.period !== 'subdaily') {
-          endDate = endDate.getDate() + ' ' + util.giveMonth(endDate) + ' ' +
-          endDate.getFullYear();
-        } else {
+        if (layer.period === 'subdaily') {
           endDate = endDate.getDate() + ' ' + util.giveMonth(endDate) + ' ' +
           endDate.getFullYear() + ' ' + util.pad(endDate.getHours(), 2, '0') + ':' +
           util.pad(endDate.getMinutes(), 2, '0');
+        } else if (layer.period === 'yearly') {
+          endDate = endDate.getFullYear();
+        } else if (layer.period === 'monthly') {
+          endDate = util.giveMonth(endDate) + ' ' + endDate.getFullYear();
+        } else {
+          endDate = endDate.getDate() + ' ' + util.giveMonth(endDate) + ' ' +
+          endDate.getFullYear();
         }
       } else {
         endDate = 'Present';
@@ -118,30 +126,38 @@ class LayerRow extends React.Component {
     var { title, description, subtitle, metadata } = layer;
     var listItems;
     var headerClass = 'layers-all-header has-checkbox';
-    if (layer.period !== 'subdaily') {
-      if (layer.dateRanges) {
-        listItems = layer.dateRanges.map((l) =>
-          <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
-            {(util.parseDate(l.startDate)).getDate() + ' ' + util.giveMonth(util.parseDate(l.startDate)) + ' ' +
-            (util.parseDate(l.startDate)).getFullYear() + ' - ' + (util.parseDate(l.endDate)).getDate() + ' ' +
-            util.giveMonth(util.parseDate(l.endDate)) + ' ' + (util.parseDate(l.endDate)).getFullYear()}
-          </ListGroupItem>);
-      }
-    } else {
-      if (layer.dateRanges) {
-        listItems = layer.dateRanges.map((l) =>
-          <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
-            {(util.parseDate(l.startDate)).getDate() + ' ' + util.giveMonth(util.parseDate(l.startDate)) + ' ' +
-            (util.parseDate(l.startDate)).getFullYear() + ' ' + util.pad((util.parseDate(l.startDate)).getHours(), 2, '0') + ':' +
-            util.pad((util.parseDate(l.startDate)).getMinutes(), 2, '0') + ' - ' + (util.parseDate(l.endDate)).getDate() + ' ' +
-            util.giveMonth(util.parseDate(l.endDate)) + ' ' + (util.parseDate(l.endDate)).getDate() + ' ' + util.giveMonth(util.parseDate(l.endDate)) + ' ' +
-            (util.parseDate(l.endDate)).getFullYear() + ' ' + util.pad((util.parseDate(l.endDate)).getHours(), 2, '0') + ':' +
-            util.pad((util.parseDate(l.endDate)).getMinutes(), 2, '0')}
-          </ListGroupItem>);
-      }
-    };
-
+    if (layer.dateRanges && layer.dateRanges.length > 1) {
+      listItems = layer.dateRanges.map((l) => {
+        let startDate = util.parseDate(l.startDate);
+        let endDate = util.parseDate(l.endDate);
+        if (layer.period === 'subdaily') {
+          return <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
+            {(startDate).getDate() + ' ' + util.giveMonth(startDate) + ' ' +
+            (startDate).getFullYear() + ' ' + util.pad((startDate).getHours(), 2, '0') + ':' +
+            util.pad((startDate).getMinutes(), 2, '0') + ' - ' + (endDate).getDate() + ' ' +
+            util.giveMonth(endDate) + ' ' + (endDate).getDate() + ' ' + util.giveMonth(endDate) + ' ' +
+            (endDate).getFullYear() + ' ' + util.pad((endDate).getHours(), 2, '0') + ':' +
+            util.pad((endDate).getMinutes(), 2, '0')}
+          </ListGroupItem>;
+        } else if (layer.period === 'yearly' && l.startDate === l.endDate) {
+          return <ListGroupItem key={l.startDate}>
+            {(startDate).getFullYear()}
+          </ListGroupItem>;
+        } else if (layer.period === 'monthly' && l.startDate === l.endDate) {
+          return <ListGroupItem key={l.startDate}>
+            {(startDate).getDate() + ' ' + util.giveMonth(startDate)}
+          </ListGroupItem>;
+        } else {
+          return <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
+            {(startDate).getDate() + ' ' + util.giveMonth(startDate) + ' ' +
+            (startDate).getFullYear() + ' - ' + (endDate).getDate() + ' ' +
+            util.giveMonth(endDate) + ' ' + (endDate).getFullYear()}
+          </ListGroupItem>;
+        }
+      });
+    }
     if (checked) headerClass += ' checked';
+
     return (
       <div className='layers-all-layer'>
         <div className={headerClass} onClick={() => this.toggleCheck()}>
@@ -158,8 +174,8 @@ class LayerRow extends React.Component {
             {layer.startDate &&
             <p className="layer-date-range">
               <span dangerouslySetInnerHTML={{__html: this.dateRangeText(layer)}} />
-              {layer.dateRanges &&
-                <a id="layer-date-ranges-button" className="layer-date-ranges-button" onClick={e => this.toggleDateRanges(e)}> *</a>
+              {layer.dateRanges && layer.dateRanges.length > 1 &&
+                <a id="layer-date-ranges-button" title="View all date ranges" className="layer-date-ranges-button" onClick={e => this.toggleDateRanges(e)}> <sup>*View Dates</sup></a>
               }
             </p>
             }
