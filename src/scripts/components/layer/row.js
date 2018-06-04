@@ -127,7 +127,7 @@ class LayerRow extends React.Component {
     var listItems;
     var headerClass = 'layers-all-header has-checkbox';
     if (layer.dateRanges && layer.dateRanges.length > 1) {
-      listItems = layer.dateRanges.map((l) => {
+      listItems = layer.dateRanges.slice(0).reverse().map((l) => {
         let startDate = util.parseDate(l.startDate);
         let endDate = util.parseDate(l.endDate);
         if (layer.period === 'subdaily') {
@@ -155,6 +155,11 @@ class LayerRow extends React.Component {
           return <ListGroupItem key={l.startDate}>
             {(startDate).getDate() + ' ' + util.giveMonth(startDate) + ' - ' +
             (endDate).getDate() + ' ' + util.giveMonth(endDate)}
+          </ListGroupItem>;
+        } else if (layer.period === 'daily' && l.startDate === l.endDate) {
+          return <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
+            {(startDate).getDate() + ' ' + util.giveMonth(startDate) + ' ' +
+            (startDate).getFullYear()}
           </ListGroupItem>;
         } else {
           return <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
