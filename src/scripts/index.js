@@ -5,6 +5,7 @@ export {default as ToolTip} from './components/tooltip/tooltip.js';
 export {default as Share} from './components/share/share.js';
 export {default as Util} from './components/util/util.js';
 export {default as GA} from './components/util/google-analytics.js';
+export {default as GTM} from './components/util/google-tag-manager.js';
 export {default as DateLine} from './components/dateline/dateline.js';
 export {default as LineText} from './components/dateline/text.js';
 export {default as LayerList} from './components/layer/list.js';
