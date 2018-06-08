@@ -127,45 +127,93 @@ class LayerRow extends React.Component {
     var listItems;
     var headerClass = 'layers-all-header has-checkbox';
     if (layer.dateRanges && layer.dateRanges.length > 1) {
+      let firstDateRange = true;
       listItems = layer.dateRanges.slice(0).reverse().map((l) => {
         let startDate = util.parseDate(l.startDate);
         let endDate = util.parseDate(l.endDate);
+
         if (layer.period === 'subdaily') {
+          let listItemStartDate = (startDate).getDate() + ' ' + util.giveMonth(startDate) + ' ' +
+          (startDate).getFullYear() + ' ' + util.pad((startDate).getHours(), 2, '0') + ':' +
+          util.pad((startDate).getMinutes(), 2, '0');
+
+          let listItemEndDate = (endDate).getDate() + ' ' +
+          util.giveMonth(endDate) + ' ' + (endDate).getDate() + ' ' + util.giveMonth(endDate) + ' ' +
+          (endDate).getFullYear() + ' ' + util.pad((endDate).getHours(), 2, '0') + ':' +
+          util.pad((endDate).getMinutes(), 2, '0');
+
+          if (firstDateRange) {
+            if (layer.endDate === undefined) {
+              listItemEndDate = 'Present';
+            }
+            firstDateRange = false;
+          }
+
           return <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
-            {(startDate).getDate() + ' ' + util.giveMonth(startDate) + ' ' +
-            (startDate).getFullYear() + ' ' + util.pad((startDate).getHours(), 2, '0') + ':' +
-            util.pad((startDate).getMinutes(), 2, '0') + ' - ' + (endDate).getDate() + ' ' +
-            util.giveMonth(endDate) + ' ' + (endDate).getDate() + ' ' + util.giveMonth(endDate) + ' ' +
-            (endDate).getFullYear() + ' ' + util.pad((endDate).getHours(), 2, '0') + ':' +
-            util.pad((endDate).getMinutes(), 2, '0')}
+            {listItemStartDate + ' - ' + listItemEndDate}
           </ListGroupItem>;
         } else if (layer.period === 'yearly' && l.startDate === l.endDate) {
+          let listItemStartDate = (startDate).getFullYear();
+
           return <ListGroupItem key={l.startDate}>
-            {(startDate).getFullYear()}
+            {listItemStartDate}
           </ListGroupItem>;
         } else if (layer.period === 'yearly') {
+          let listItemStartDate = (startDate).getFullYear();
+          let listItemEndDate = (endDate).getFullYear();
+
+          if (firstDateRange) {
+            if (layer.endDate === undefined) {
+              listItemEndDate = 'Present';
+            }
+            firstDateRange = false;
+          }
+
           return <ListGroupItem key={l.startDate}>
-            {(startDate).getFullYear() + ' - ' + (endDate).getFullYear()}
+            {listItemStartDate + ' - ' + listItemEndDate}
           </ListGroupItem>;
         } else if (layer.period === 'monthly' && l.startDate === l.endDate) {
+          let listItemStartDate = util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
+
           return <ListGroupItem key={l.startDate}>
-            {util.giveMonth(startDate) + ' ' + (startDate).getFullYear()}
+            {listItemStartDate}
           </ListGroupItem>;
         } else if (layer.period === 'monthly') {
+          let listItemStartDate = util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
+          let listItemEndDate = util.giveMonth(endDate) + ' ' + (endDate).getFullYear();
+
+          if (firstDateRange) {
+            if (layer.endDate === undefined) {
+              listItemEndDate = 'Present';
+            }
+            firstDateRange = false;
+          }
+
           return <ListGroupItem key={l.startDate}>
-            {util.giveMonth(startDate) + ' ' + (startDate).getFullYear() + ' - ' +
-            util.giveMonth(endDate) + ' ' + (startDate).getFullYear()}
+            {listItemStartDate + ' - ' + listItemEndDate}
           </ListGroupItem>;
         } else if (layer.period === 'daily' && l.startDate === l.endDate) {
+          let listItemStartDate = (startDate).getDate() + ' ' +
+          util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
+
           return <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
-            {(startDate).getDate() + ' ' + util.giveMonth(startDate) + ' ' +
-            (startDate).getFullYear()}
+            {listItemStartDate}
           </ListGroupItem>;
         } else {
+          let listItemStartDate = (startDate).getDate() + ' ' +
+          util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
+          let listItemEndDate = (endDate).getDate() + ' ' +
+          util.giveMonth(endDate) + ' ' + (endDate).getFullYear();
+
+          if (firstDateRange) {
+            if (layer.endDate === undefined) {
+              listItemEndDate = 'Present';
+            }
+            firstDateRange = false;
+          }
+
           return <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
-            {(startDate).getDate() + ' ' + util.giveMonth(startDate) + ' ' +
-            (startDate).getFullYear() + ' - ' + (endDate).getDate() + ' ' +
-            util.giveMonth(endDate) + ' ' + (endDate).getFullYear()}
+            {listItemStartDate + ' - ' + listItemEndDate}
           </ListGroupItem>;
         }
       });
