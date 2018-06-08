@@ -149,12 +149,12 @@ class LayerRow extends React.Component {
           </ListGroupItem>;
         } else if (layer.period === 'monthly' && l.startDate === l.endDate) {
           return <ListGroupItem key={l.startDate}>
-            {(startDate).getDate() + ' ' + util.giveMonth(startDate)}
+            {util.giveMonth(startDate) + ' ' + (startDate).getFullYear()}
           </ListGroupItem>;
         } else if (layer.period === 'monthly') {
           return <ListGroupItem key={l.startDate}>
-            {(startDate).getDate() + ' ' + util.giveMonth(startDate) + ' - ' +
-            (endDate).getDate() + ' ' + util.giveMonth(endDate)}
+            {util.giveMonth(startDate) + ' ' + (startDate).getFullYear() + ' - ' +
+            util.giveMonth(endDate) + ' ' + (startDate).getFullYear()}
           </ListGroupItem>;
         } else if (layer.period === 'daily' && l.startDate === l.endDate) {
           return <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
