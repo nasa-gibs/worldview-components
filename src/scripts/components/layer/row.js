@@ -112,6 +112,76 @@ class LayerRow extends React.Component {
     return dateRange;
   }
 
+  // this function takes an array of date ranges in this format:
+  // [{ layer.period, dateRanges.startDate: Date, dateRanges.endDate: Date, dateRanges.dateInterval: Number}]
+  // the array is first sorted, and then checked for any overlap
+  dateOverlap (period, dateRanges) {
+    var sortedRanges = dateRanges.sort((previous, current) => {
+      // get the start date from previous and current
+      var previousTime = util.parseDate(previous.startDate);
+      previousTime = previousTime.getTime();
+      var currentTime = util.parseDate(current.startDate);
+      currentTime = currentTime.getTime();
+
+      // if the previous is earlier than the current
+      if (previousTime < currentTime) {
+        return -1;
+      }
+
+      // if the previous time is the same as the current time
+      if (previousTime === currentTime) {
+        return 0;
+      }
+
+      // if the previous time is later than the current time
+      return 1;
+    });
+
+    var result = sortedRanges.reduce((result, current, idx, arr) => {
+      // get the previous range
+      if (idx === 0) { return result; }
+      var previous = arr[idx - 1];
+
+      // check for any overlap
+      var previousEnd = util.parseDate(previous.endDate);
+      // Add dateInterval
+      if (previous.dateInterval > 1) {
+        if (period === 'daily') {
+          previousEnd = new Date(previousEnd.setTime(previousEnd.getTime() + previous.dateInterval * 86400000));
+        } else if (period === 'monthly') {
+          previousEnd = new Date(previousEnd.setMonth(previousEnd.getMonth() + previous.dateInterval));
+        } else if (period === 'yearly') {
+          previousEnd = new Date(previousEnd.setFullYear(previousEnd.getFullYear() + previous.dateInterval));
+        }
+      }
+      previousEnd = previousEnd.getTime();
+
+      var currentStart = util.parseDate(current.startDate);
+      currentStart = currentStart.getTime();
+
+      var overlap = (previousEnd >= currentStart);
+      // store the result
+      if (overlap) {
+        // yes, there is overlap
+        result.overlap = true;
+        // store the specific ranges that overlap
+        result.ranges.push({
+          previous: previous,
+          current: current
+        });
+      }
+
+      return result;
+    },
+    {
+      overlap: false,
+      ranges: []
+    });
+
+    // return the final results
+    return result;
+  };
+
   componentWillReceiveProps(nextProps) {
     this.state = {
       checked: nextProps.isEnabled,
@@ -128,90 +198,25 @@ class LayerRow extends React.Component {
     var headerClass = 'layers-all-header has-checkbox';
     if (layer.dateRanges && layer.dateRanges.length > 1) {
       let firstDateRange = true;
-      listItems = layer.dateRanges.slice(0).reverse().map((l) => {
-        let startDate = util.parseDate(l.startDate);
-        let endDate = util.parseDate(l.endDate);
 
-        if (layer.period === 'subdaily') {
-          let listItemStartDate = (startDate).getDate() + ' ' + util.giveMonth(startDate) + ' ' +
-          (startDate).getFullYear() + ' ' + util.pad((startDate).getHours(), 2, '0') + ':' +
-          util.pad((startDate).getMinutes(), 2, '0');
+      var dateRanges = this.dateOverlap(layer.period, layer.dateRanges);
 
-          let listItemEndDate = (endDate).getDate() + ' ' +
-          util.giveMonth(endDate) + ' ' + (endDate).getDate() + ' ' + util.giveMonth(endDate) + ' ' +
-          (endDate).getFullYear() + ' ' + util.pad((endDate).getHours(), 2, '0') + ':' +
-          util.pad((endDate).getMinutes(), 2, '0');
+      if (dateRanges.overlap === false) {
+        listItems = layer.dateRanges.slice(0).reverse().map((l) => {
+          let startDate = util.parseDate(l.startDate);
+          let endDate = util.parseDate(l.endDate);
+          let listItemStartDate;
+          let listItemEndDate;
 
-          if (firstDateRange) {
-            if (layer.endDate === undefined) {
-              listItemEndDate = 'Present';
-            }
-            firstDateRange = false;
-          }
+          if (layer.period === 'subdaily') {
+            listItemStartDate = (startDate).getDate() + ' ' + util.giveMonth(startDate) + ' ' +
+            (startDate).getFullYear() + ' ' + util.pad((startDate).getHours(), 2, '0') + ':' +
+            util.pad((startDate).getMinutes(), 2, '0');
 
-          return <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
-            {listItemStartDate + ' - ' + listItemEndDate}
-          </ListGroupItem>;
-        } else if (layer.period === 'yearly') {
-          if (l.dateInterval === '1' && l.startDate === l.endDate) {
-            let listItemStartDate = (startDate).getFullYear();
-
-            return <ListGroupItem key={l.startDate}>
-              {listItemStartDate}
-            </ListGroupItem>;
-          } else {
-            let listItemStartDate = (startDate).getFullYear();
-            let listItemEndDate = new Date(endDate.setFullYear(endDate.getFullYear() + l.dateInterval));
-            listItemEndDate = (endDate).getFullYear();
-
-            if (firstDateRange) {
-              if (layer.endDate === undefined) {
-                listItemEndDate = 'Present';
-              }
-              firstDateRange = false;
-            }
-
-            return <ListGroupItem key={l.startDate}>
-              {listItemStartDate + ' - ' + listItemEndDate}
-            </ListGroupItem>;
-          }
-        } else if (layer.period === 'monthly') {
-          if (l.dateInterval === '1' && l.startDate === l.endDate) {
-            let listItemStartDate = util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
-
-            return <ListGroupItem key={l.startDate}>
-              {listItemStartDate}
-            </ListGroupItem>;
-          } else {
-            let listItemStartDate = util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
-            let listItemEndDate = new Date(endDate.setMonth(endDate.getMonth() + l.dateInterval));
-            listItemEndDate = util.giveMonth(endDate) + ' ' + (endDate).getFullYear();
-
-            if (firstDateRange) {
-              if (layer.endDate === undefined) {
-                listItemEndDate = 'Present';
-              }
-              firstDateRange = false;
-            }
-
-            return <ListGroupItem key={l.startDate}>
-              {listItemStartDate + ' - ' + listItemEndDate}
-            </ListGroupItem>;
-          }
-        } else if (layer.period) {
-          if (l.dateInterval === '1' && l.startDate === l.endDate) {
-            let listItemStartDate = (startDate).getDate() + ' ' +
-            util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
-
-            return <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
-              {listItemStartDate}
-            </ListGroupItem>;
-          } else {
-            let listItemStartDate = (startDate).getDate() + ' ' +
-            util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
-            let listItemEndDate = new Date(endDate.setTime(endDate.getTime() + l.dateInterval * 86400000));
             listItemEndDate = (endDate).getDate() + ' ' +
-            util.giveMonth(endDate) + ' ' + (endDate).getFullYear();
+            util.giveMonth(endDate) + ' ' + (endDate).getDate() + ' ' + util.giveMonth(endDate) + ' ' +
+            (endDate).getFullYear() + ' ' + util.pad((endDate).getHours(), 2, '0') + ':' +
+            util.pad((endDate).getMinutes(), 2, '0');
 
             if (firstDateRange) {
               if (layer.endDate === undefined) {
@@ -223,9 +228,87 @@ class LayerRow extends React.Component {
             return <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
               {listItemStartDate + ' - ' + listItemEndDate}
             </ListGroupItem>;
+          } else if (layer.period === 'yearly') {
+            if (l.dateInterval === '1' && l.startDate === l.endDate) {
+              listItemStartDate = (startDate).getFullYear();
+
+              return <ListGroupItem key={l.startDate}>
+                {listItemStartDate}
+              </ListGroupItem>;
+            } else {
+              listItemStartDate = (startDate).getFullYear();
+              if (l.dateInterval !== '1') {
+                listItemEndDate = new Date(endDate.setFullYear(endDate.getFullYear() + l.dateInterval));
+              }
+              listItemEndDate = (endDate).getFullYear();
+
+              if (firstDateRange) {
+                if (layer.endDate === undefined) {
+                  listItemEndDate = 'Present';
+                }
+                firstDateRange = false;
+              }
+
+              return <ListGroupItem key={l.startDate}>
+                {listItemStartDate + ' - ' + listItemEndDate}
+              </ListGroupItem>;
+            }
+          } else if (layer.period === 'monthly') {
+            if (l.dateInterval === '1' && l.startDate === l.endDate) {
+              listItemStartDate = util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
+
+              return <ListGroupItem key={l.startDate}>
+                {listItemStartDate}
+              </ListGroupItem>;
+            } else {
+              listItemStartDate = util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
+              if (l.dateInterval !== '1') {
+                listItemEndDate = new Date(endDate.setMonth(endDate.getMonth() + l.dateInterval));
+              }
+              listItemEndDate = util.giveMonth(endDate) + ' ' + (endDate).getFullYear();
+
+              if (firstDateRange) {
+                if (layer.endDate === undefined) {
+                  listItemEndDate = 'Present';
+                }
+                firstDateRange = false;
+              }
+
+              return <ListGroupItem key={l.startDate}>
+                {listItemStartDate + ' - ' + listItemEndDate}
+              </ListGroupItem>;
+            }
+          } else if (layer.period) {
+            if (l.dateInterval === '1' && l.startDate === l.endDate) {
+              let listItemStartDate = (startDate).getDate() + ' ' +
+              util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
+
+              return <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
+                {listItemStartDate}
+              </ListGroupItem>;
+            } else {
+              let listItemStartDate = (startDate).getDate() + ' ' +
+              util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
+              if (l.dateInterval !== '1') {
+                listItemEndDate = new Date(endDate.setTime(endDate.getTime() + l.dateInterval * 86400000));
+              }
+              listItemEndDate = (endDate).getDate() + ' ' +
+              util.giveMonth(endDate) + ' ' + (endDate).getFullYear();
+
+              if (firstDateRange) {
+                if (layer.endDate === undefined) {
+                  listItemEndDate = 'Present';
+                }
+                firstDateRange = false;
+              }
+
+              return <ListGroupItem key={l.startDate + ' - ' + l.endDate}>
+                {listItemStartDate + ' - ' + listItemEndDate}
+              </ListGroupItem>;
+            }
           }
-        }
-      });
+        });
+      }
     }
     if (checked) headerClass += ' checked';
 
@@ -245,7 +328,7 @@ class LayerRow extends React.Component {
             {layer.startDate &&
             <p className="layer-date-range">
               <span dangerouslySetInnerHTML={{__html: this.dateRangeText(layer)}} />
-              {layer.dateRanges && layer.dateRanges.length > 1 &&
+              {layer.dateRanges && layer.dateRanges.length > 1 && dateRanges.overlap === false &&
                 <a id="layer-date-ranges-button" title="View all date ranges" className="layer-date-ranges-button" onClick={e => this.toggleDateRanges(e)}> <sup>*View Dates</sup></a>
               }
             </p>
