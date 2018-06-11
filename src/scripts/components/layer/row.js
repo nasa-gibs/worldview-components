@@ -93,10 +93,19 @@ class LayerRow extends React.Component {
           endDate.getFullYear() + ' ' + util.pad(endDate.getHours(), 2, '0') + ':' +
           util.pad(endDate.getMinutes(), 2, '0');
         } else if (layer.period === 'yearly') {
+          if (layer.dateRanges && layer.dateRanges.slice(-1)[0].dateInterval !== '1') {
+            endDate = new Date(endDate.setFullYear(endDate.getFullYear() - 1));
+          }
           endDate = endDate.getFullYear();
         } else if (layer.period === 'monthly') {
+          if (layer.dateRanges && layer.dateRanges.slice(-1)[0].dateInterval !== '1') {
+            endDate = new Date(endDate.setMonth(endDate.getMonth() - 1));
+          }
           endDate = util.giveMonth(endDate) + ' ' + endDate.getFullYear();
         } else {
+          if (layer.dateRanges && layer.dateRanges.slice(-1)[0].dateInterval !== '1') {
+            endDate = new Date(endDate.setTime(endDate.getTime() - 86400000));
+          }
           endDate = endDate.getDate() + ' ' + util.giveMonth(endDate) + ' ' +
           endDate.getFullYear();
         }
@@ -145,14 +154,13 @@ class LayerRow extends React.Component {
       // check for any overlap
       var previousEnd = util.parseDate(previous.endDate);
       // Add dateInterval
-      if (previous.dateInterval > 1) {
-        if (period === 'daily') {
-          previousEnd = new Date(previousEnd.setTime(previousEnd.getTime() + previous.dateInterval * 86400000));
-        } else if (period === 'monthly') {
-          previousEnd = new Date(previousEnd.setMonth(previousEnd.getMonth() + previous.dateInterval));
-        } else if (period === 'yearly') {
-          previousEnd = new Date(previousEnd.setFullYear(previousEnd.getFullYear() + previous.dateInterval));
-        }
+      if (previous.dateInterval > 1 && period === 'daily') {
+        previousEnd = new Date(previousEnd.setTime(previousEnd.getTime() + ((previous.dateInterval * 86400000) - 86400000)));
+      }
+      if (period === 'monthly') {
+        previousEnd = new Date(previousEnd.setMonth(previousEnd.getMonth() + (previous.dateInterval - 1)));
+      } else if (period === 'yearly') {
+        previousEnd = new Date(previousEnd.setFullYear(previousEnd.getFullYear() + (previous.dateInterval - 1)));
       }
       previousEnd = previousEnd.getTime();
 
@@ -238,7 +246,7 @@ class LayerRow extends React.Component {
             } else {
               listItemStartDate = (startDate).getFullYear();
               if (l.dateInterval !== '1') {
-                listItemEndDate = new Date(endDate.setFullYear(endDate.getFullYear() + l.dateInterval));
+                listItemEndDate = new Date(endDate.setFullYear(endDate.getFullYear() - 1 + l.dateInterval));
               }
               listItemEndDate = (endDate).getFullYear();
 
@@ -263,7 +271,7 @@ class LayerRow extends React.Component {
             } else {
               listItemStartDate = util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
               if (l.dateInterval !== '1') {
-                listItemEndDate = new Date(endDate.setMonth(endDate.getMonth() + l.dateInterval));
+                listItemEndDate = new Date(endDate.setMonth(endDate.getMonth() - 1 + l.dateInterval));
               }
               listItemEndDate = util.giveMonth(endDate) + ' ' + (endDate).getFullYear();
 
@@ -290,7 +298,7 @@ class LayerRow extends React.Component {
               let listItemStartDate = (startDate).getDate() + ' ' +
               util.giveMonth(startDate) + ' ' + (startDate).getFullYear();
               if (l.dateInterval !== '1') {
-                listItemEndDate = new Date(endDate.setTime(endDate.getTime() + l.dateInterval * 86400000));
+                listItemEndDate = new Date(endDate.setTime(endDate.getTime() - 86400000 + l.dateInterval * 86400000));
               }
               listItemEndDate = (endDate).getDate() + ' ' +
               util.giveMonth(endDate) + ' ' + (endDate).getFullYear();
