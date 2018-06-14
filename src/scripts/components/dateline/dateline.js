@@ -109,7 +109,7 @@ Line.defaultProps = {
   color: 'white',
   height: 200,
   svgStyle: {
-    padding: '0 40px 0 40px',
+    margin: '0 40px 0 40px',
     transform: 'translateX(-43px)'
   }
 };
