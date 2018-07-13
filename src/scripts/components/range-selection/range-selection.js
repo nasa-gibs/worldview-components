@@ -53,8 +53,12 @@ class TimelineRangeSelector extends React.Component {
       if (startX < 0 || startX > endX) {
         return;
       }
-      if (startX + (2 * this.props.pinWidth) >= endX) {
-        endX = startX + this.props.pinWidth;
+      if (startX + this.props.pinWidth >= endX) {
+        if (startX + this.props.pinWidth >= this.state.max) {
+          return;
+        } else {
+          endX = startX + this.props.pinWidth;
+        }
       }
     } else if (id === 'end') {
       startX = this.state.startLocation;
