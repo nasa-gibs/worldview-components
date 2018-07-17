@@ -191,11 +191,11 @@ class LayerRow extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    this.state = {
+    this.setState({
       checked: nextProps.isEnabled,
       isMetadataExpanded: nextProps.isMetadataExpanded,
       isDateRangesExpanded: nextProps.isDateRangesExpanded
-    };
+    });
   }
 
   render() {
