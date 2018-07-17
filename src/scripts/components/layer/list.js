@@ -31,6 +31,7 @@ class LayerList extends React.Component {
     var { filteredLayers, expandedMetadataLayers } = this.state;
     var isMetadataExpanded = expandedMetadataLayers.find(id => id === layerId);
     if (isMetadataExpanded) {
+      expandedMetadataLayers.splice(expandedMetadataLayers.indexOf(layerId), 1);
       expandedMetadataLayers = expandedMetadataLayers.filter(id => id !== layerId);
     } else {
       expandedMetadataLayers.push(layerId);
