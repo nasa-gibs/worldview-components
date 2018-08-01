@@ -89,78 +89,89 @@ class AnimationWidget extends React.Component {
     });
     this.props.onPushLoop(loop);
   }
-  onDateChange(id, date) {
+  onDateChange(date, id) {
+    const { endDate, startDate } = this.state;
     if (id === 'start') {
       this.setState({
         startDate: date
       });
-      this.props.onDateChange(
-        date,
-        this.state.endDate
-      );
+      this.props.onDateChange(date, endDate);
     } else {
       this.setState({
         endDate: date
       });
-      this.props.onDateChange(
-        this.state.startDate,
-        date
-      );
+      this.props.onDateChange(startDate, date);
     }
   }
   render() {
     return (
-      <div id="wv-animation-widget" className={'wv-animation-widget' + (this.state.maxZoom >= 4 ? ' subdaily' : '')}>
+      <div
+        id="wv-animation-widget"
+        className={
+          'wv-animation-widget' + (this.state.maxZoom >= 4 ? ' subdaily' : '')
+        }
+      >
         <AnimWidgetHeader
           text={this.state.increment}
           toolTipTextArray={this.state.incrementArray}
-          onClick={this.props.onZoomSelect}/>
+          onClick={this.props.onZoomSelect}
+        />
 
-        <PlayButton playing={this.state.playing} play={this.play.bind(this)} pause={this.pause.bind(this)} />
-        <LoopButton looping={this.state.looping} onLoop={this.onLoop.bind(this)}/>
+        <PlayButton
+          playing={this.state.playing}
+          play={this.play.bind(this)}
+          pause={this.pause.bind(this)}
+        />
+        <LoopButton
+          looping={this.state.looping}
+          onLoop={this.onLoop.bind(this)}
+        />
         <div className="wv-slider-case">
-          <InputRange step={0.5} maxValue={10} minValue={0.5} value={this.state.value} onChange={this.onSlide.bind(this)} />
+          <InputRange
+            step={0.5}
+            maxValue={10}
+            minValue={0.5}
+            value={this.state.value}
+            onChange={this.onSlide.bind(this)}
+          />
           <span className="wv-slider-label">{this.props.sliderLabel}</span>
         </div>
 
-        <a href="javascript:void(null)"
+        <a
+          href="javascript:void(null)"
           title="Create Animated GIF"
           className="wv-icon-case"
           onClick={this.props.onPushGIF}
         >
-          <i className="fa fa-file-video-o wv-animation-widget-icon"/>
+          <i className="fa fa-file-video-o wv-animation-widget-icon" />
         </a>
-        <div className='wv-anim-dates-case'>
+        <div className="wv-anim-dates-case">
           <TimeSelector
             width="120"
             height="30"
             date={this.state.startDate}
-            id='start'
-            idSuffix='animation-widget-start'
+            id="start"
+            idSuffix="animation-widget-start"
             onDateChange={this.onDateChange.bind(this)}
             maxDate={this.state.endDate}
             minDate={this.props.minDate}
             maxZoom={this.state.maxZoom}
           />
-          <div className='thru-label'>To</div>
+          <div className="thru-label">To</div>
           <TimeSelector
             width="120"
             height="30"
             date={this.state.endDate}
-            id='end'
-            idSuffix='animation-widget-end'
+            id="end"
+            idSuffix="animation-widget-end"
             onDateChange={this.onDateChange.bind(this)}
             maxDate={this.props.maxDate}
             minDate={this.state.startDate}
             maxZoom={this.state.maxZoom}
           />
         </div>
-        <i
-          className="fa fa-close wv-close"
-          onClick={this.props.onClose}
-        />
+        <i className="fa fa-close wv-close" onClick={this.props.onClose} />
       </div>
-
     );
   }
 }
