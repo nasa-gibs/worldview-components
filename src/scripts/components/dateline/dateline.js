@@ -52,7 +52,12 @@ class Line extends React.Component {
    * return {Void}
    */
   mouseOverHidden(e) {
-    this.props.lineOver([e.clientX, e.clientY], this.props.overlay, this.props.lineX, this.props.tooltip);
+    this.props.lineOver(
+      [e.clientX, e.clientY],
+      this.props.overlay,
+      this.props.lineX,
+      this.props.tooltip
+    );
   }
 
   /*
@@ -75,28 +80,34 @@ class Line extends React.Component {
         width={this.props.width}
         id={this.props.id}
         height={this.state.height}
-        className={this.props.classes}>
+        className={this.props.classes}
+      >
         <line
           strokeWidth={this.props.strokeWidth}
           stroke={this.props.color}
-          opacity={this.state.hovered && this.state.active ? this.props.opacity : '0'}
+          opacity={
+            this.state.hovered && this.state.active ? this.props.opacity : '0'
+          }
           x1={this.props.strokeWidth / 2}
           x2={this.props.strokeWidth / 2}
           strokeDasharray={this.props.dashArray}
           y2={this.state.height}
-          y1='0' />
-        <line className='dateline-hidden'
+          y1="0"
+        />
+        <line
+          className="dateline-hidden"
           onMouseOver={this.mouseOverHidden.bind(this)}
           onMouseMove={this.mouseOverHidden.bind(this)}
           onMouseOut={this.mouseOutHidden.bind(this)}
           style={this.props.style}
-          opacity='0'
+          opacity="0"
           x1={this.props.strokeWidth / 2}
           x2={this.props.strokeWidth / 2}
           strokeWidth={this.props.strokeWidth}
           stroke={this.props.color}
-          y1='0'
-          y2={this.state.height} />
+          y1="0"
+          y2={this.state.height}
+        />
       </svg>
     );
   }

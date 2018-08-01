@@ -42,12 +42,15 @@ class DateInputColumn extends React.Component {
     this.size = size;
   }
   componentWillReceiveProps(props) {
-    this.setState({value: props.value});
+    this.setState({ value: props.value });
   }
   onKeyPress(e) {
     var kc = e.keyCode;
-    if (kc === 9 || // tab
-      kc === 13) { // enter
+    if (
+      kc === 9 || // tab
+      kc === 13
+    ) {
+      // enter
       e.preventDefault();
       e.stopPropagation();
     }
@@ -56,13 +59,15 @@ class DateInputColumn extends React.Component {
     var keyCode = e.keyCode;
     var value = e.target.value;
     var newDate;
-    var entered = (keyCode === 13 || keyCode === 9);
-    if (keyCode === 38) { // up
+    var entered = keyCode === 13 || keyCode === 9;
+    if (keyCode === 38) {
+      // up
       e.preventDefault();
       this.onClickUp();
       return;
     }
-    if (keyCode === 40) { // down
+    if (keyCode === 40) {
+      // down
       e.preventDefault();
       this.onClickDown();
       return;
@@ -92,7 +97,8 @@ class DateInputColumn extends React.Component {
       }
       if (newDate) {
         this.props.updateDate(newDate);
-        if (entered) { // if enetered or tabbed
+        if (entered) {
+          // if enetered or tabbed
           this.nextTab();
         }
       } else if (entered) {
@@ -124,16 +130,16 @@ class DateInputColumn extends React.Component {
   }
   yearValidation(input) {
     var newDate;
-    if ((input > 1000) && (input < 9999)) {
-      newDate = new Date((new Date(this.props.date)).setUTCFullYear(input));
+    if (input > 1000 && input < 9999) {
+      newDate = new Date(new Date(this.props.date).setUTCFullYear(input));
       return this.validateDate(newDate);
     }
   }
 
   monthValidation(input) {
     var newDate;
-    if ((!isNaN(input)) && input < 13 && input > 0) {
-      newDate = new Date((new Date(this.props.date)).setUTCMonth(input - 1));
+    if (!isNaN(input) && input < 13 && input > 0) {
+      newDate = new Date(new Date(this.props.date).setUTCMonth(input - 1));
       if (newDate) {
         this.setState({
           value: util.monthStringArray[input - 1]
@@ -144,7 +150,7 @@ class DateInputColumn extends React.Component {
       let realMonth;
       realMonth = util.stringInArray(util.monthStringArray, input);
       if (realMonth !== false) {
-        newDate = new Date((new Date(this.props.date)).setUTCMonth(realMonth));
+        newDate = new Date(new Date(this.props.date).setUTCMonth(realMonth));
         return this.validateDate(newDate);
       } else {
         return false;
@@ -157,18 +163,22 @@ class DateInputColumn extends React.Component {
     var maxDate;
     var currentDate = this.props.date;
 
-    maxDate = new Date(currentDate.getYear(), currentDate.getMonth() + 1, 0).getDate();
+    maxDate = new Date(
+      currentDate.getYear(),
+      currentDate.getMonth() + 1,
+      0
+    ).getDate();
 
     if (input > 0 && input <= maxDate) {
-      newDate = new Date((new Date(currentDate)).setUTCDate(input));
+      newDate = new Date(new Date(currentDate).setUTCDate(input));
       return this.validateDate(newDate);
     }
   }
 
   hourValidation(input) {
     var newDate;
-    if ((input >= 0) && (input <= 23)) {
-      newDate = new Date((new Date(this.props.date)).setUTCHours(input));
+    if (input >= 0 && input <= 23) {
+      newDate = new Date(new Date(this.props.date).setUTCHours(input));
       return this.validateDate(newDate);
     }
   }
@@ -176,8 +186,11 @@ class DateInputColumn extends React.Component {
   minuteValidation(input) {
     var newDate;
     var coeff = 1000 * 60 * 10;
-    if ((input >= 0) && (input <= 59)) {
-      newDate = new Date(Math.round((new Date(this.props.date)).setUTCMinutes(input) / coeff) * coeff);
+    if (input >= 0 && input <= 59) {
+      newDate = new Date(
+        Math.round(new Date(this.props.date).setUTCMinutes(input) / coeff) *
+          coeff
+      );
       return this.validateDate(newDate);
     }
   }
@@ -220,16 +233,24 @@ class DateInputColumn extends React.Component {
   }
   render() {
     return (
-      <div className={'input-wrapper' + ' input-wrapper-' + this.props.type} style={(this.state.valid) ? {} : {borderColor: '#ff0000'}} >
-        <div onClick={this.onClickUp.bind(this)} className="date-arrows date-arrow-up" data-interval={this.props.type}>
+      <div
+        className={'input-wrapper' + ' input-wrapper-' + this.props.type}
+        style={this.state.valid ? {} : { borderColor: '#ff0000' }}
+      >
+        <div
+          onClick={this.onClickUp.bind(this)}
+          className="date-arrows date-arrow-up"
+          data-interval={this.props.type}
+        >
           <svg width="25" height="8">
-            <path d="M 12.5,0 25,8 0,8 z" className="uparrow">
-            </path>
+            <path d="M 12.5,0 25,8 0,8 z" className="uparrow" />
           </svg>
         </div>
         <input
           type="text"
-          ref={(input) => { this.inputs[this.props.tabIndex] = input; }}
+          ref={input => {
+            this.inputs[this.props.tabIndex] = input;
+          }}
           size={this.size}
           maxLength={this.size}
           className="button-input-group"
@@ -239,13 +260,19 @@ class DateInputColumn extends React.Component {
           onKeyUp={this.onKeyUp.bind(this)}
           onKeyDown={this.onKeyPress.bind(this) /* currently not working */}
           onChange={this.onChange.bind(this)}
-          style={{fontSize: ((this.props.height / 2) + 'px')}}
+          style={
+            this.props.fontSize ? { fontSize: this.props.fontSize + 'px' } : {}
+          }
           step={this.props.step}
           onBlur={this.blur.bind(this)}
         />
-        <div onClick={this.onClickDown.bind(this)} className="date-arrows date-arrow-down" data-interval={this.props.type}>
+        <div
+          onClick={this.onClickDown.bind(this)}
+          className="date-arrows date-arrow-down"
+          data-interval={this.props.type}
+        >
           <svg width="25" height="8">
-            <path d="M 12.5,0 25,8 0,8 z" className="downarrow"></path>
+            <path d="M 12.5,0 25,8 0,8 z" className="downarrow" />
           </svg>
         </div>
       </div>
@@ -267,7 +294,8 @@ DateInputColumn.propTypes = {
   blur: PropTypes.func,
   nextTab: PropTypes.func,
   height: PropTypes.string,
-  inputId: PropTypes.string
+  inputId: PropTypes.string,
+  fontSize: PropTypes.number
 };
 
 export default DateInputColumn;

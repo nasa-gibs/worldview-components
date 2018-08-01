@@ -66,7 +66,7 @@ class TimelineRangeSelector extends React.Component {
       if (endX > this.state.max || startX > endX) {
         return;
       }
-      if (startX + (2 * this.props.pinWidth) >= endX) {
+      if (startX + 2 * this.props.pinWidth >= endX) {
         startX = endX - this.props.pinWidth;
       }
     } else {
@@ -103,7 +103,10 @@ class TimelineRangeSelector extends React.Component {
    */
   render() {
     return (
-      <svg id="wv-timeline-range-selector" className="wv-timeline-range-selector">
+      <svg
+        id="wv-timeline-range-selector"
+        className="wv-timeline-range-selector"
+      >
         <DraggerRange
           width={this.props.pinWidth}
           endLocation={this.state.endLocation}
@@ -113,7 +116,8 @@ class TimelineRangeSelector extends React.Component {
           startLocation={this.state.startLocation + this.props.pinWidth}
           onClick={this.onRangeClick.bind(this)}
           max={this.state.max}
-          id='range'/>
+          id="range"
+        />
         <Dragger
           position={this.state.startLocation}
           color={this.props.startColor}
@@ -122,10 +126,11 @@ class TimelineRangeSelector extends React.Component {
           onDrag={this.onItemDrag.bind(this)}
           onStop={this.onDragStop.bind(this)}
           max={this.state.max}
-          draggerID='range-selector-dragger-1'
-          triangleColor={this.props.startTriangleColor}
+          draggerID="range-selector-dragger-1"
+          backgroundColor={this.props.startTriangleColor}
           first={true}
-          id='start' />
+          id="start"
+        />
         <Dragger
           max={this.state.max}
           position={this.state.endLocation}
@@ -133,11 +138,12 @@ class TimelineRangeSelector extends React.Component {
           width={this.props.pinWidth}
           height={this.props.height}
           first={false}
-          draggerID='range-selector-dragger-2'
+          draggerID="range-selector-dragger-2"
           onDrag={this.onItemDrag.bind(this)}
           onStop={this.onDragStop.bind(this)}
-          triangleColor={this.props.endTriangleColor}
-          id='end'/>
+          backgroundColor={this.props.endTriangleColor}
+          id="end"
+        />
       </svg>
     );
   }

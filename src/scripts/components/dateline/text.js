@@ -21,18 +21,18 @@ class LineText extends React.Component {
 
   render() {
     return (
-      <svg className='dateline-text' style={this.props.svgStyle}>
-
+      <svg className="dateline-text" style={this.props.svgStyle}>
         <rect
           fill={this.props.fill}
           width={this.props.textWidth}
           height={this.props.textHeight}
           x={this.props.x1}
           rx={this.props.recRadius}
-          opacity={this.state.active ? this.props.rectOpacity : '0'}/>
+          opacity={this.state.active ? this.props.rectOpacity : '0'}
+        />
         <text
           y={this.props.textY}
-          x={this.props.x1 + 3}
+          x={this.props.x1 + 6}
           fill={this.props.color}
           width={this.props.width}
           opacity={this.state.active ? this.props.textOpacity : '0'}
@@ -49,7 +49,7 @@ class LineText extends React.Component {
         />
         <text
           y={this.props.textY}
-          x={this.props.x2 + 3}
+          x={this.props.x2 + 6}
           fill={this.props.color}
           opacity={this.state.active ? this.props.textOpacity : '0'}
         >

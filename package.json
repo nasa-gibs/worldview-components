@@ -23,11 +23,15 @@
       "env",
       "react"
     ],
+    "plugins": [
+      "transform-object-rest-spread"
+    ],
     "sourceMaps": true
   },
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-eslint": "^8.0.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
     "browserify-shim": "^3.8.12",
@@ -61,10 +65,15 @@
     "babel-preset-react": "^6.16.0",
     "d3": "^4.1.1",
     "icheck": "^1.0.2",
+    "lodash": "^4.17.10",
     "prop-types": "^15.6.0",
+    "react-beautiful-dnd": "^8.0.2",
+    "react-custom-scrollbars": "^4.2.1",
     "react-draggable": "^2.2.0",
     "react-input-range": "1.3.0",
-    "reactstrap": "^5.0.0",
+    "react-sortable-hoc": "^0.8.3",
+    "reactstrap": "^6.0.1",
+    "simplebar": "2.6.x",
     "whatwg-fetch": "^2.0.3"
   }
 }
