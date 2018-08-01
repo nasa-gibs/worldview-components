@@ -1,10 +1,23 @@
+var canvas = null;
 export default class Util {
   /*
    * @constructor
    */
   constructor() {
-    this.monthStringArray = [ 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
-      'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC' ];
+    this.monthStringArray = [
+      'JAN',
+      'FEB',
+      'MAR',
+      'APR',
+      'MAY',
+      'JUN',
+      'JUL',
+      'AUG',
+      'SEP',
+      'OCT',
+      'NOV',
+      'DEC'
+    ];
   }
 
   /**
@@ -18,6 +31,19 @@ export default class Util {
    */
   today() {
     return this.clearTimeUTC(this.now());
+  }
+  hexToRGBA(str) {
+    return (
+      'rgba(' +
+      parseInt(str.substring(0, 2), 16) +
+      ',' +
+      parseInt(str.substring(2, 4), 16) +
+      ',' +
+      parseInt(str.substring(4, 6), 16) +
+      ',' +
+      parseInt(str.substring(6, 8), 16) +
+      ')'
+    );
   }
 
   /**
@@ -38,8 +64,12 @@ export default class Util {
   }
 
   clamp(val, min, max) {
-    if (val < min) { return min; }
-    if (val > max) { return max; }
+    if (val < min) {
+      return min;
+    }
+    if (val > max) {
+      return max;
+    }
     return val;
   }
 
@@ -118,7 +148,9 @@ export default class Util {
       second = hhmmss[2] || 0;
       millisecond = hhmmss[3] || 0;
     }
-    var date = new Date(Date.UTC(year, month, day, hour, minute, second, millisecond));
+    var date = new Date(
+      Date.UTC(year, month, day, hour, minute, second, millisecond)
+    );
     if (isNaN(date.getTime())) {
       throw new Error('Invalid date: ' + dateAsString);
     }
@@ -157,13 +189,12 @@ export default class Util {
       second = hhmmss[2] || 0;
       millisecond = hhmmss[3] || 0;
     }
-    var date = new Date(year, month, day, hour, minute, second,
-      millisecond);
+    var date = new Date(year, month, day, hour, minute, second, millisecond);
     if (isNaN(date.getTime())) {
       throw new Error('Invalid date: ' + dateAsString);
     }
     return date;
-  };
+  }
 
   /**
    * Converts a date into an ISO string with only the date portion.
@@ -174,9 +205,8 @@ export default class Util {
    * @return {string} ISO string in the form of ``YYYY-MM-DD``.
    */
   toISOStringDate(date) {
-    return date.toISOString()
-      .split('T')[0];
-  };
+    return date.toISOString().split('T')[0];
+  }
 
   /**
    * Converts a time into an ISO string without miliseconds.
@@ -188,7 +218,7 @@ export default class Util {
    */
   toISOStringSeconds(date) {
     return date.toISOString().split('.')[0] + 'Z';
-  };
+  }
 
   /**
    * Returns the month of the year for the given date object
@@ -215,7 +245,7 @@ export default class Util {
     ];
 
     return month[d.getUTCMonth()];
-  };
+  }
 
   repeat(value, length) {
     var result = '';
@@ -226,8 +256,12 @@ export default class Util {
   }
 
   roll(val, min, max) {
-    if (val < min) { return max - (min - val) + 1; }
-    if (val > max) { return min + (val - max) - 1; }
+    if (val < min) {
+      return max - (min - val) + 1;
+    }
+    if (val > max) {
+      return min + (val - max) - 1;
+    }
     return val;
   }
 
@@ -238,19 +272,17 @@ export default class Util {
     switch (interval) {
       case 'minute':
         var firstMinute = new Date(Date.UTC(y, m, 1, 0, 0));
-        var lastMinute = new Date(Date.UTC(y, m, this.daysInMonth(date), 23, 59));
-        first = new Date(Math.max(firstMinute, minDate))
-          .getUTCMinutes();
-        last = new Date(Math.min(lastMinute, maxDate))
-          .getUTCMinutes();
+        var lastMinute = new Date(
+          Date.UTC(y, m, this.daysInMonth(date), 23, 59)
+        );
+        first = new Date(Math.max(firstMinute, minDate)).getUTCMinutes();
+        last = new Date(Math.min(lastMinute, maxDate)).getUTCMinutes();
         break;
       case 'hour':
         var firstHour = new Date(Date.UTC(y, m, 1, 0));
         var lastHour = new Date(Date.UTC(y, m, this.daysInMonth(date), 23));
-        first = new Date(Math.max(firstHour, minDate))
-          .getUTCHours();
-        last = new Date(Math.min(lastHour, maxDate))
-          .getUTCHours();
+        first = new Date(Math.max(firstHour, minDate)).getUTCHours();
+        last = new Date(Math.min(lastHour, maxDate)).getUTCHours();
         break;
       case 'day':
         var firstDay = new Date(Date.UTC(y, m, 1));
@@ -273,7 +305,33 @@ export default class Util {
     }
     return { first: first, last: last };
   }
-
+  rgbaToHex(r, g, b) {
+    function hex(c) {
+      var strHex = c.toString(16);
+      return strHex.length === 1 ? '0' + strHex : strHex;
+    }
+    return hex(r) + hex(g) + hex(b) + 'ff';
+  }
+  getTextWidth(text, font) {
+    // re-use canvas object for better performance
+    canvas = canvas || document.createElement('canvas');
+    var context = canvas.getContext('2d');
+    context.font = font;
+    var metrics = context.measureText(text);
+    return metrics.width;
+  }
+  hexColorDelta(hex1, hex2) {
+    var r1 = parseInt(hex1.substring(0, 2), 16);
+    var g1 = parseInt(hex1.substring(2, 4), 16);
+    var b1 = parseInt(hex1.substring(4, 6), 16);
+    var r2 = parseInt(hex2.substring(0, 2), 16);
+    var g2 = parseInt(hex2.substring(2, 4), 16);
+    var b2 = parseInt(hex2.substring(4, 6), 16);
+    // calculate differences in 3D Space
+    return Math.sqrt(
+      Math.pow(r1 - r2, 2) + Math.pow(g1 - g2, 2) + Math.pow(b1 - b2, 2)
+    );
+  }
   rollDate(date, interval, amount, minDate, maxDate) {
     minDate = minDate || this.minDate();
     maxDate = maxDate || this.maxDate();
@@ -304,13 +362,34 @@ export default class Util {
       default:
         throw new Error('[rollDate] Invalid interval: ' + interval);
     }
-    var daysInMonth = this.daysInMonth({year: year, month: month});
+    var daysInMonth = this.daysInMonth({ year: year, month: month });
     if (day > daysInMonth) {
       day = daysInMonth;
     }
     var newDate = new Date(Date.UTC(year, month, day, hour, minute));
     newDate = new Date(this.clamp(newDate, minDate, maxDate));
     return newDate;
+  }
+  /**
+   * Returns the day of week for the given date object
+   *
+   * @method giveWeekDay
+   * @static
+   * @param date {Date} date object of which to determine week day
+   * @return {String} the full name of the day of the week
+   */
+  giveWeekDay(d) {
+    var day = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday'
+    ];
+
+    return day[d.getUTCDay()];
   }
 
   pad(value, width, padding) {
