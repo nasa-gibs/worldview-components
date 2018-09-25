@@ -1,5 +1,7 @@
 # Worldview Components
 
+Note: `worldview-components` is now a part of `worldview` core. Please refer to the [worldview repository](https://github.com/nasa-gibs/worldview) to continue using these components.
+
 ## About
 
 External components built to use on the [NASA Worldview](worldview.earthdata.nasa.gov) satellite imagery visualization application. Worldview Components is built using ES6 and facebook's [react](https://github.com/facebook/react/) JS library. This repository is the start of a larger project to make our code more scalable and readable.
